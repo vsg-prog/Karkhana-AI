@@ -1,15 +1,16 @@
-// The Office cast — roster metadata + sprite frames.
+// Karkhana AI cast — Indianized roster metadata + sprite frames.
 //
 // Both the static portraits (cards / picker) and the in-scene walking sprites are
-// now fully custom-drawn from the same per-character recipes in portraitArt.ts:
+// custom-drawn from the per-character recipes in portraitArt.ts:
 // the scene sprite reuses the portrait's exact head/face/clothing and adds legs,
-// so an agent on the office floor looks identical to its card. The LimeZu base
-// sheets are no longer used for the cast. See assets/ATTRIBUTION.md.
+// so an agent on the office floor looks identical to its card.
 
 import { Texture } from 'pixi.js';
 import { paintPortrait, sceneFrameBufs, SCENE_W, SCENE_H } from './portraitArt';
 
 export type OfficeCharacterName =
+  | 'nitya' | 'vikram' | 'devi' | 'kavi' | 'rudra'
+  | 'ananya' | 'arjun' | 'priya' | 'sanjay' | 'aarav'
   | 'michael' | 'jim' | 'pam' | 'dwight' | 'kevin' | 'angela'
   | 'oscar' | 'stanley' | 'phyllis' | 'andy' | 'kelly' | 'ryan'
   | 'toby' | 'creed' | 'meredith';
@@ -25,27 +26,22 @@ export interface CastMember {
 
 /** Selectable roster, in display order. */
 export const OFFICE_CAST: CastMember[] = [
-  { name: 'michael',  displayName: 'Michael',  shirt: '#5a6b8c', blurb: "World's best boss" },
-  { name: 'jim',      displayName: 'Jim',      shirt: '#6fa8dc', blurb: 'Salesman, prankster' },
-  { name: 'pam',      displayName: 'Pam',      shirt: '#9caf88', blurb: 'Receptionist, artist' },
-  { name: 'dwight',   displayName: 'Dwight',   shirt: '#b89b3e', blurb: 'Assistant (to the) RM' },
-  { name: 'kevin',    displayName: 'Kevin',    shirt: '#4a7ab5', blurb: 'Accounting' },
-  { name: 'angela',   displayName: 'Angela',   shirt: '#8a86a6', blurb: 'Head of accounting' },
-  { name: 'oscar',    displayName: 'Oscar',    shirt: '#7a4b6b', blurb: 'Accountant' },
-  { name: 'stanley',  displayName: 'Stanley',  shirt: '#8c5a4b', blurb: 'Sales, crossword' },
-  { name: 'phyllis',  displayName: 'Phyllis',  shirt: '#b08bbf', blurb: 'Sales' },
-  { name: 'andy',     displayName: 'Andy',     shirt: '#6fae6f', blurb: 'Cornell, a cappella' },
-  { name: 'kelly',    displayName: 'Kelly',    shirt: '#d16ba5', blurb: 'Customer service' },
-  { name: 'ryan',     displayName: 'Ryan',     shirt: '#3a3a44', blurb: 'The temp' },
-  { name: 'toby',     displayName: 'Toby',     shirt: '#9a8c5a', blurb: 'Human resources' },
-  { name: 'creed',    displayName: 'Creed',    shirt: '#6b7a4b', blurb: 'Quality assurance' },
-  { name: 'meredith', displayName: 'Meredith', shirt: '#b5544a', blurb: 'Supplier relations' },
+  { name: 'nitya',   displayName: 'Nitya',   shirt: '#5a6b8c', blurb: 'CTO & Lead Orchestrator' },
+  { name: 'vikram',  displayName: 'Vikram',  shirt: '#6fa8dc', blurb: 'Lead Architect & Coder' },
+  { name: 'devi',    displayName: 'Devi',    shirt: '#b89b3e', blurb: 'Security & QA Review Lead' },
+  { name: 'kavi',    displayName: 'Kavi',    shirt: '#9caf88', blurb: 'Product Manager & Researcher' },
+  { name: 'rudra',   displayName: 'Rudra',   shirt: '#3a3a44', blurb: 'DevOps & SRE' },
+  { name: 'ananya',  displayName: 'Ananya',  shirt: '#d16ba5', blurb: 'UI/UX & Frontend Engineer' },
+  { name: 'arjun',   displayName: 'Arjun',   shirt: '#6fae6f', blurb: 'Data & AI Engineer' },
+  { name: 'priya',   displayName: 'Priya',   shirt: '#b08bbf', blurb: 'Docs & Technical Writer' },
+  { name: 'sanjay',  displayName: 'Sanjay',  shirt: '#8c5a4b', blurb: 'System Administrator' },
+  { name: 'aarav',   displayName: 'Aarav',   shirt: '#9a8c5a', blurb: 'Test Automation Lead' },
 ];
 
 export const CAST_BY_NAME: Record<OfficeCharacterName, CastMember> =
   Object.fromEntries(OFFICE_CAST.map((c) => [c.name, c])) as Record<OfficeCharacterName, CastMember>;
 
-export const DEFAULT_CHARACTER: OfficeCharacterName = 'jim';
+export const DEFAULT_CHARACTER: OfficeCharacterName = 'vikram';
 
 export function hexToNumber(hex: string): number {
   return parseInt(hex.replace('#', ''), 16);
@@ -68,10 +64,7 @@ function bufToTexture(buf: Uint8ClampedArray): Texture {
 
 /**
  * Frame grid CharacterSprite expects: 3 rows (down, up, right) × 7 frames
- * [walk1, walk2, walk3, type1, type2, read1, read2]. We provide a front view
- * (down — and reused for the side row, so left/right walkers still show a face)
- * and a back view (up — agents seated facing their desk show their back). The
- * three walk frames are stand / step-left / step-right.
+ * [walk1, walk2, walk3, type1, type2, read1, read2].
  */
 export async function getCastFrames(name: OfficeCharacterName): Promise<Texture[][]> {
   const cached = frameCache.get(name);
@@ -88,8 +81,7 @@ export async function getCastFrames(name: OfficeCharacterName): Promise<Texture[
 }
 
 /**
- * Paint a character's static portrait for cards / the picker (delegates to the
- * custom procedural composer in portraitArt.ts).
+ * Paint a character's static portrait for cards / the picker.
  */
 export async function paintCastPortrait(
   ctx: CanvasRenderingContext2D,

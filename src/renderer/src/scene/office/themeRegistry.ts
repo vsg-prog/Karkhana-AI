@@ -49,6 +49,76 @@ export type ErrandKind =
 
 /** One idle-errand anchor: a stand tile + facing, an `fx` tile for the ambient
  *  animation, a duration, and an optional god-only restriction. */
+
+/** Speech synthesis & voice configuration for an office theme. */
+export interface SpeechConfig {
+  voice?: string;
+  speed?: number;
+  pitch?: number;
+  language?: string;
+}
+
+/** Preset metadata for office themes. */
+export interface ThemePresetInfo {
+  id: ThemeId;
+  name: string;
+  description: string;
+  built: boolean;
+  swatch: string;
+  speech: SpeechConfig;
+}
+
+export const THEME_PRESETS: ThemePresetInfo[] = [
+  {
+    id: 'office',
+    name: 'The Office',
+    description: 'Dunder Mifflin Scranton / Karkhana AI main floor — bullpen desks, chai counter, & break room.',
+    built: true,
+    swatch: '#6b5a4a',
+    speech: { voice: 'en-IN-Wavenet-D', speed: 1.0, pitch: 1.0, language: 'en-IN' },
+  },
+  {
+    id: 'friends',
+    name: 'Friends',
+    description: 'Central Perk coffee house — orange couch, cozy espresso bar, & Manhattan vibe.',
+    built: false,
+    swatch: '#9a5a32',
+    speech: { voice: 'en-US-Wavenet-F', speed: 1.0, pitch: 1.05, language: 'en-US' },
+  },
+  {
+    id: 'brooklyn99',
+    name: 'Brooklyn Nine-Nine',
+    description: '99th Precinct bullpen & Captain Holt’s office — fast-paced detective precinct.',
+    built: true,
+    swatch: '#3a5a7a',
+    speech: { voice: 'en-US-Wavenet-D', speed: 1.05, pitch: 0.95, language: 'en-US' },
+  },
+  {
+    id: 'siliconvalley',
+    name: 'Silicon Valley',
+    description: 'Pied Piper Hacker Hostel — incubators, servers, whiteboards, & energy drinks.',
+    built: false,
+    swatch: '#4a6a4a',
+    speech: { voice: 'en-US-Standard-B', speed: 1.1, pitch: 1.0, language: 'en-US' },
+  },
+  {
+    id: 'got',
+    name: 'Game of Thrones',
+    description: 'The Red Keep throne room — Iron Throne, high stone arches, & war room tables.',
+    built: false,
+    swatch: '#6a2630',
+    speech: { voice: 'en-GB-Wavenet-B', speed: 0.95, pitch: 0.9, language: 'en-GB' },
+  },
+  {
+    id: 'hogwarts',
+    name: 'Harry Potter',
+    description: 'Hogwarts Great Hall — house tables, floating candles, & magical headmaster desk.',
+    built: false,
+    swatch: '#39305a',
+    speech: { voice: 'en-GB-Wavenet-A', speed: 0.98, pitch: 1.0, language: 'en-GB' },
+  },
+];
+
 export interface ErrandSpot {
   kind: ErrandKind;
   stand: Tile;
@@ -120,6 +190,9 @@ export interface ThemeCast {
 /** The full contract a theme must supply. See report §A (theme contract). */
 export interface ThemeConfig {
   id: ThemeId;
+  name?: string;
+  description?: string;
+  speech?: SpeechConfig;
   /** Raw Tiled JSON text; parsed + tileset-patched by themeLoader. */
   mapRaw: string;
   /** Ordered atlases — order matches both the texture load order and the map's
@@ -143,6 +216,9 @@ export interface ThemeConfig {
  *  the former in-file constants in OfficeFloor.tsx / DeskScreen.ts. */
 export const OFFICE_THEME: ThemeConfig = {
   id: 'office',
+  name: 'The Office',
+  description: 'Dunder Mifflin Scranton / Karkhana AI main floor — bullpen desks, chai counter, & break room.',
+  speech: { voice: 'en-IN-Wavenet-D', speed: 1.0, pitch: 1.0, language: 'en-IN' },
   mapRaw: officeMapRaw,
   tilesets: [
     // office-tileset.png — embedded in the map (firstgid 1); keep the map's copy.
@@ -227,6 +303,9 @@ export const OFFICE_THEME: ThemeConfig = {
  *  errands) are authored to brooklyn99.tmj's own coordinates. */
 export const BROOKLYN99_THEME: ThemeConfig = {
   id: 'brooklyn99',
+  name: 'Brooklyn Nine-Nine',
+  description: '99th Precinct bullpen & Captain Holt’s office — fast-paced detective precinct.',
+  speech: { voice: 'en-US-Wavenet-D', speed: 1.05, pitch: 0.95, language: 'en-US' },
   mapRaw: brooklyn99MapRaw,
   // PLACEHOLDER: brooklyn99.tmj uses the office gid space, so the same atlases
   // (office-tileset embedded @1, a5 @513, interiors @1025) resolve every tile.
