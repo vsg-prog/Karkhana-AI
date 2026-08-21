@@ -83,7 +83,7 @@ import {
   withCodexRemoteArgs
 } from '../shared/codexRemote';
 
-const isDev = !!process.env.ELECTRON_RENDERER_URL;
+const isDev = !app.isPackaged;
 
 // Keep the main process alive on an unexpected throw/rejection. The harness is a
 // multi-agent supervisor — a single stray throw (e.g. node-pty's ConPTY console
@@ -2239,10 +2239,11 @@ function createWindow(opts: { floor?: boolean } = {}): BrowserWindow {
     if (details.isMainFrame) rendererReadyForHires = false;
   });
 
-  if (isDev && process.env.ELECTRON_RENDERER_URL) {
+  const builtRendererPath = join(__dirname, '../renderer/index.html');
+  if (existsSync(builtRendererPath)) {
+    win.loadFile(builtRendererPath);
+  } else if (process.env.ELECTRON_RENDERER_URL) {
     win.loadURL(process.env.ELECTRON_RENDERER_URL);
-  } else {
-    win.loadFile(join(__dirname, '../renderer/index.html'));
   }
 
   win.on('closed', () => {
