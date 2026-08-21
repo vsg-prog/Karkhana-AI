@@ -282,6 +282,66 @@ export function OfficeFloor() {
       const mapRenderer = new TiledMapRenderer(resolveThemeMap(theme), tilesetTextures);
       world.addChild(mapRenderer.getContainer());
       const charLayer = mapRenderer.getCharacterContainer();
+
+      // ─── Traditional Indian Rangoli Floor Mandala Artwork ─────────────────
+      // Rendered on the bullpen floor layer (x: 13 * calTs, y: 14 * calTs)
+      const rangoliG = new Graphics();
+      rangoliG.position.set(13 * mapRenderer.tileSize, 14 * mapRenderer.tileSize);
+
+      // 1. Outer Rice-Powder (Alpana) White Dots Ring
+      for (let i = 0; i < 16; i++) {
+        const angle = (i * Math.PI) / 8;
+        const rx = Math.cos(angle) * 32;
+        const ry = Math.sin(angle) * 32;
+        rangoliG.circle(rx, ry, 1.5).fill(0xffffff);
+      }
+
+      // 2. Outer Border Circles (Deep Crimson Red & Saffron Orange)
+      rangoliG.circle(0, 0, 28).fill(0xd32f2f);
+      rangoliG.circle(0, 0, 26).fill(0xff6f00);
+      rangoliG.circle(0, 0, 24).fill(0xffb300);
+
+      // 3. Outer Lotus Petals (12 petals - Orange, Yellow, Red, White)
+      for (let i = 0; i < 12; i++) {
+        const angle = (i * Math.PI) / 6;
+        const p1x = Math.cos(angle) * 24;
+        const p1y = Math.sin(angle) * 24;
+        const p2x = Math.cos(angle + 0.25) * 16;
+        const p2y = Math.sin(angle + 0.25) * 16;
+        const p3x = Math.cos(angle - 0.25) * 16;
+        const p3y = Math.sin(angle - 0.25) * 16;
+        const color = i % 4 === 0 ? 0xe65100 : i % 4 === 1 ? 0xffd54f : i % 4 === 2 ? 0xc62828 : 0xffffff;
+        rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+      }
+
+      // 4. Middle Concentric Ring (Teal / Turquoise accent ring)
+      rangoliG.circle(0, 0, 16).fill(0x00838f);
+      rangoliG.circle(0, 0, 14).fill(0x00acc1);
+      rangoliG.circle(0, 0, 12).fill(0xff8f00);
+
+      // 5. Inner Star / Diamond Geometric Pattern (8 points)
+      for (let i = 0; i < 8; i++) {
+        const angle = (i * Math.PI) / 4;
+        const p1x = Math.cos(angle) * 12;
+        const p1y = Math.sin(angle) * 12;
+        const p2x = Math.cos(angle + 0.3) * 6;
+        const p2y = Math.sin(angle + 0.3) * 6;
+        const p3x = Math.cos(angle - 0.3) * 6;
+        const p3y = Math.sin(angle - 0.3) * 6;
+        rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffeb3b : 0xff3d00);
+      }
+
+      // 6. Central Base & Brass Diya Oil Lamp
+      rangoliG.circle(0, 0, 6).fill(0xbf360c);
+      rangoliG.circle(0, 0, 4.5).fill(0xffd700);
+
+      rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);            // Brass diya bowl
+      rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);          // Diya oil surface
+      rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);   // Outer flame glow
+      rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600); // Inner yellow flame
+      rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);             // Flame core
+
+      mapRenderer.getFloorContainer().addChild(rangoliG);
       const tileCount = mapRenderer.getContainer().children.reduce(
         (n, c) => n + ((c as Container).children?.length ?? 0), 0);
       console.log(`[OfficeFloor] map ${mapRenderer.width}x${mapRenderer.height}, ${tileCount} tile sprites rendered`);
@@ -324,48 +384,64 @@ export function OfficeFloor() {
       charLayer.addChild(calG);
 
       // ─── Goddess Durga Artwork Canvas / Graphic ───────────────────────────
-      // Rendered on top wall of Nitya's Orchestrator room (golden frame, divine aura graphic, red/gold accents)
+      // Rendered on top wall of Nitya's Orchestrator room (enlarged golden frame, detailed divine aura graphic, red/gold accents)
       const durgaG = new Graphics();
-      durgaG.position.set(2 * calTs + 2, 1 * calTs + 1);
+      durgaG.position.set(2 * calTs - 4, 1 * calTs - 4);
       durgaG.zIndex = 3 * calTs;
 
       // 1. Golden Frame (Outer shadow, bright gold frame, inner bevel, deep crimson canvas)
-      durgaG.rect(-1, -1, 30, 24).fill(0x7a5c00);                  // Dark gold shadow edge
-      durgaG.rect(0, 0, 28, 22).fill(0xffd700);                    // Bright Gold frame
-      durgaG.rect(1, 1, 26, 20).fill(0xb38600);                    // Inner gold bevel
-      durgaG.rect(2, 2, 24, 18).fill(0x800000);                    // Deep crimson red canvas background
+      durgaG.rect(-2, -2, 48, 36).fill(0x5a4300);                  // Dark gold shadow edge
+      durgaG.rect(-1, -1, 46, 34).fill(0x7a5c00);                  // Shadow fill
+      durgaG.rect(0, 0, 44, 32).fill(0xffd700);                    // Bright Gold frame
+      durgaG.rect(1.5, 1.5, 41, 29).fill(0xb38600);                // Inner gold bevel
+      durgaG.rect(3, 3, 38, 26).fill(0x800000);                    // Deep crimson red canvas background
 
-      // Red & Gold border accent line
-      durgaG.rect(3, 3, 22, 16).stroke({ width: 1, color: 0xffd700 });
+      // Red & Gold double border accent lines
+      durgaG.rect(4, 4, 36, 24).stroke({ width: 1, color: 0xffd700 });
+      durgaG.rect(5.5, 5.5, 33, 21).stroke({ width: 0.8, color: 0xd32f2f });
 
-      // 2. Divine Aura Graphic (Radiating golden aura halo + sunburst rays)
-      durgaG.circle(14, 11, 7).fill(0xffea70);                     // Radiant outer aura glow
-      durgaG.circle(14, 11, 5).fill(0xffc107);                     // Warm gold aura core
-      for (let i = 0; i < 8; i++) {
-        const angle = (i * Math.PI) / 4;
-        const rx = 14 + Math.cos(angle) * 7.5;
-        const ry = 11 + Math.sin(angle) * 7.5;
-        durgaG.rect(Math.round(rx) - 0.5, Math.round(ry) - 0.5, 1, 1).fill(0xffeb3b);
+      // Corner Rosettes (4 Gold Corner Accents)
+      durgaG.circle(6, 6, 1.5).fill(0xffd700);
+      durgaG.circle(38, 6, 1.5).fill(0xffd700);
+      durgaG.circle(6, 26, 1.5).fill(0xffd700);
+      durgaG.circle(38, 26, 1.5).fill(0xffd700);
+
+      // 2. Divine Aura Graphic (Radiating golden aura halo + 16 sunburst rays)
+      durgaG.circle(22, 16, 11).fill(0xfff59d);                    // Outer radiant aura glow
+      durgaG.circle(22, 16, 8.5).fill(0xffea70);                   // Mid aura halo
+      durgaG.circle(22, 16, 6).fill(0xffc107);                     // Warm gold aura core
+      for (let i = 0; i < 16; i++) {
+        const angle = (i * Math.PI) / 8;
+        const rx = 22 + Math.cos(angle) * 11.5;
+        const ry = 16 + Math.sin(angle) * 11.5;
+        durgaG.rect(Math.round(rx * 2) / 2 - 0.5, Math.round(ry * 2) / 2 - 0.5, 1, 1).fill(i % 2 === 0 ? 0xffeb3b : 0xffd700);
       }
 
-      // 3. Goddess Durga Artwork (Golden Trishul emblem, Crown, & Red/Gold accents)
-      // Crown (Mukut)
-      durgaG.poly([14, 4, 12, 7, 16, 7]).fill(0xffd700);            // Gold Crown
-      durgaG.rect(13.5, 3.5, 1, 1).fill(0xee1111);                 // Ruby gem on crown
+      // 3. Goddess Durga Artwork (Detailed Golden Trishul emblem, Crown, & Red/Gold accents)
+      // Crown (Mukut) - Multi-tiered ornate gold crown with gems
+      durgaG.poly([22, 5, 18, 10, 26, 10]).fill(0xffd700);         // Outer Crown structure
+      durgaG.poly([22, 6, 20, 9.5, 24, 9.5]).fill(0xffea70);       // Inner Crown highlight
+      durgaG.rect(21.5, 4.5, 1, 1.5).fill(0xee1111);               // Central Ruby Gem
+      durgaG.circle(19, 9, 0.8).fill(0x00e676);                    // Left Emerald Gem
+      durgaG.circle(25, 9, 0.8).fill(0x00e676);                    // Right Emerald Gem
 
-      // Face & Red Bindi
-      durgaG.circle(14, 8.5, 1.5).fill(0xffd700);                  // Divine facial glow
-      durgaG.rect(13.5, 7.8, 1, 1).fill(0xd32f2f);                 // Red Bindi
+      // Divine Face & Bindi / Tilak
+      durgaG.circle(22, 12, 2.2).fill(0xffd700);                   // Divine facial radiance
+      durgaG.rect(21.5, 10.8, 1, 1.4).fill(0xd32f2f);              // Red Bindi & Sacred Tilak
+      durgaG.circle(22, 11.2, 0.5).fill(0xffeb3b);                 // Third Eye Glow
 
       // Central Trishul (Trident) - Iconic emblem of Goddess Durga
-      durgaG.rect(13.5, 9, 1, 8).fill(0xffd700);                   // Trident shaft
-      durgaG.poly([14, 7, 12.5, 10, 15.5, 10]).fill(0xffd700);     // Center spear tip
-      durgaG.poly([11, 8.5, 11.5, 11, 13.5, 10.5]).fill(0xffd700); // Left curved prong
-      durgaG.poly([17, 8.5, 16.5, 11, 14.5, 10.5]).fill(0xffd700); // Right curved prong
+      durgaG.rect(21.25, 13, 1.5, 12).fill(0xffd700);              // Trident main shaft
+      durgaG.rect(20.5, 18, 3, 1).fill(0xb38600);                  // Shaft gold ring accent
+      durgaG.poly([22, 9, 19.5, 14, 24.5, 14]).fill(0xffd700);     // Center spear blade tip
+      durgaG.poly([22, 10, 20.8, 13.5, 23.2, 13.5]).fill(0xffeb3b); // Spear blade inner shine
+      durgaG.poly([17, 11, 18, 15, 21, 14.5]).fill(0xffd700);      // Left curved trident prong
+      durgaG.poly([27, 11, 26, 15, 23, 14.5]).fill(0xffd700);      // Right curved trident prong
 
-      // Lotus Base & Gold Trim (Red & Gold Accents)
-      durgaG.poly([10, 17, 14, 15, 18, 17, 14, 18]).fill(0xd32f2f); // Red lotus base
-      durgaG.rect(11, 16.5, 6, 1).fill(0xffd700);                  // Gold accent trim
+      // Multi-layer Lotus Base (Kamal) & Gold Trim
+      durgaG.poly([15, 25, 22, 22, 29, 25, 22, 27]).fill(0xd32f2f); // Outer Red Lotus petal
+      durgaG.poly([17, 24, 22, 22.5, 27, 24, 22, 26]).fill(0xb71c1c); // Inner Lotus shading
+      durgaG.rect(17, 24.5, 10, 1.2).fill(0xffd700);               // Gold base accent trim
 
       charLayer.addChild(durgaG);
 

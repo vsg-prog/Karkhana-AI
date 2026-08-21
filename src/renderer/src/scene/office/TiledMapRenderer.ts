@@ -82,6 +82,7 @@ export class TiledMapRenderer {
 
   getContainer(): Container { return this.rootContainer; }
   getCharacterContainer(): Container { return this.characterContainer; }
+  getFloorContainer(): Container { return (this.rootContainer.children[0] as Container) ?? this.rootContainer; }
 
   isWalkable(tx: number, ty: number): boolean {
     if (tx < 0 || ty < 0 || tx >= this.width || ty >= this.height) return false;

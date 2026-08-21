@@ -406,8 +406,8 @@ const DEFAULTS: HarnessConfig = {
   recentHives: [],
   registeredRepos: [],
   autoMode: true,
-  defaultCommand: 'claude',
-  godProvider: 'claude',
+  defaultCommand: 'omniroute',
+  godProvider: 'omniroute',
   godModel: 'claude-opus-4-8',
   // Global default model for every agent that hasn't picked one explicitly — wins
   // over the role-based tiers (modelForRole) in the spawn handler, so all agents

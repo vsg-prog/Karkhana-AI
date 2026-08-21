@@ -21,6 +21,9 @@ import { GROK_COMMAND_GROUPS } from './grokCommands';
 // an unmaintained "museum exhibit" repo, not a production CLI. Re-add a supported
 // fork here (plus its preset/models/logo) after review. The proxy-bridge tier it
 // shared with qwen stays in place for qwen.
+export const DEFAULT_AGENT_PROVIDER: AgentProvider = 'omniroute';
+export const DEFAULT_PROVIDER: AgentProvider = 'omniroute';
+
 export type AgentProvider =
   | 'claude'
   | 'codex'
@@ -577,14 +580,14 @@ export function isClaudeProvider(provider: AgentProvider | undefined): boolean {
 
 /** Whether this provider takes the hive's Claude-only identity injection. */
 export function isHiveAwareProvider(provider: AgentProvider | undefined): boolean {
-  return providerPreset(provider ?? 'claude').hiveAware;
+  return providerPreset(provider ?? 'omniroute').hiveAware;
 }
 
 /** Whether the router may deliver inbox mail to this provider (else bounce to
  *  the god). True when lifecycle status supports guarded idle delivery; false
  *  for hookless custom commands. */
 export function canReceiveInbox(provider: AgentProvider | undefined): boolean {
-  return providerPreset(provider ?? 'claude').canReceiveInbox;
+  return providerPreset(provider ?? 'omniroute').canReceiveInbox;
 }
 
 /** The bare executable from a command string ('agy --model x' → 'agy'). */
@@ -611,7 +614,8 @@ export function inferAgentProvider(command: string | undefined, explicit?: unkno
   if (bin === 'copilot') return 'copilot';
   if (bin === 'omniroute') return 'omniroute';
   if (bin === 'kilo' || bin === 'kilocode') return 'kilo';
-  if (bin === 'claude' || !bin) return 'claude';
+  if (bin === 'claude') return 'claude';
+  if (!bin) return 'omniroute';
   return 'custom';
 }
 
@@ -622,7 +626,7 @@ export function inferAgentProvider(command: string | undefined, explicit?: unkno
  *  native `--settings` path, custom has no bridge). The single accessor call sites
  *  switch on (`bridge.kind`). */
 export function bridgeOf(provider: AgentProvider | undefined): BridgeDescriptor | undefined {
-  const preset = providerPreset(provider ?? 'claude');
+  const preset = providerPreset(provider ?? 'omniroute');
   if (preset.bridge) return preset.bridge;
   if (preset.hookBridge) return { kind: 'hooks', shim: preset.hookBridge };
   return undefined;

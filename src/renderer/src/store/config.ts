@@ -2,6 +2,8 @@
 // so we don't have to reach into the preload package to type-check.
 import {
   AGENT_PROVIDER_PRESETS,
+  DEFAULT_AGENT_PROVIDER,
+  DEFAULT_PROVIDER,
   providerPreset,
   inferAgentProvider,
   isClaudeProvider,
@@ -15,6 +17,8 @@ import type {
 
 export {
   AGENT_PROVIDER_PRESETS,
+  DEFAULT_AGENT_PROVIDER,
+  DEFAULT_PROVIDER,
   providerPreset,
   inferAgentProvider,
   isClaudeProvider,
