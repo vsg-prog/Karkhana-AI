@@ -288,7 +288,7 @@ function drawGlasses(buf: Buf): void {
 }
 
 // ─── clothing ────────────────────────────────────────────────────────────────
-type Cloth = 'suit' | 'dressshirt' | 'polo' | 'blouse' | 'cardigan' | 'sweater';
+type Cloth = 'suit' | 'dressshirt' | 'polo' | 'blouse' | 'cardigan' | 'sweater' | 'saree';
 function bodyShape(buf: Buf, col: RGB, heavy = false): void {
   const [, base, sh] = shades(col);
   const rows: [number, number, number][] = heavy
@@ -326,6 +326,18 @@ function drawClothing(buf: Buf, kind: Cloth, c1: RGB, c2: RGB | undefined, tie: 
     for (const [x, y] of [[6, 19], [7, 19], [10, 19], [11, 19]] as const) set(buf, x, y, sh);
   } else if (kind === 'sweater') {
     for (const [x, y] of [[6, 19], [7, 19], [8, 19], [9, 19], [10, 19], [11, 19]] as const) set(buf, x, y, sh);
+  } else if (kind === 'saree') {
+    const gold: RGB = c2 ?? [230, 180, 50];
+    const [, pbase] = shades(c1);
+    const s = SKIN[skin];
+    rect(buf, 4, 19, 13, 27, [80, 20, 35]);
+    for (const [x, y] of [[7, 19], [8, 19], [9, 19], [10, 19], [8, 20], [9, 20]] as const) set(buf, x, y, s.sh);
+    for (let y = 18; y <= 27; y++) {
+      const x0 = Math.max(4, 13 - Math.floor((y - 18) * 0.9));
+      const x1 = Math.min(13, x0 + 4);
+      for (let x = x0; x <= x1; x++) set(buf, x, y, pbase);
+      set(buf, x0, y, gold);
+    }
   }
 }
 function collarNeck(buf: Buf, skin: string): void {
@@ -392,6 +404,15 @@ function drawSceneTorso(buf: Buf, r: Recipe, back: boolean): void {
     for (const [x, y] of [[6, 18], [7, 18], [10, 18], [11, 18]] as const) set(buf, x, y, sh);
   } else if (r.cloth === 'sweater') {
     for (const [x, y] of [[6, 18], [7, 18], [8, 18], [9, 18], [10, 18], [11, 18]] as const) set(buf, x, y, sh);
+  } else if (r.cloth === 'saree') {
+    const gold: RGB = r.c2 ?? [230, 180, 50];
+    const [, pbase] = shades(r.c1);
+    for (let y = 18; y <= 24; y++) {
+      const x0 = Math.max(4, 12 - Math.floor((y - 18) * 0.8));
+      const x1 = Math.min(12, x0 + 3);
+      for (let x = x0; x <= x1; x++) set(buf, x, y, pbase);
+      set(buf, x0, y, gold);
+    }
   }
 }
 
@@ -472,6 +493,8 @@ interface Recipe {
   lashes?: boolean;
   /** Heavier build: chubby cheeks, a double chin, and a wider torso. */
   heavy?: boolean;
+  bindi?: boolean;
+  earrings?: boolean;
 }
 
 // Puff the lower face into round cheeks + a double chin so a character reads as
@@ -491,7 +514,7 @@ function drawHeavyFace(buf: Buf, skin: string): void {
 }
 
 const RECIPES: Record<OfficeCharacterName, Recipe> = {
-  nitya:    { skin: 'tan',   hairc: [28, 22, 18],   hair: 'styleShort',  hairargs: { part: 'L' }, cloth: 'suit', c1: [58, 63, 74], tie: [170, 58, 58], brow: 'flat', mouth: 'smile' },
+  nitya:    { skin: 'tan',   hairc: [20, 16, 18],   hair: 'styleFrame',  hairargs: { length: 22, vol: 2 }, cloth: 'saree', c1: [140, 30, 60], c2: [230, 180, 50], brow: 'soft', mouth: 'smile', blush: true, lashes: true, bindi: true, earrings: true },
   vikram:   { skin: 'tan',   hairc: [24, 18, 14],   hair: 'styleFloppy', cloth: 'dressshirt', c1: [172, 196, 224], tie: [120, 130, 150], brow: 'flat', mouth: 'smile' },
   devi:     { skin: 'tan',   hairc: [30, 24, 18],   hair: 'styleShort',  hairargs: { part: 'L', recede: 1 }, cloth: 'dressshirt', c1: [184, 155, 62], tie: [120, 82, 46], glasses: true, brow: 'angry', mouth: 'neutral' },
   kavi:     { skin: 'tan',   hairc: [28, 20, 16],   hair: 'styleFrame',  hairargs: { length: 18, vol: 2 }, cloth: 'cardigan', c1: [236, 174, 192], c2: [244, 242, 238], brow: 'soft', mouth: 'smile', blush: true, lashes: true },
@@ -518,12 +541,24 @@ const RECIPES: Record<OfficeCharacterName, Recipe> = {
   meredith: { skin: 'light', hairc: [154, 82, 46],  hair: 'styleMessy',  hairargs: { length: 15 }, cloth: 'blouse', c1: [176, 86, 74], brow: 'raised', mouth: 'smile', lashes: true },
 };
 
+function drawBindi(buf: Buf): void {
+  const gold: RGB = [240, 195, 60];
+  set(buf, 8, 7, gold);
+}
+function drawEarrings(buf: Buf): void {
+  const gold: RGB = [240, 195, 60];
+  set(buf, 3, 12, gold);
+  set(buf, 14, 12, gold);
+}
+
 /** The face/hair group (head → face → facial hair → hair → glasses), no clothing. */
 function drawHeadGroup(buf: Buf, r: Recipe): void {
   const skinBase = SKIN[r.skin].base;
   drawHead(buf, r.skin);
   if (r.heavy) drawHeavyFace(buf, r.skin);
   drawFace(buf, r.skin, r.brow ?? 'flat', r.mouth ?? 'neutral', r.blush ?? false, r.lashes ?? false);
+  if (r.bindi) drawBindi(buf);
+  if (r.earrings) drawEarrings(buf);
   if (r.facial) drawFacial(buf, r.facial, r.hairc);
   HAIR_FNS[r.hair](buf, r.hairc, skinBase, r.hairargs ?? {});
   if (r.glasses) drawGlasses(buf);

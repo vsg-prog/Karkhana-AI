@@ -323,6 +323,52 @@ export function OfficeFloor() {
       calG.rect(8, 11, 2, 2).fill(0xc94f4f);                  // today, circled red
       charLayer.addChild(calG);
 
+      // ─── Goddess Durga Artwork Canvas / Graphic ───────────────────────────
+      // Rendered on top wall of Nitya's Orchestrator room (golden frame, divine aura graphic, red/gold accents)
+      const durgaG = new Graphics();
+      durgaG.position.set(2 * calTs + 2, 1 * calTs + 1);
+      durgaG.zIndex = 3 * calTs;
+
+      // 1. Golden Frame (Outer shadow, bright gold frame, inner bevel, deep crimson canvas)
+      durgaG.rect(-1, -1, 30, 24).fill(0x7a5c00);                  // Dark gold shadow edge
+      durgaG.rect(0, 0, 28, 22).fill(0xffd700);                    // Bright Gold frame
+      durgaG.rect(1, 1, 26, 20).fill(0xb38600);                    // Inner gold bevel
+      durgaG.rect(2, 2, 24, 18).fill(0x800000);                    // Deep crimson red canvas background
+
+      // Red & Gold border accent line
+      durgaG.rect(3, 3, 22, 16).stroke({ width: 1, color: 0xffd700 });
+
+      // 2. Divine Aura Graphic (Radiating golden aura halo + sunburst rays)
+      durgaG.circle(14, 11, 7).fill(0xffea70);                     // Radiant outer aura glow
+      durgaG.circle(14, 11, 5).fill(0xffc107);                     // Warm gold aura core
+      for (let i = 0; i < 8; i++) {
+        const angle = (i * Math.PI) / 4;
+        const rx = 14 + Math.cos(angle) * 7.5;
+        const ry = 11 + Math.sin(angle) * 7.5;
+        durgaG.rect(Math.round(rx) - 0.5, Math.round(ry) - 0.5, 1, 1).fill(0xffeb3b);
+      }
+
+      // 3. Goddess Durga Artwork (Golden Trishul emblem, Crown, & Red/Gold accents)
+      // Crown (Mukut)
+      durgaG.poly([14, 4, 12, 7, 16, 7]).fill(0xffd700);            // Gold Crown
+      durgaG.rect(13.5, 3.5, 1, 1).fill(0xee1111);                 // Ruby gem on crown
+
+      // Face & Red Bindi
+      durgaG.circle(14, 8.5, 1.5).fill(0xffd700);                  // Divine facial glow
+      durgaG.rect(13.5, 7.8, 1, 1).fill(0xd32f2f);                 // Red Bindi
+
+      // Central Trishul (Trident) - Iconic emblem of Goddess Durga
+      durgaG.rect(13.5, 9, 1, 8).fill(0xffd700);                   // Trident shaft
+      durgaG.poly([14, 7, 12.5, 10, 15.5, 10]).fill(0xffd700);     // Center spear tip
+      durgaG.poly([11, 8.5, 11.5, 11, 13.5, 10.5]).fill(0xffd700); // Left curved prong
+      durgaG.poly([17, 8.5, 16.5, 11, 14.5, 10.5]).fill(0xffd700); // Right curved prong
+
+      // Lotus Base & Gold Trim (Red & Gold Accents)
+      durgaG.poly([10, 17, 14, 15, 18, 17, 14, 18]).fill(0xd32f2f); // Red lotus base
+      durgaG.rect(11, 16.5, 6, 1).fill(0xffd700);                  // Gold accent trim
+
+      charLayer.addChild(durgaG);
+
       // Build the ordered seat list once: PC desks + named desks first, then
       // conference-room chairs as overflow. Each agent claims one and stays there;
       // they never wander off it (except when blocked, or on a coffee break).
