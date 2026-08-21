@@ -62,6 +62,22 @@ test('copilot passes model + resume through, non-hiveAware, never auto-receives 
   assert.strictEqual(ap.bridgeOf('copilot'), undefined, 'no hook/proxy bridge');
 });
 
+
+test("omniroute and kilo are recognized, selectable providers", () => {
+  assert.ok(ap.isAgentProvider("omniroute"), "isAgentProvider('omniroute')");
+  assert.ok(ap.isAgentProvider("kilo"), "isAgentProvider('kilo')");
+  assert.ok(ap.AGENT_PROVIDER_PRESETS.some((p) => p.id === "omniroute"), "omniroute preset registered");
+  assert.ok(ap.AGENT_PROVIDER_PRESETS.some((p) => p.id === "kilo"), "kilo preset registered");
+});
+
+test("inferAgentProvider maps omniroute and kilo binaries to their provider ids", () => {
+  assert.strictEqual(ap.inferAgentProvider("omniroute"), "omniroute");
+  assert.strictEqual(ap.inferAgentProvider("/usr/local/bin/omniroute --model auto"), "omniroute");
+  assert.strictEqual(ap.inferAgentProvider("kilo"), "kilo");
+  assert.strictEqual(ap.inferAgentProvider("kilocode"), "kilo");
+  assert.strictEqual(ap.inferAgentProvider("/usr/local/bin/kilo --model auto"), "kilo");
+});
+
 test('codex preset still resolves (no regression)', () => {
   assert.strictEqual(ap.inferAgentProvider('codex'), 'codex');
   assert.strictEqual(ap.providerPreset('codex').defaultCommand, 'codex');

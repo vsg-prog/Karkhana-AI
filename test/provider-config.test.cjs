@@ -19,6 +19,24 @@ const {
 
 const autoConfig = { defaultCommand: 'claude', autoMode: true };
 
+
+test("OmniRoute and Kilo are first-class inferred providers", () => {
+  assert.equal(isAgentProvider("omniroute"), true);
+  assert.equal(isAgentProvider("kilo"), true);
+  assert.equal(inferAgentProvider("omniroute --model auto"), "omniroute");
+  assert.equal(inferAgentProvider("kilo --auto"), "kilo");
+  
+  const omniPreset = providerPreset("omniroute");
+  assert.equal(omniPreset.defaultCommand, "omniroute");
+  assert.equal(omniPreset.autoFlag, "--yolo");
+  assert.equal(omniPreset.supportsModel, true);
+
+  const kiloPreset = providerPreset("kilo");
+  assert.equal(kiloPreset.defaultCommand, "kilo");
+  assert.equal(kiloPreset.autoFlag, "--auto");
+  assert.equal(kiloPreset.supportsModel, true);
+});
+
 test('Kimi is a first-class inferred provider with autonomous defaults', () => {
   assert.equal(isAgentProvider('kimi'), true);
   assert.equal(inferAgentProvider('kimi --auto'), 'kimi');
@@ -105,10 +123,10 @@ test('God only sees providers that can drain hive inbox messages', () => {
   // excluded (no inbox drain path), custom is excluded (no model picker).
   assert.deepEqual(
     modelProvidersForAgent(true).map((preset) => preset.id),
-    ['claude', 'codex', 'grok', 'antigravity', 'qwen', 'opencode', 'crush', 'pi']
+    ['claude', 'codex', 'grok', 'antigravity', 'qwen', 'opencode', 'crush', 'pi', 'omniroute', 'kilo']
   );
   assert.deepEqual(
     modelProvidersForAgent(false).map((preset) => preset.id),
-    ['claude', 'codex', 'grok', 'kimi', 'antigravity', 'qwen', 'opencode', 'crush', 'pi', 'copilot']
+    ['claude', 'codex', 'grok', 'kimi', 'antigravity', 'qwen', 'opencode', 'crush', 'pi', 'copilot', 'omniroute', 'kilo']
   );
 });

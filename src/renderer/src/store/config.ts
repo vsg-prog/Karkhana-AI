@@ -283,6 +283,25 @@ export const COPILOT_MODELS: ModelOption[] = [
 ];
 
 /** Models reported by the installed Grok CLI (`grok models`). */
+
+/** Models offered when an agent runs on OmniRoute (omniroute). */
+export const OMNIROUTE_MODELS: ModelOption[] = [
+  { id: undefined, label: "CLI default" },
+  { id: "omniroute/auto", label: "OmniRoute Auto" },
+  { id: "claude-sonnet-4.6", label: "Claude Sonnet 4.6" },
+  { id: "gpt-5.6", label: "GPT-5.6" },
+  { id: "gemini-3.1-pro", label: "Gemini 3.1 Pro" }
+];
+
+/** Models offered when an agent runs on Kilo Code (kilo). */
+export const KILO_MODELS: ModelOption[] = [
+  { id: undefined, label: "CLI default" },
+  { id: "auto", label: "Auto (Kilo picks)" },
+  { id: "claude-sonnet-4.6", label: "Claude Sonnet 4.6" },
+  { id: "gpt-5.6", label: "GPT-5.6" },
+  { id: "gemini-3.1-pro", label: "Gemini 3.1 Pro" }
+];
+
 export const GROK_MODELS: ModelOption[] = [
   // No `--model` flag at all — whatever the CLI itself defaults to. NOT the
   // harness's `config.defaultModel`; the pickers mark that one separately, and
@@ -325,6 +344,8 @@ export function modelsForProvider(provider: AgentProvider): ModelOption[] {
   if (provider === 'crush') return CRUSH_MODELS;
   if (provider === 'pi') return PI_MODELS;
   if (provider === 'copilot') return COPILOT_MODELS;
+  if (provider === 'omniroute') return OMNIROUTE_MODELS;
+  if (provider === 'kilo') return KILO_MODELS;
   if (provider === 'custom') return [];
   return AGENT_MODELS;
 }

@@ -32,6 +32,8 @@ export type AgentProvider =
   | 'crush'
   | 'pi'
   | 'copilot'
+  | 'omniroute'
+  | 'kilo'
   | 'custom';
 
 /** Structured descriptor for how a NON-hiveAware provider gets hive lifecycle
@@ -495,6 +497,42 @@ export const AGENT_PROVIDER_PRESETS: AgentProviderPreset[] = [
     docsUrl: 'https://docs.github.com/copilot/concepts/agents/about-copilot-cli'
   },
   {
+    id: 'omniroute',
+    label: 'OmniRoute',
+    defaultCommand: 'omniroute',
+    commandGroups: [],
+    autoModeFlag: '--yolo',
+    autoFlag: '--yolo',
+    supportsModel: true,
+    modelFlag: '--model',
+    hiveAware: false,
+    canReceiveInbox: true,
+    initialPromptFlag: '-p',
+    positionalInitialPrompt: true,
+    recommendedOrchestratorModel: 'omniroute/auto',
+    resumeFlag: '--resume',
+    installCommand: 'npm install -g omniroute',
+    docsUrl: 'https://github.com/Kilo-Org/omniroute'
+  },
+  {
+    id: 'kilo',
+    label: 'Kilo Code',
+    defaultCommand: 'kilo',
+    commandGroups: [],
+    autoModeFlag: '--auto',
+    autoFlag: '--auto',
+    supportsModel: true,
+    modelFlag: '--model',
+    hiveAware: false,
+    canReceiveInbox: true,
+    initialPromptFlag: '-p',
+    positionalInitialPrompt: true,
+    recommendedOrchestratorModel: 'auto',
+    resumeFlag: '--resume',
+    installCommand: 'npm install -g @kilocode/cli',
+    docsUrl: 'https://kilo.ai/docs'
+  },
+  {
     id: 'custom',
     label: 'Custom',
     defaultCommand: '',
@@ -519,6 +557,8 @@ export function isAgentProvider(value: unknown): value is AgentProvider {
     value === 'crush' ||
     value === 'pi' ||
     value === 'copilot' ||
+    value === 'omniroute' ||
+    value === 'kilo' ||
     value === 'custom'
   );
 }
@@ -569,6 +609,8 @@ export function inferAgentProvider(command: string | undefined, explicit?: unkno
   if (bin === 'crush') return 'crush';
   if (bin === 'pi') return 'pi';
   if (bin === 'copilot') return 'copilot';
+  if (bin === 'omniroute') return 'omniroute';
+  if (bin === 'kilo' || bin === 'kilocode') return 'kilo';
   if (bin === 'claude' || !bin) return 'claude';
   return 'custom';
 }

@@ -132,6 +132,8 @@ const CONTEXT_COMMANDS: Record<AgentProvider, ProviderContextCommands> = {
   // one prompt and EXITS. There is no prompt left alive to type a slash command
   // into, so both are null by construction rather than by ignorance.
   copilot: NO_CONTEXT_COMMANDS,
+  omniroute: NO_CONTEXT_COMMANDS,
+  kilo: NO_CONTEXT_COMMANDS,
 
   // An arbitrary user binary. We cannot know its command surface, and guessing
   // means typing slashes into someone's unknown REPL.
