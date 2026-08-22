@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T09:22:12.570Z",
+  "savedAt": "2026-08-22T09:21:03.721Z",
   "agents": [
     {
       "id": "god",
@@ -16,31 +16,31 @@
       "progress": 0,
       "currentStation": "desk",
       "ptyId": "pty-god",
-      "command": "omniroute --model omniroute/auto --yolo",
+      "command": "kilo --model omniroute/auto --yolo",
       "provider": "omniroute",
       "model": "omniroute/auto",
       "isGod": true
-    }
-  ],
-  "archived": [
+    },
     {
       "id": "jim-mt464s0y",
       "name": "Jim",
       "character": "vikram",
       "accent": "sky",
-      "description": "on standby",
+      "description": "a fresh harness",
       "project": "Jobs",
       "tmuxTarget": "",
       "cwd": "/Users/raai/Claude/Projects/Jobs",
       "status": "idle",
-      "action": "archived",
+      "action": "starting up",
       "progress": 0,
+      "currentStation": "desk",
+      "ptyId": "pty-jim-mt464s0y",
       "command": "kilo --model omniroute/auto --yolo",
       "provider": "omniroute",
-      "model": "omniroute/auto",
-      "archived": true
+      "model": "omniroute/auto"
     }
   ],
+  "archived": [],
   "restorable": [],
   "queues": {
     "god": [
@@ -51,5 +51,5 @@
       }
     ]
   },
-  "selectedId": "god"
+  "selectedId": "jim-mt464s0y"
 }

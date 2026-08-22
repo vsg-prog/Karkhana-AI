@@ -101,9 +101,12 @@ export function resolveCommand(command: string): string {
     if (path && existsSync(path)) return path;
   }
   const candidates = [
-    `/opt/homebrew/bin/${command}`,
-    `/usr/local/bin/${command}`,
     `${process.env.HOME ?? ''}/.local/bin/${command}`,
+    `/opt/homebrew/bin/${command}`,
+    `/opt/homebrew/opt/node@22/bin/${command}`,
+    `/usr/local/bin/${command}`,
+    `/usr/bin/${command}`,
+    `/bin/${command}`,
     `${process.env.HOME ?? ''}/.claude/local/${command}`,
     `${process.env.HOME ?? ''}/.volta/bin/${command}`
   ];

@@ -365,6 +365,10 @@ export class PtyManager {
    *  that resolveCommand can't locate would otherwise be spawned and die with
    *  "process exited (code 1)". Reuses the exact same `which`/`where` +
    *  candidate-dir logic as spawn(), so detection and spawning never disagree. */
+  resolveExecutablePath(command: string): { path: string; found: boolean } {
+    return this.resolveCommand(command);
+  }
+
   isCommandAvailable(command: string): boolean {
     return this.resolveCommand(command).found;
   }
@@ -454,9 +458,12 @@ export class PtyManager {
     }
     // Common explicit locations
     const candidates = [
-      `/opt/homebrew/bin/${command}`,
-      `/usr/local/bin/${command}`,
       `${process.env.HOME ?? ''}/.local/bin/${command}`,
+      `/opt/homebrew/bin/${command}`,
+      `/opt/homebrew/opt/node@22/bin/${command}`,
+      `/usr/local/bin/${command}`,
+      `/usr/bin/${command}`,
+      `/bin/${command}`,
       `${process.env.HOME ?? ''}/.claude/local/${command}`,
       `${process.env.HOME ?? ''}/.volta/bin/${command}`
     ];
@@ -533,14 +540,27 @@ export class PtyManager {
     if (!existsSync(opts.cwd)) {
       return { ok: false, error: `cwd does not exist: ${opts.cwd}` };
     }
-    const resolved = this.resolveCommand(opts.command).path;
+    const commandRes = this.resolveCommand(opts.command);
+    const resolved = commandRes.path;
+    const isFound = commandRes.found;
     try {
-      // Build a user-shell PATH so child can resolve subprocess deps. Cached
-      // for the session (shellEnv.userShellPath, fenced against rc-file noise) —
-      // the interactive-shell launch it replaces cost ~1s of main-thread freeze
-      // on EVERY spawn.
+      // Build a user-shell PATH so child can resolve subprocess deps. Prepend standard
+      // binary locations including homebrew and node@22.
+      const rawUserPath = process.platform === 'win32' ? (process.env.PATH || '') : userShellPath();
+      const standardBinDirs = [
+        `${process.env.HOME ?? ''}/.local/bin`,
+        '/opt/homebrew/bin',
+        '/opt/homebrew/opt/node@22/bin',
+        '/usr/local/bin',
+        '/usr/bin',
+        '/bin',
+        '/usr/sbin',
+        '/sbin'
+      ];
+      const mergedDirs = Array.from(new Set([...standardBinDirs, ...rawUserPath.split(delimiter).filter(Boolean)]));
+      const expandedPath = mergedDirs.join(delimiter);
       const userPath = withHiveRuntimeFallback(
-        process.platform === 'win32' ? (process.env.PATH || '') : userShellPath(),
+        expandedPath,
         opts.env?.HIVE_ROOT
       );
 
@@ -561,25 +581,26 @@ export class PtyManager {
       const shimSpawn = needsCmd && typeof opts.shellScript !== 'string'
         ? this.resolveWindowsShimSpawn(resolved)
         : null;
+      let effectiveShellScript = opts.shellScript;
+      if (typeof effectiveShellScript !== 'string' && !isFound) {
+        const fallbackShell = isWin ? (process.env.ComSpec || 'cmd.exe') : (process.env.SHELL || '/bin/zsh');
+        const bannerMsg = `\n\x1b[33m⚠️ Command '${opts.command}' binary was not found on system PATH.\x1b[0m\nFalling back to interactive terminal (${fallbackShell})...\n\n`;
+        if (isWin) {
+          effectiveShellScript = `echo Command '${opts.command}' binary was not found on system PATH. Interactive shell ready.`;
+        } else {
+          effectiveShellScript = `printf "%b" ${JSON.stringify(bannerMsg)}; exec ${fallbackShell}`;
+        }
+      }
+
       let file: string;
       let spawnArgs: string[] | string;
-      if (typeof opts.shellScript === 'string') {
-        // Missing-CLI auto-install: run a banner + install command through the
-        // platform shell so it streams to this same Terminal tab. On Windows we
-        // hand cmd.exe a verbatim STRING (`/d /s /c "<script>"`) — node-pty passes
-        // strings through unescaped, and `/s` strips exactly the outer quote pair,
-        // so the `&`-chained script runs as-is (the script carries no embedded `"`).
-        // On unix we use `$SHELL -lc <script>` (login, non-interactive): npm is
-        // already on PATH because spawn() sets env.PATH to the captured interactive
-        // shell PATH (nvm/asdf/brew included), and skipping `-i` avoids dumping the
-        // user's interactive-rc session-restore noise into the install terminal. The
-        // script is one argv element, so no shell-quoting is needed here.
+      if (typeof effectiveShellScript === 'string') {
         if (isWin) {
           file = process.env.ComSpec || 'cmd.exe';
-          spawnArgs = `/d /s /c "${opts.shellScript}"`;
+          spawnArgs = `/d /s /c "${effectiveShellScript}"`;
         } else {
-          file = process.env.SHELL || '/bin/sh';
-          spawnArgs = ['-lc', opts.shellScript];
+          file = process.env.SHELL || '/bin/zsh';
+          spawnArgs = ['-lc', effectiveShellScript];
         }
       } else if (needsCmd && shimSpawn) {
         // WINDOWS, npm-shim target: spawn the shim's own interpreter with an ARRAY

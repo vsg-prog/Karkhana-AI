@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T09:15:59.492Z",
+  "agents": [
+    {
+      "id": "god",
+      "name": "Nitya",
+      "character": "nitya",
+      "accent": "lemon",
+      "description": "god — runs the floor, triages requests, escalates only critical calls to you",
+      "project": "hive",
+      "tmuxTarget": "",
+      "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
+      "status": "idle",
+      "action": "running the floor",
+      "progress": 0,
+      "currentStation": "desk",
+      "ptyId": "pty-god",
+      "command": "kilo --model omniroute/auto --yolo",
+      "provider": "omniroute",
+      "model": "omniroute/auto",
+      "isGod": true
+    }
+  ],
+  "archived": [],
+  "restorable": [],
+  "queues": {},
+  "selectedId": "god"
+}

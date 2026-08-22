@@ -12,7 +12,19 @@
       "status": "idle",
       "cwdValid": true,
       "archived": true,
-      "lastSeen": 1787386937630
+      "lastSeen": 1787390216996
+    },
+    "jim-mt464s0y": {
+      "id": "jim-mt464s0y",
+      "name": "Jim",
+      "provider": "omniroute",
+      "cwd": "/Users/raai/Claude/Projects/Jobs",
+      "role": "agent",
+      "capabilities": [],
+      "status": "idle",
+      "cwdValid": true,
+      "archived": true,
+      "lastSeen": 1787390520983
     }
   }
 }
