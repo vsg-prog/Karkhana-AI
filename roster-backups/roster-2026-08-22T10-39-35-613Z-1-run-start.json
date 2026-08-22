@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T10:39:21.085Z",
+  "agents": [],
+  "archived": [
+    {
+      "id": "jim-mt464s0y",
+      "name": "Jim",
+      "character": "vikram",
+      "accent": "sky",
+      "description": "on standby",
+      "project": "Jobs",
+      "tmuxTarget": "",
+      "cwd": "/Users/raai/Claude/Projects/Jobs",
+      "status": "idle",
+      "action": "archived",
+      "progress": 0,
+      "command": "kilo --model omniroute/auto --yolo",
+      "provider": "omniroute",
+      "model": "omniroute/auto",
+      "archived": true
+    }
+  ],
+  "restorable": [],
+  "queues": {
+    "god": [
+      {
+        "id": "q-1787394682487-1",
+        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
+        "ts": 1787394682487
+      }
+    ]
+  },
+  "selectedId": null
+}

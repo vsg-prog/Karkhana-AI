@@ -1,7 +1,7 @@
 import * as pty from 'node-pty';
 import type { WebContents } from 'electron';
 import { existsSync, readFileSync, statSync } from 'node:fs';
-import { delimiter, join, win32 } from 'node:path';
+import { basename, delimiter, join, win32 } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { ensureKilled } from './procKill';
 import { expandTilde } from './fs';
@@ -543,6 +543,24 @@ export class PtyManager {
     const commandRes = this.resolveCommand(opts.command);
     const resolved = commandRes.path;
     const isFound = commandRes.found;
+
+    const getBaseName = (p: string) => basename(p).replace(/\.(exe|cmd|bat|ps1|sh)$/i, "").toLowerCase();
+    const isClaude = getBaseName(opts.command) === 'claude' || getBaseName(resolved) === 'claude';
+
+    if (isClaude) {
+      if (opts.args) {
+        opts = {
+          ...opts,
+          args: opts.args.map((a) => (a === '--yolo' ? '--dangerously-skip-permissions' : a.replace(/\b--yolo\b/g, '--dangerously-skip-permissions'))),
+        };
+      }
+      if (opts.shellScript) {
+        opts = {
+          ...opts,
+          shellScript: opts.shellScript.replace(/\b--yolo\b/g, "--dangerously-skip-permissions"),
+        };
+      }
+    }
     try {
       // Build a user-shell PATH so child can resolve subprocess deps. Prepend standard
       // binary locations including homebrew and node@22.
@@ -655,6 +673,16 @@ export class PtyManager {
           );
         }
       }
+      if (isClaude) {
+        if (Array.isArray(spawnArgs)) {
+          spawnArgs = spawnArgs.map((a) => (a === "--yolo" ? "--dangerously-skip-permissions" : a.replace(/\b--yolo\b/g, "--dangerously-skip-permissions")));
+        } else if (typeof spawnArgs === "string") {
+          spawnArgs = spawnArgs.replace(/\b--yolo\b/g, "--dangerously-skip-permissions");
+        }
+        const fullCmd = typeof spawnArgs === "string" ? `${file} ${spawnArgs}` : [file, ...spawnArgs].join(" ");
+        console.log(`[pty] Sanitized command: ${fullCmd}`);
+      }
+
       const proc = pty.spawn(file, spawnArgs, {
         name: 'xterm-256color',
         cols: opts.cols ?? 100,
