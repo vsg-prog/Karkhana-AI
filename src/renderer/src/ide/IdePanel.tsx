@@ -1,3 +1,4 @@
+import { getLocalizedCharacterName } from '../scene/office/cast';
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useStore, type Agent } from '@/store/store';
 import { FileTree } from '@/components/FileTree';
@@ -93,6 +94,7 @@ function pickIdeTarget(): IdeTarget {
 }
 
 export function IdePanel() {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const setIdeOpen = useStore((s) => s.setIdeOpen);
   const [target] = useState<IdeTarget>(pickIdeTarget);
   const root = target.root;
@@ -388,7 +390,7 @@ export function IdePanel() {
                 color: 'var(--cth-ink-900)',
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '22vw'
               }}
-            >{target.agent.name}</span>
+            >{getLocalizedCharacterName(target.agent.character || target.agent.name, selectedLanguage)}</span>
             {target.agent.isGod && (
               <span style={{
                 fontFamily: 'var(--cth-font-display)', fontSize: 7, padding: '1px 3px',

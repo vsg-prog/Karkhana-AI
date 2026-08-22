@@ -1,3 +1,4 @@
+import { getLocalizedCharacterName } from '../scene/office/cast';
 import { useEffect, useRef, useState } from 'react';
 import { PixelPanel } from './PixelPanel';
 import { PixelBadge } from './PixelBadge';
@@ -80,6 +81,7 @@ const TABS: { key: CCTab; label: string; icon: Parameters<typeof Icon>[0]['name'
  *  fullscreen" placeholder instead — two live xterms on one pty fight over its
  *  cols/rows and corrupt the display. */
 export function CommandCenterPanel({ agent, fullscreen = false }: { agent: Agent; fullscreen?: boolean }) {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const [tab, setTab] = useState<CCTab>('terminal');
   // The trigger-history ledger has nothing to say until an outside party can
   // reach us, so its tab appears only once an org key or a webhook exists. This
@@ -176,7 +178,7 @@ export function CommandCenterPanel({ agent, fullscreen = false }: { agent: Agent
             <span style={{
               fontSize: 12, color: 'var(--cth-ink-500)',
               whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
-            }}>Nitya runs the floor</span>
+            }}>{getLocalizedCharacterName('nitya', selectedLanguage)} runs the floor</span>
           </div>
         </div>
         {/* v0.3.4: floor-wide auto-delivery lives HERE (one switch for every

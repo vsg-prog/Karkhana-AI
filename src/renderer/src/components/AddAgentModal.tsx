@@ -5,7 +5,7 @@ import { SpritePortrait } from './SpritePortrait';
 import { Icon } from './Icon';
 import { ProviderLogo } from './ProviderLogo';
 import { useStore, type Agent } from '@/store/store';
-import { OFFICE_CAST, DEFAULT_CHARACTER, type OfficeCharacterName } from '@/scene/office/cast';
+import { OFFICE_CAST, DEFAULT_CHARACTER, getLocalizedCharacterName, type OfficeCharacterName } from '@/scene/office/cast';
 import { type AccentColorName } from '@/design/tokens';
 import type { HireManifest } from '@shared/hire';
 import { MCP_CATALOG } from '@shared/mcpCatalog';
@@ -139,6 +139,7 @@ export interface AddAgentModalProps {
 
 export function AddAgentModal({ onClose, config, onConfigChange }: AddAgentModalProps) {
   const addAgent = useStore(s => s.addAgent);
+  const selectedLanguage = useStore(s => s.selectedLanguage) || 'English (EN)';
   // A validated hire manifest (deep link / file import) seeds the form. Manifests
   // NEVER auto-spawn — the human reviews every field (esp. the command) first.
   const pendingHire = useStore(s => s.pendingHire);
@@ -593,7 +594,7 @@ export function AddAgentModal({ onClose, config, onConfigChange }: AddAgentModal
                         {OFFICE_CAST.map(c => (
                           <button
                             key={c.name}
-                            onClick={() => { setCharacter(c.name); setName(c.displayName); }}
+                            onClick={() => { setCharacter(c.name); setName(getLocalizedCharacterName(c, selectedLanguage)); }}
                             title={c.blurb}
                             style={{
                               padding: 4,
@@ -609,7 +610,7 @@ export function AddAgentModal({ onClose, config, onConfigChange }: AddAgentModal
                             <div style={{ width: 44, height: 56, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden' }}>
                               <SpritePortrait character={c.name} scale={2} />
                             </div>
-                            <span style={{ fontSize: 11, color: 'var(--cth-ink-700)' }}>{c.displayName}</span>
+                            <span style={{ fontSize: 11, color: 'var(--cth-ink-700)' }}>{getLocalizedCharacterName(c, selectedLanguage)}</span>
                           </button>
                         ))}
                       </div>

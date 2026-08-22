@@ -1,3 +1,5 @@
+import { useStore } from '@/store/store';
+import { getLocalizedCharacterName } from '../scene/office/cast';
 /**
  * Realtime Nitya — completion toast (card rt-12, Phase 2, the visual half of
  * "respond when done").
@@ -42,6 +44,7 @@ const AUTO_DISMISS_MS = 9000;
 const MAX_VISIBLE = 4;
 
 export function CompletionToast(): JSX.Element | null {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const [toasts, setToasts] = useState<ActiveToast[]>([]);
   // Stable across renders so the subscription's closures always see live timers.
   const timers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
@@ -122,7 +125,7 @@ export function CompletionToast(): JSX.Element | null {
               textTransform: 'uppercase'
             }}
           >
-            <Icon name="bell" /> Nitya · completed
+            <Icon name="bell" /> {getLocalizedCharacterName('nitya', selectedLanguage)} · completed
             <button
               type="button"
               onClick={() => dismiss(t.key)}

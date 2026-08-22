@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T08:53:29.849Z",
+  "savedAt": "2026-08-22T08:35:28.483Z",
   "agents": [
     {
       "id": "god",
@@ -35,11 +35,6 @@
         "id": "q-1787387727978-2",
         "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
         "ts": 1787387727978
-      },
-      {
-        "id": "q-1787388491985-3",
-        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787388491985
       }
     ]
   },

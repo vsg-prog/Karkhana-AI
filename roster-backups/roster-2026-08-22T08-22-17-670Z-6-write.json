@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T08:22:07.191Z",
+  "agents": [],
+  "archived": [],
+  "restorable": [],
+  "queues": {
+    "god": [
+      {
+        "id": "q-1787386394569-1",
+        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
+        "ts": 1787386394569
+      }
+    ]
+  },
+  "selectedId": null
+}

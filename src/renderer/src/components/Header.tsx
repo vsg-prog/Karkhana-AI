@@ -71,12 +71,16 @@ export const IndianClock = ClockWidget;
 export type SupportedLanguage =
   | "English (EN)"
   | "हिंदी (Hindi)"
+  | "தமிழ் (Tamil)"
+  | "తెలుగు (Telugu)"
   | "বাংলা (Bengali)"
   | "অসমীয়া (Assamese)";
 
 export const LANGUAGE_OPTIONS: { label: string; value: SupportedLanguage }[] = [
   { label: "English (EN)", value: "English (EN)" },
   { label: "हिंदी (Hindi)", value: "हिंदी (Hindi)" },
+  { label: "தமிழ் (Tamil)", value: "தமிழ் (Tamil)" },
+  { label: "తెలుగు (Telugu)", value: "తెలుగు (Telugu)" },
   { label: "বাংলা (Bengali)", value: "বাংলা (Bengali)" },
   { label: "অসমীয়া (Assamese)", value: "অসমীয়া (Assamese)" },
 ];

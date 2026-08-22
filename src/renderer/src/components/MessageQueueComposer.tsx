@@ -1,3 +1,4 @@
+import { getLocalizedCharacterName } from '../scene/office/cast';
 import { ClipboardEvent, DragEvent, KeyboardEvent, type MouseEvent as ReactMouseEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { PixelButton } from './PixelButton';
@@ -28,6 +29,7 @@ export interface MessageQueueComposerProps {
  * TUI one-by-one as soon as it goes idle (see useHive's flush loop).
  */
 export function MessageQueueComposer({ agent }: MessageQueueComposerProps) {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const queue = useStore((s) => s.messageQueues[agent.id]) ?? EMPTY_QUEUE;
   const enqueueMessage = useStore((s) => s.enqueueMessage);
   const removeQueuedMessage = useStore((s) => s.removeQueuedMessage);
@@ -336,7 +338,7 @@ export function MessageQueueComposer({ agent }: MessageQueueComposerProps) {
           onKeyDown={onKey}
           onPaste={onPaste}
           rows={5}
-          placeholder={idle ? `Message ${agent.name}` : `${agent.name} is busy — queue a message`}
+          placeholder={idle ? `Message ${getLocalizedCharacterName(agent.character || agent.name, selectedLanguage)}` : `${getLocalizedCharacterName(agent.character || agent.name, selectedLanguage)} is busy — queue a message`}
           style={{
             width: '100%',
             resize: 'vertical',

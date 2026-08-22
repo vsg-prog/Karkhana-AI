@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T08:53:29.849Z",
+  "savedAt": "2026-08-22T08:13:15.108Z",
   "agents": [
     {
       "id": "god",
@@ -12,7 +12,7 @@
       "tmuxTarget": "",
       "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
       "status": "idle",
-      "action": "awaiting",
+      "action": "switching to OmniRoute…",
       "progress": 0,
       "currentStation": "desk",
       "ptyId": "pty-god",
@@ -27,19 +27,9 @@
   "queues": {
     "god": [
       {
-        "id": "q-1787386939973-1",
+        "id": "q-1787386394569-1",
         "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787386939973
-      },
-      {
-        "id": "q-1787387727978-2",
-        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787387727978
-      },
-      {
-        "id": "q-1787388491985-3",
-        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787388491985
+        "ts": 1787386394569
       }
     ]
   },

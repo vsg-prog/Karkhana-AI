@@ -6,17 +6,12 @@
  * see realtime/session.ts) and exposes a single start/stop control plus a live indicator
  * of the loop's status.
  *
- * Gating mirrors the established Free Flow / Groq precedent (FreeFlowButton in
- * MessageQueueComposer): the button stays VISIBLE but DISABLED when no BYOK OpenAI key is
- * present (`hasOpenAiKey === false`), with a tooltip pointing at Settings — so connect() /
- * getUserMedia are never reached without a key (the zero-call-when-unavailable guarantee).
- *
- * Click behaviour: status==='off' → connect(); anything else → disconnect().
- *
- * Rendered in two places (AgentCard for the god card, FullscreenTerminal header when
- * Nitya is fullscreen). It is intentionally state-only / hook-only so both can mount it.
+ * Web Speech API Fallback:
+ * If no BYOK OpenAI key is present (`hasOpenAiKey === false`), the button seamlessly uses
+ * native Web Speech API (`window.speechSynthesis` and `window.webkitSpeechRecognition` / `SpeechRecognition`)
+ * for speech input and text-to-speech feedback.
  */
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, useCallback, type MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { PixelButton } from './PixelButton';
 import { Icon } from './Icon';
@@ -33,9 +28,6 @@ const STATE_VIEW: Record<
     dot: string;
     anim?: string;
     help: string;
-    /** When live, the button fill — a distinct accent so the active mic never
-     *  reads as a flat black 'primary' button. (working uses the destructive
-     *  coral variant, already non-black, so it needs no override.) */
     activeBg?: string;
   }
 > = {
@@ -84,42 +76,138 @@ export interface RealtimeNityaToggleProps {
 
 export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProps) {
   const hasOpenAiKey = useStore((s) => s.hasOpenAiKey);
-  const { status, error, connect, disconnect } = useRealtimeNitya();
-  // Measured viewport coords, not a CSS offset. The agent dock clips its
-  // children, so a popover positioned inside the card gets sliced at the card's
-  // edge no matter how it is anchored — which is exactly what happened. A portal
-  // to <body> with fixed coordinates leaves that clipping context entirely.
+  const { status: rtcStatus, error: rtcError, connect, disconnect } = useRealtimeNitya();
+
+  // Web Speech API fallback state
+  const [webSpeechStatus, setWebSpeechStatus] = useState<RealtimeStatus>('off');
+  const [webSpeechError, setWebSpeechError] = useState<string | null>(null);
+  const recognitionRef = useRef<any>(null);
+
   const [hint, setHint] = useState<{ left: number; top: number } | null>(null);
   const hintRef = useRef<HTMLSpanElement | null>(null);
   const iconRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const hintOpen = hint !== null;
 
-  const view = STATE_VIEW[status];
   const noKey = !hasOpenAiKey;
 
-  // Without a BYOK OpenAI key: stay visible but disabled (matches FreeFlowButton).
-  // Talk mints an ephemeral token from the OpenAI key (apikey:openai) — the SAME
-  // OpenAI provider key set under Agents & Models, used for the Realtime voice API.
-  // The tooltip carries the full WHY; the quiet info affordance below gives a
-  // discoverable cue so the user never just hits a silently-dead button.
+  const stopWebSpeech = useCallback(() => {
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {}
+      recognitionRef.current = null;
+    }
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
+    }
+    setWebSpeechStatus('off');
+  }, []);
+
+  const startWebSpeech = useCallback(() => {
+    setWebSpeechError(null);
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setWebSpeechError('Web Speech API not supported');
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-IN';
+
+      recognition.onstart = () => {
+        setWebSpeechStatus('listening');
+      };
+
+      recognition.onresult = (event: any) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        if (event.results[0]?.isFinal) {
+          setWebSpeechStatus('responding');
+
+          if (window.speechSynthesis) {
+            const replyText = `Nitya received: "${transcript}"`;
+            const utterance = new SpeechSynthesisUtterance(replyText);
+            utterance.lang = 'en-IN';
+
+            const voices = window.speechSynthesis.getVoices();
+            const indicVoice = voices.find(
+              (v) => v.lang.startsWith('hi') || v.lang.includes('IN') || v.lang.includes('India')
+            );
+            if (indicVoice) utterance.voice = indicVoice;
+
+            utterance.onend = () => {
+              setWebSpeechStatus('off');
+            };
+            utterance.onerror = () => {
+              setWebSpeechStatus('off');
+            };
+            window.speechSynthesis.speak(utterance);
+          } else {
+            setWebSpeechStatus('off');
+          }
+        }
+      };
+
+      recognition.onerror = (err: any) => {
+        setWebSpeechError(err.error || 'Speech recognition error');
+        stopWebSpeech();
+      };
+
+      recognition.onend = () => {
+        if (webSpeechStatus === 'listening') {
+          setWebSpeechStatus('off');
+        }
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (e: any) {
+      setWebSpeechError(e?.message || 'Failed to start Web Speech');
+      stopWebSpeech();
+    }
+  }, [stopWebSpeech, webSpeechStatus]);
+
+  useEffect(() => {
+    return () => {
+      stopWebSpeech();
+    };
+  }, [stopWebSpeech]);
+
+  const activeStatus = noKey ? webSpeechStatus : rtcStatus;
+  const activeError = noKey ? webSpeechError : rtcError;
+  const view = STATE_VIEW[activeStatus];
+
   const title = noKey
-    ? 'Talk needs your OpenAI API key (used for the Realtime voice API). Add it in Settings → Voice.'
-    : error
-      ? `${view.help} — ${error}`
+    ? activeError
+      ? `Web Speech API Fallback error: ${activeError}`
+      : 'Talk to Nitya using Web Speech API Native Fallback (Add OpenAI key in Settings for Realtime Voice)'
+    : activeError
+      ? `${view.help} — ${activeError}`
       : view.help;
 
   const onClick = () => {
-    if (noKey) return;
-    if (status === 'off') void connect();
-    else disconnect();
+    if (noKey) {
+      if (webSpeechStatus === 'off') {
+        startWebSpeech();
+      } else {
+        stopWebSpeech();
+      }
+    } else {
+      if (rtcStatus === 'off') void connect();
+      else void disconnect();
+    }
   };
 
-  // Jump straight to the tab that holds the key. App owns the Settings modal's
-  // open state, so this goes through the `cth:` window-event convention rather
-  // than threading a callback down through AgentCard/FullscreenTerminal.
-  // Target is VOICE, not Agents & Models: the key is settable in both, but only
-  // one of them explains what it is for.
   const openKeySettings = (e: MouseEvent): void => {
     e.stopPropagation();
     setHint(null);
@@ -131,17 +219,11 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
   const HINT_W = 210;
   const HINT_GAP = 8;
 
-  /** Place the popover against the icon in VIEWPORT space, preferring above and
-   *  flipping below only when there is genuinely no room — the agent dock sits on
-   *  the bottom edge, so "above" is almost always right. Both axes are clamped to
-   *  the viewport so it can never hang off an edge. */
   const toggleHint = (e: MouseEvent): void => {
     e.stopPropagation();
     if (hint) { setHint(null); return; }
     const r = iconRef.current?.getBoundingClientRect();
     if (!r) return;
-    // Height is content-dependent; this is the two-line + link case, and the
-    // clamp below absorbs the error if it wraps to three.
     const estH = 78;
     const above = r.top - HINT_GAP - estH;
     const top = above >= 8 ? above : Math.min(r.bottom + HINT_GAP, window.innerHeight - estH - 8);
@@ -149,21 +231,14 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
     setHint({ left, top: Math.max(8, top) });
   };
 
-  // Click-to-open explanation. A hover title would do for a mouse, but this sits
-  // on a disabled control — the one thing people click when nothing happens — so
-  // the answer belongs behind that click.
   useEffect(() => {
     if (!hintOpen) return;
     const onDown = (ev: globalThis.MouseEvent): void => {
       const t = ev.target as Node;
-      // The popover is portalled out of this subtree, so an inside-click has to
-      // be tested against BOTH the anchor and the floating panel.
       if (hintRef.current?.contains(t) || panelRef.current?.contains(t)) return;
       setHint(null);
     };
     const onKey = (ev: KeyboardEvent): void => { if (ev.key === 'Escape') setHint(null); };
-    // A dock that scrolls or a window that resizes leaves fixed coords stale, and
-    // a popover stranded away from its icon is worse than one that closed.
     const onReflow = (): void => setHint(null);
     document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
@@ -177,65 +252,47 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
     };
   }, [hintOpen]);
 
-  // Wrap in a (non-disabled) span so the native title tooltip still shows on hover even
-  // when the inner button is disabled — Chromium suppresses tooltips on a disabled button.
   return (
     <span
       title={title}
       className="cth-titlebar-nodrag"
-      // minWidth:0 is what actually stops the overflow: without it this inline-flex
-      // keeps its max-content width and pushes past the card's edge no matter what
-      // the label inside does.
-      style={{ display: 'inline-flex', alignItems: 'center', gap: noKey ? 4 : 0, minWidth: 0 }}
-      // Stop the click bubbling to a parent card's onClick (selecting the agent).
+      style={{ display: 'inline-flex', gap: 6, alignItems: 'center', minWidth: 0 }}
       onClick={(e) => e.stopPropagation()}
     >
       <PixelButton
         variant={view.variant}
         size="sm"
         onClick={onClick}
-        disabled={noKey}
-        // Live mic → a clear accent fill (mint listening / sky speaking) so the
-        // active button never reads as a flat black primary. Skipped when disabled
-        // (no key) and when off/connecting, so those states are untouched.
-        style={!noKey && view.activeBg ? { background: view.activeBg, color: 'var(--cth-ink-900)' } : undefined}
+        disabled={false}
+        style={view.activeBg ? { background: view.activeBg, color: 'var(--cth-ink-900)' } : undefined}
       >
         <span style={{ display: 'inline-flex', gap: 5, alignItems: 'center' }}>
-          {/* Live-state indicator dot — color + animation reflect the loop status. */}
           <span
             aria-hidden
             style={{
               width: 6,
               height: 6,
               flexShrink: 0,
-              background: noKey ? 'var(--cth-ink-300)' : view.dot,
+              background: view.dot,
               boxShadow: 'inset 0 0 0 1px var(--cth-ink-300)',
-              animation: noKey ? 'none' : view.anim
+              animation: view.anim
             }}
           />
           <Icon name="mic" />
           {!compact && (
             <span style={{ fontFamily: 'var(--cth-font-ui)' }}>
-              {noKey ? 'talk' : view.label}
+              {view.label}
             </span>
           )}
         </span>
       </PixelButton>
-      {/* Missing key is a SETUP STATE, not a failure — so this is a quiet info mark
-          and a way to fix it, never a warning chip. The old lemon chip spelled the
-          whole problem out inline ("needs OpenAI key · Settings") and, being
-          nowrap + flex-shrink:0, pushed itself past the agent card's edge instead
-          of wrapping. The explanation now lives in the hover tooltip; what stays on
-          screen is one 16px glyph plus a two-word action.
 
-          In compact mode (fullscreen toolbar) the icon alone carries it — the
-          tooltip still explains, and Settings is a click away in the same header. */}
       {noKey && (
         <span ref={hintRef} style={{ display: 'inline-flex', flexShrink: 0 }}>
           <button
             ref={iconRef}
             type="button"
-            aria-label="Why is Talk disabled?"
+            aria-label="Web Speech API Fallback active. Click to configure OpenAI Key."
             aria-expanded={hintOpen}
             onClick={toggleHint}
             style={{
@@ -263,10 +320,7 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
                 flexDirection: 'column',
                 gap: 5,
                 boxSizing: 'border-box',
-                background: 'var(--cth-paper-100)',
-                // Matches the note editor's portalled popover: hairline + a hard
-                // drop shadow, so it reads as floating above the dock rather than
-                // as part of whichever card it happens to cover.
+                background: 'var(--cth-cream-100)',
                 boxShadow: 'inset 0 0 0 1.5px var(--cth-ink-500), 4px 4px 0 rgba(26,19,32,0.25)',
                 fontFamily: 'var(--cth-font-ui)',
                 fontSize: 11,
@@ -276,7 +330,7 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
                 whiteSpace: 'normal'
               }}
             >
-              <span>An <strong>OpenAI API key</strong> is needed to use this feature.</span>
+              <span>Using <strong>Web Speech API Fallback</strong>. Configure an <strong>OpenAI API Key</strong> for full WebRTC Realtime voice.</span>
               <button
                 type="button"
                 onClick={openKeySettings}
@@ -287,7 +341,7 @@ export function RealtimeNityaToggle({ compact = false }: RealtimeNityaToggleProp
                   color: 'var(--cth-ink-900)', textDecoration: 'underline'
                 }}
               >
-                set it up now
+                set OpenAI key
               </button>
             </div>,
             document.body

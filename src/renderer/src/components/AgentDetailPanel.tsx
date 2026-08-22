@@ -3,6 +3,7 @@ import { PixelPanel } from './PixelPanel';
 import { PixelBadge } from './PixelBadge';
 import { PixelButton } from './PixelButton';
 import { SpritePortrait } from './SpritePortrait';
+import { getLocalizedCharacterName } from '@/scene/office/cast';
 import { PtyTerminalView } from './PtyTerminalView';
 import { terminalInstanceKey } from './terminalRecovery';
 import { MessageQueueComposer } from './MessageQueueComposer';
@@ -22,6 +23,7 @@ export interface AgentDetailPanelProps {
 }
 
 export function AgentDetailPanel({ agent }: AgentDetailPanelProps) {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const [openTerminalState, setOpenTerminalState] = useState<'idle' | 'opening' | 'ok' | 'error'>('idle');
   const [openTerminalError, setOpenTerminalError] = useState<string | undefined>();
   const archiveAgent = useStore(s => s.archiveAgent);
@@ -106,7 +108,7 @@ export function AgentDetailPanel({ agent }: AgentDetailPanelProps) {
             fontSize: 10, lineHeight: '14px',
             color: 'var(--cth-ink-900)',
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
-          }}>{agent.name.toUpperCase()}</div>
+          }}>{getLocalizedCharacterName(agent.character || agent.name, selectedLanguage).toUpperCase()}</div>
           <div style={{
             display: 'flex', gap: 6, alignItems: 'center', marginTop: 1
           }}>

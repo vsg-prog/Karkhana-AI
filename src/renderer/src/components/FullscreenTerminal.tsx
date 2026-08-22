@@ -9,6 +9,7 @@ import { AgentControlStrip } from './AgentControlStrip';
 import { CommandCenterPanel } from './CommandCenterPanel';
 import { Icon } from './Icon';
 import { SpritePortrait } from './SpritePortrait';
+import { getLocalizedCharacterName } from '@/scene/office/cast';
 import { PORTRAIT_W } from '@/scene/office/portraitArt';
 import { RealtimeNityaToggle } from './RealtimeNityaToggle';
 import { CostHud } from '@/realtime/CostHud';
@@ -623,6 +624,7 @@ function SidebarRow({
   drag: RowDrag;
   scale: ReturnType<typeof rosterScale>;
 }) {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const buttonRef = useRef<HTMLButtonElement>(null);
   const noteRef = useRef<HTMLDivElement>(null);
   const [notePosition, setNotePosition] = useState<{ left: number; top: number } | null>(null);
@@ -719,7 +721,7 @@ function SidebarRow({
               whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               fontFamily: 'var(--cth-font-display)',
               fontSize: scale.name, lineHeight: 1.5
-            }}>{agent.name.toUpperCase()}</span>
+            }}>{getLocalizedCharacterName(agent.character || agent.name, selectedLanguage).toUpperCase()}</span>
             {/* Your unsent text outranks the agent's own state here: an idle
                 agent with a draft on its prompt is not idle-and-free, it is
                 idle-and-held, and nothing else on screen said so. */}
@@ -874,6 +876,7 @@ function SidebarRow({
 }
 
 function Header({ agent }: { agent: Agent }) {
+  const selectedLanguage = useStore((s) => s.selectedLanguage) || 'English (EN)';
   const typing = useHasTerminalDraft(agent.ptyId);
   const archiveAgent = useStore((st) => st.archiveAgent);
   const [openState, setOpenState] = useState<'idle' | 'opening' | 'ok' | 'error'>('idle');
@@ -912,7 +915,7 @@ function Header({ agent }: { agent: Agent }) {
       <span style={{
         fontFamily: 'var(--cth-font-display)', fontSize: 10, lineHeight: '16px',
         color: 'var(--cth-ink-900)'
-      }}>{agent.name.toUpperCase()}</span>
+      }}>{getLocalizedCharacterName(agent.character || agent.name, selectedLanguage).toUpperCase()}</span>
       <span style={{
         fontSize: 12, color: 'var(--cth-ink-500)',
         whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
