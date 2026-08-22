@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T10:50:06.585Z",
+  "savedAt": "2026-08-22T10:49:39.216Z",
   "agents": [
     {
       "id": "god",
@@ -16,7 +16,7 @@
       "progress": 0,
       "currentStation": "desk",
       "ptyId": "pty-god",
-      "command": "claude --model omniroute/auto --dangerously-skip-permissions",
+      "command": "claude --model omniroute/auto --yolo",
       "provider": "omniroute",
       "model": "omniroute/auto",
       "isGod": true
@@ -42,6 +42,14 @@
     }
   ],
   "restorable": [],
-  "queues": {},
+  "queues": {
+    "god": [
+      {
+        "id": "q-1787395177913-1",
+        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
+        "ts": 1787395177913
+      }
+    ]
+  },
   "selectedId": "god"
 }

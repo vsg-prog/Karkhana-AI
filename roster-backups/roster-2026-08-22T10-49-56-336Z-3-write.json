@@ -1,18 +1,18 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T10:50:06.585Z",
+  "savedAt": "2026-08-22T10:49:53.537Z",
   "agents": [
     {
       "id": "god",
       "name": "Nitya",
       "character": "nitya",
       "accent": "lemon",
-      "description": "on standby",
+      "description": "god — runs the floor, triages requests, escalates only critical calls to you",
       "project": "hive",
       "tmuxTarget": "",
       "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
       "status": "idle",
-      "action": "awaiting",
+      "action": "running the floor",
       "progress": 0,
       "currentStation": "desk",
       "ptyId": "pty-god",
