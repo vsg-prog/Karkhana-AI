@@ -1,6 +1,6 @@
 ---
 title: "What's Up With Munder Difflin: Six Weeks, Four Releases, and the Part of the Stack You Actually Own"
-description: "Everything that shipped between v0.3.3 and v0.3.7 — a Michael who knows the floor and runs the app by voice, a git time-machine in the IDE, nine agent engines, a queue that respects your draft, Node that installs itself, and the auto-update bug that had been silently broken since the day we shipped it."
+description: "Everything that shipped between v0.3.3 and v0.3.7 — a Nitya who knows the floor and runs the app by voice, a git time-machine in the IDE, nine agent engines, a queue that respects your draft, Node that installs itself, and the auto-update bug that had been silently broken since the day we shipped it."
 date: 2026-08-08
 category: story
 categoryLabel: Story
@@ -24,7 +24,7 @@ faq:
     a: "Yes. MIT-licensed, free forever, and local-first. It drives the agent CLI subscriptions you already pay for rather than adding a bill of its own, and your code never leaves your machine."
 ---
 
-<div class="callout tldr"><span class="ic">TL;DR</span><p>Six weeks, four releases. <strong>Michael learned the floor</strong> and can now run nearly the whole app by voice. The IDE became a <strong>git time-machine</strong>. Two more engines brought the roster to <strong>nine</strong>. The message queue got <strong>one gate</strong> instead of four competing loops. A machine with <strong>nothing installed on it</strong> can now run agents. And <strong>auto-update — which had never once worked</strong> — actually works. If you're on v0.3.5 or v0.3.6, you'll need to grab v0.3.7 by hand, once.</p></div>
+<div class="callout tldr"><span class="ic">TL;DR</span><p>Six weeks, four releases. <strong>Nitya learned the floor</strong> and can now run nearly the whole app by voice. The IDE became a <strong>git time-machine</strong>. Two more engines brought the roster to <strong>nine</strong>. The message queue got <strong>one gate</strong> instead of four competing loops. A machine with <strong>nothing installed on it</strong> can now run agents. And <strong>auto-update — which had never once worked</strong> — actually works. If you're on v0.3.5 or v0.3.6, you'll need to grab v0.3.7 by hand, once.</p></div>
 
 AGI is not going to arrive as an event. No announcement, no threshold, no day the sky
 changes colour. It's arriving diffused — your agents, running on your context, doing your
@@ -42,7 +42,7 @@ own, and it's the part Munder Difflin exists to give away.
 
 So: what have we done to that middle term in the last six weeks?
 
-## Michael learned the floor
+## Nitya learned the floor
 
 Talk mode could *do* things since v0.3.2. What it couldn't do was *know* things. Every "what's
 everyone working on?" turned into a round of tool calls and dead air.
@@ -183,7 +183,7 @@ one manual step, it keeps itself current.
 
 ## What's next
 
-More chat bridges, so a Telegram or Slack channel pipes straight into Michael's queue and his
+More chat bridges, so a Telegram or Slack channel pipes straight into Nitya's queue and his
 replies route back out. More engines, and a wider per-hire capability catalog. More
 integration templates. And pushing the remaining avatar station-visits to be driven entirely
 by real hook events rather than inferred.

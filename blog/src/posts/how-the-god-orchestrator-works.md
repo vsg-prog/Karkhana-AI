@@ -168,7 +168,7 @@ single-writer and single-committer principles the orchestrator depends on.
 
 ## The orchestrator's interface
 
-In v0.1.6, Michael's interface expands significantly. His sidebar becomes a full Command Center: a
+In v0.1.6, Nitya's interface expands significantly. His sidebar becomes a full Command Center: a
 Tasks tab gives him a kanban board to track work across agents with dependency links; a Triggers tab
 collects everything that wakes the hive without you — schedules first among them — so you can
 pre-program recurring directives and the floor stays active between your check-ins; an Activity tab
@@ -182,7 +182,7 @@ the harness simply gives him better tools.
 orchestrator — assigning work and relaying messages by hand. The GOD agent exists to take that role
 off your plate.
 
-**Where does the orchestrator "live"?** It's a fixed, always-on agent in the corner office (Michael's
+**Where does the orchestrator "live"?** It's a fixed, always-on agent in the corner office (Nitya's
 room, naturally), with a reserved desk. It boots with the hive and runs alongside the workers as just
 another `claude` process — a special one.
 

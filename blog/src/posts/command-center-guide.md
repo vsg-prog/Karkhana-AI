@@ -13,7 +13,7 @@ author:
   initials: CG
 faq:
   - q: "What is the Command Center in Munder Difflin?"
-    a: "It's Michael's control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization)."
+    a: "It's Nitya's control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization)."
   - q: "How does the task kanban work?"
     a: "The Tasks tab is a dependency-aware kanban board. You assign tasks to agents and track them across todo, doing, blocked, and done. Because tasks can declare dependencies, downstream work waits until its prerequisites finish, so a chain of related tasks starts in the right order without you babysitting the handoffs."
   - q: "How do per-agent budgets and cost tracking work?"
@@ -32,7 +32,7 @@ faq:
   <source src="/media/demo/features.mp4" type="video/mp4" />
 </video>
 
-Munder Difflin has two ways of looking at the same hive. The **office floor** is the ambient view: avatars at desks, envelopes flying between them, speech bubbles when a tool fires. The **Command Center** is the management view — Michael's control surface, the place you go when the question stops being "what is Dwight doing?" and becomes "what is *everyone* doing, what has it cost, and what's next?"
+Munder Difflin has two ways of looking at the same hive. The **office floor** is the ambient view: avatars at desks, envelopes flying between them, speech bubbles when a tool fires. The **Command Center** is the management view — Nitya's control surface, the place you go when the question stops being "what is Dwight doing?" and becomes "what is *everyone* doing, what has it cost, and what's next?"
 
 This guide walks through what's in it and how the pieces fit together.
 
@@ -40,7 +40,7 @@ This guide walks through what's in it and how the pieces fit together.
 
 Six tabs, one control surface:
 
-- **Terminal** — Michael's own terminal, the [GOD orchestrator](/blog/how-the-god-orchestrator-works/) you talk to directly.
+- **Terminal** — Nitya's own terminal, the [GOD orchestrator](/blog/how-the-god-orchestrator-works/) you talk to directly.
 - **Floor** — the roster and dispatch controls: hire, dispatch work, pick a model per agent, and watch live fleet monitoring across everyone at once.
 - **Memory** — semantic search over the shared memory palace, plain text search, and a memory graph.
 - **Activity** — the append-only event log, the blackboard, real token telemetry, the observability view, and a CI watcher.
@@ -55,7 +55,7 @@ The Tasks tab is a **dependency-aware kanban board**. Tasks move across four col
 
 The load-bearing word is *dependency-aware*. Real work has ordering: the refactor has to land before the tests get updated; the schema migration comes before the endpoint. On the board you wire those dependencies explicitly, and downstream tasks wait until their prerequisites finish. You're not the sequencer anymore — the board is.
 
-Work gets onto the board a few ways: you create tasks yourself, Michael creates and assigns them as he routes requests, and you can **pull open GitHub issues from any registered repo** (via the `gh` CLI) and assign them to agents with one click. Issue in, task tracked, agent dispatched — and when the work ships, the **CI status watcher** in the Activity tab shows live pass/fail/in-progress for the repo's GitHub Actions runs. The loop closes in the same window it opened in.
+Work gets onto the board a few ways: you create tasks yourself, Nitya creates and assigns them as he routes requests, and you can **pull open GitHub issues from any registered repo** (via the `gh` CLI) and assign them to agents with one click. Issue in, task tracked, agent dispatched — and when the work ships, the **CI status watcher** in the Activity tab shows live pass/fail/in-progress for the repo's GitHub Actions runs. The loop closes in the same window it opened in.
 
 {% img "note-1" %}
 

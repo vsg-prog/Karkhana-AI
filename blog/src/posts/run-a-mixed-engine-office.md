@@ -15,7 +15,7 @@ faq:
   - q: "Which agent engines can Munder Difflin run on one floor?"
     a: "Seven CLI engines plus a local provider: Claude Code, Antigravity (Gemini), OpenAI Codex, OpenCode, Crush, pi.dev, and GitHub Copilot CLI, which joined in v0.3.3 as the first community-contributed engine. You pick the engine per hire from a visual picker in Add Agent, and they all participate in the same hive on the same office floor."
   - q: "Can any engine be the GOD orchestrator?"
-    a: "Michael's engine is swappable from onboarding or a change-engine flow, and OpenCode, Crush, and pi.dev are god-eligible alongside Claude Code, Antigravity, and Codex. Claude Code is the strongest default because it has the native hook bridge and the deepest hive integration. Copilot CLI is a worker-only engine: its print mode exits per turn, so it can't run the floor."
+    a: "Nitya's engine is swappable from onboarding or a change-engine flow, and OpenCode, Crush, and pi.dev are god-eligible alongside Claude Code, Antigravity, and Codex. Claude Code is the strongest default because it has the native hook bridge and the deepest hive integration. Copilot CLI is a worker-only engine: its print mode exits per turn, so it can't run the floor."
   - q: "Where do API keys and local model endpoints go?"
     a: "Settings -> AI Engines. Per-provider keys (Anthropic, OpenAI, Google, OpenRouter, Groq) are stored write-only in the encrypted secret broker — they're never read back into the renderer and are materialized main-only at spawn. The same panel holds per-engine local base-URLs for Ollama, LM Studio, or vLLM, plus default-model fields that OpenCode, Crush, and pi.dev pick up when they spawn."
   - q: "How do I run some desks on local or open-source models?"
@@ -30,7 +30,7 @@ faq:
 
 Most multi-agent setups are a clone army: five copies of the same CLI on the same model, paying the same rate for wildly different jobs. That's like staffing an office entirely with regional managers. A real office has a manager, a couple of closers, and a lot of people doing solid routine work at a sensible salary.
 
-Munder Difflin is built for that second shape. Every hire — and Michael, the [GOD orchestrator](/blog/how-the-god-orchestrator-works/) himself — runs on a pluggable engine, picked from a visual provider picker at hire time. Here's how to lay out the floor.
+Munder Difflin is built for that second shape. Every hire — and Nitya, the [GOD orchestrator](/blog/how-the-god-orchestrator-works/) himself — runs on a pluggable engine, picked from a visual provider picker at hire time. Here's how to lay out the floor.
 
 ## The engine roster, honestly
 
@@ -39,7 +39,7 @@ Seven engines can sit on one floor today, and they're not interchangeable — th
 - **Claude Code** — the deepest hive citizen. Native hooks drive lifecycle events, inbox draining, HITL gates, and mid-run steering. The natural orchestrator.
 - **Antigravity (Gemini)** — full hive participation via the native `agy-hook` bridge.
 - **OpenAI Codex** — receives the hive protocol as its initial prompt and participates through inbox/outbox routing. A strong pure-coding worker.
-- **OpenCode, Crush, pi.dev** — the BYOK trio (shipped in v0.3.1), wired in via native-plugin, proxy, and hooks bridges respectively. Each works as a worker *and* as Michael, and each can point at your own keys or a local model.
+- **OpenCode, Crush, pi.dev** — the BYOK trio (shipped in v0.3.1), wired in via native-plugin, proxy, and hooks bridges respectively. Each works as a worker *and* as Nitya, and each can point at your own keys or a local model.
 - **GitHub Copilot CLI** — new in [v0.3.3](/blog/launching-munder-difflin-v0-3-3/), the first community-contributed engine (PR #101). Runs in documented print mode (`copilot -p`) with a model picker and `--resume`, authenticated by your existing Copilot login.
 
 One honest caveat up front: Copilot's print mode exits per turn and has no hook bridge, so its workers can't drain hive inbox mail — routed mail bounces to the orchestrator instead of disappearing. That's by design, and it tells you exactly where Copilot desks belong.
@@ -48,7 +48,7 @@ One honest caveat up front: Copilot's print mode exits per turn and has no hook 
 
 ## The layout that works
 
-**Michael's office: Claude Code.** The orchestrator reads every request, adjudicates traffic, scribes the blackboard, and escalates only critical items to you. That's sustained, stateful, judgment-heavy work — give it the engine with native hooks and the tightest harness integration. (Michael's engine is swappable from onboarding or the change-engine flow if you want to experiment; OpenCode, Crush, and pi.dev are all god-eligible, backstopped by a provider-agnostic idle fallback.)
+**Nitya's office: Claude Code.** The orchestrator reads every request, adjudicates traffic, scribes the blackboard, and escalates only critical items to you. That's sustained, stateful, judgment-heavy work — give it the engine with native hooks and the tightest harness integration. (Nitya's engine is swappable from onboarding or the change-engine flow if you want to experiment; OpenCode, Crush, and pi.dev are all god-eligible, backstopped by a provider-agnostic idle fallback.)
 
 **Senior desks: Claude Code or Antigravity, hive-aware.** Work that involves conversation — replying to routed messages, coordinating with other agents, long multi-step missions — needs engines that drain a mailbox. These are your closers.
 
@@ -76,6 +76,6 @@ Isolation keeps them from colliding: each hire gets its own pseudo-terminal and,
 
 ## Start with three desks
 
-Don't design the org chart up front. Hire Claude Code as Michael, add one Codex or Copilot desk for a real coding task, and one OpenCode desk on a Groq or Ollama model for something routine. Watch what each engine is actually good at on *your* work, then grow the floor around the evidence.
+Don't design the org chart up front. Hire Claude Code as Nitya, add one Codex or Copilot desk for a real coding task, and one OpenCode desk on a Groq or Ollama model for something routine. Watch what each engine is actually good at on *your* work, then grow the floor around the evidence.
 
 Munder Difflin is free, MIT-licensed, and local-first. [Grab the latest release](https://github.com/chaitanyagiri/munder-difflin/releases/latest) and try a mixed floor — and if it earns a spot in your toolkit, a [GitHub star](https://github.com/chaitanyagiri/munder-difflin) helps more people find it.

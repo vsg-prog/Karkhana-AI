@@ -23,7 +23,7 @@ faq:
   - q: "Do I need a new API key for Copilot?"
     a: "No. Munder Difflin drives the `copilot` CLI you already log into with your GitHub account — same as it drives your existing Claude Code, Codex, or Antigravity subscriptions. If the CLI isn't installed, the harness offers the official installer (npm install -g @github/copilot)."
   - q: "Do I still get everything from v0.3.2 and earlier?"
-    a: "Yes — v0.3.3 is additive. Realtime Michael (Talk mode), the three v0.3.1 engines (OpenCode, Crush, pi.dev) with BYOK keys and local LLMs, selectable engines, the integrations registry and secret broker, Slack-spawned workers, the Agent Gallery, MemPalace shared memory, the Command Center, schedules, observability, and the circuit breaker all remain functional and shipping."
+    a: "Yes — v0.3.3 is additive. Realtime Nitya (Talk mode), the three v0.3.1 engines (OpenCode, Crush, pi.dev) with BYOK keys and local LLMs, selectable engines, the integrations registry and secret broker, Slack-spawned workers, the Agent Gallery, MemPalace shared memory, the Command Center, schedules, observability, and the circuit breaker all remain functional and shipping."
 ---
 
 <div class="callout tldr"><span class="ic">TL;DR</span><p><strong>Munder Difflin v0.3.3</strong> ships two things people kept asking for. A <strong>built-in IDE</strong>: a full-window <strong>Monaco editor</strong> (the engine inside VS&nbsp;Code) that opens right over the office floor — file tree, editor tabs, <strong>Cmd/Ctrl+S</strong> save, and a <strong>side-by-side git diff</strong> of every change your agents made. And <strong>GitHub Copilot CLI</strong> as a first-class agent engine — hire a Copilot-powered agent onto the floor next to Claude&nbsp;Code, Codex, Antigravity, OpenCode, Crush, and pi.dev, riding your existing GitHub login. It's also our <strong>first community-contributed provider</strong>. Free, open source, local-first.</p></div>
@@ -61,7 +61,7 @@ The engine roster grows to **seven**: Claude Code, OpenAI Codex, Antigravity (Ge
 Crush, pi.dev — and now **GitHub Copilot CLI**.
 
 Hire a Copilot agent the way you'd hire any other: pick **Copilot** in the Add Agent picker (or say
-it to Michael in Talk mode). Under the hood the harness drives Copilot's documented non-interactive
+it to Nitya in Talk mode). Under the hood the harness drives Copilot's documented non-interactive
 print mode:
 
 ```

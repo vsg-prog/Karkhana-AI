@@ -174,7 +174,7 @@ can speak HTTP.</p>
 <p>The contract is small and worth stating exactly, because everything downstream depends on it.</p>
 <ul>
 <li><strong><code>POST</code></strong> to the endpoint with an <code>x-md-webhook-secret: &lt;your-secret&gt;</code> header and a JSON body of
-<code>{ message, title? }</code>. On success the message is routed to god/Michael, a stamped kanban card is created,
+<code>{ message, title? }</code>. On success the message is routed to god/Nitya, a stamped kanban card is created,
 and you get back <code>{ ok: true, token, taskId }</code>.</li>
 <li><strong><code>GET</code></strong> the endpoint with <code>x-md-webhook-token: &lt;token&gt;</code> (or <code>?token=&lt;token&gt;</code>) and you get back
 <code>{ ok, status, title, result }</code> — <strong>only</strong> for that one token’s task.</li>
@@ -250,7 +250,7 @@ it maps to — it can’t list or enumerate any other work. An unknown token get
 one, so a probe can’t tell “valid but unknown” from “wrong shape.”</p>
 <h2 id="what-the-hive-does-with-it" tabindex="-1">What the hive does with it <a class="anchor" href="#what-the-hive-does-with-it" aria-hidden="true">#</a></h2>
 <p>Once a POST passes the secret check, the handler hands <code>{ message, title }</code> to the app, which <strong>routes the
-message to god/Michael</strong> — the orchestrator’s inbox — and <strong>files a stamped kanban card</strong>. From there it’s
+message to god/Nitya</strong> — the orchestrator’s inbox — and <strong>files a stamped kanban card</strong>. From there it’s
 just another task: the orchestrator reads it, decides who should handle it, and dispatches to the right agent,
 exactly like work that arrives through <a href="/blog/coordinating-ai-coding-agents/">the hive’s normal message
 routing</a>. A reviewer agent might read the PR; a writer might draft the

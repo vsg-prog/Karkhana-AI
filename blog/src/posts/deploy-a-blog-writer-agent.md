@@ -14,7 +14,7 @@ author:
   initials: CG
 faq:
   - q: "Did an AI actually write the Munder Difflin blog?"
-    a: "Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Michael integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post's illustrations as code."
+    a: "Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Nitya integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post's illustrations as code."
   - q: "Is the blog-writer agent fully autonomous?"
     a: "Almost — it's deliberately human-gated at one point: publish. The agent drafts and self-reviews against a style reference in an isolated worktree; the orchestrator integrates and builds; a person reviews the diff and approves the deploy. That keeps the volume high and hands-off without putting an unreviewed post on the live domain."
   - q: "How do I build my own blog-writer agent?"
@@ -25,7 +25,7 @@ faq:
 
 <div class="callout tldr"><span class="ic">TL;DR</span><p>The Munder Difflin blog is written by an
 <strong>automated writer agent</strong> living in the hive. The loop: a writer agent drafts a post in an
-<strong>isolated worktree</strong> from a topic brief + a house-style reference; <strong>Michael</strong>
+<strong>isolated worktree</strong> from a topic brief + a house-style reference; <strong>Nitya</strong>
 integrates it as the single committer; <strong>Eleventy</strong> builds
 <code>blog/src/posts</code> → <code>docs/blog</code>; and a human approves the deploy to
 <strong>munderdiffl.in</strong>. The outcome is a steady, on-topic stream — <strong>well over a hundred
@@ -86,7 +86,7 @@ against the style reference before handing off. The output is a single `.md` fil
 
 ### 2. Integrate — the orchestrator is the single committer
 
-The writer **never commits**. It writes a plain file; **Michael** owns every commit. This is
+The writer **never commits**. It writes a plain file; **Nitya** owns every commit. This is
 the [single-committer pattern](/blog/single-committer-git-pattern/) — agents write files, one process
 serializes all the git, so parallel agents never race on `.git/index.lock` and the repo stays a clean audit
 log. The orchestrator picks up the finished draft, reviews routing, and commits it into the real tree.

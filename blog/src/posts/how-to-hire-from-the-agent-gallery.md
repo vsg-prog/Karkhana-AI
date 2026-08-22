@@ -77,7 +77,7 @@ One more gate you'll meet after spawning: hires carry a manifest of allowed **sk
 
 ## Step 5: Spawn, and put it to work
 
-Click spawn. The agent appears at a desk, joins the hive with its own mailbox and long-term memory, and is immediately routable: assign it kanban tasks, or just tell the GOD orchestrator what you need and let [Michael route the work](/blog/how-the-god-orchestrator-works/).
+Click spawn. The agent appears at a desk, joins the hive with its own mailbox and long-term memory, and is immediately routable: assign it kanban tasks, or just tell the GOD orchestrator what you need and let [Nitya route the work](/blog/how-the-god-orchestrator-works/).
 
 From browsing a card to a working coworker is genuinely a five-minute path — and every minute of it kept you in the loop: you read the manifest, you set the budget, you clicked spawn.
 

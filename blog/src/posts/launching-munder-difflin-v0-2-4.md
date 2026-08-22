@@ -56,7 +56,7 @@ Here's where it stops being a tech demo and starts being a thing you actually us
 
 > **wanna get your PRs reviewed but the SaaS bots want $$$ a seat?** spin up your own CodeRabbit-style reviewer for any repo — in ONE prompt.
 
-This isn't hypothetical. We did exactly this on our own repo when it blew up to 400+ stars and the PRs started stacking faster than anyone could read diffs. One message to **Michael** (yeah, the god orchestrator is named Michael — the floor looks like *The Office*, more on that in a sec):
+This isn't hypothetical. We did exactly this on our own repo when it blew up to 400+ stars and the PRs started stacking faster than anyone could read diffs. One message to **Nitya** (yeah, the god orchestrator is named Nitya — the floor looks like *The Office*, more on that in a sec):
 
 > *Review all the open PRs on the GitHub repo, and set up a recurring mission that checks for new PRs every hour and reviews them.*
 
@@ -77,7 +77,7 @@ skim this. find your pain. there's a one-prompt fix for it:
 - **⏰ schedules** — set it and forget it. "every hour, do X." you write it once, it runs forever.
 - **📊 monitoring + token budget** — live token meters and a per-agent budget so one over-eager agent can't quietly torch your bill.
 - **🌙 runs for days** — close the lid. lock the screen. it keeps grinding.
-- **🏢 it looks like *The Office*** — every agent is a little pixel coworker on a watchable floor. yes, that's Michael. yes, Creed is here too.
+- **🏢 it looks like *The Office*** — every agent is a little pixel coworker on a watchable floor. yes, that's Nitya. yes, Creed is here too.
 
 Now the ones worth a few extra words:
 
@@ -99,7 +99,7 @@ This is the one people don't believe until they see it. When agents are mid-turn
 
 ### 🏢 yes, it really looks like *The Office*
 
-The whole point of a floor is that you can *watch* it. Every agent is a real terminal under the hood — `claude`, `agy`, or `codex` — rendered as a little pixel coworker doing its thing. The cast is an affectionate *Office* parody (Michael runs the floor; the rest of the gang fills the desks), they take coffee breaks when idle, and you can see at a glance who's working, who's thinking, and who's stuck. It's genuinely fun to leave running on a second monitor. Identity theft is not a joke, Jim.
+The whole point of a floor is that you can *watch* it. Every agent is a real terminal under the hood — `claude`, `agy`, or `codex` — rendered as a little pixel coworker doing its thing. The cast is an affectionate *Office* parody (Nitya runs the floor; the rest of the gang fills the desks), they take coffee breaks when idle, and you can see at a glance who's working, who's thinking, and who's stuck. It's genuinely fun to leave running on a second monitor. Identity theft is not a joke, Jim.
 
 {% img "note-2" %}
 

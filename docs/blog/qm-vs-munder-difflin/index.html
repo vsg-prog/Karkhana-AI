@@ -82,7 +82,7 @@
     { "@type": "Question", "name": "What is qm?", "acceptedAnswer": { "@type": "Answer", "text": "qm (github.com/yc-software/qm) is Y Combinator's open-source 'multiplayer agent harness for work' — a headless Node.js core with a web UI and a Slack plugin. Team members get agent 'employees' with isolated workspaces, shared skills with scope-based permissions, background crons and watches, and three security postures (Strict, Auto, Dangerous). It's MIT-licensed and installs via npm." } },
     { "@type": "Question", "name": "What's the main difference between qm and Munder Difflin?", "acceptedAnswer": { "@type": "Answer", "text": "Where the harness lives and what you can see. qm is multiplayer-first: a shared server your whole team reaches through Slack and the browser. Munder Difflin is local-first: a desktop app on your machine where every agent is a real CLI process in a real terminal you can watch, with a visual office floor, voice orchestration, and a built-in IDE. They cover the same core jobs — postures, scheduled work, Slack, skills — from opposite ends." } },
     { "@type": "Question", "name": "Does Munder Difflin do what qm's security postures do?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the same job with different controls: a floor-wide auto-mode toggle (the equivalent of switching between approval-gated and autonomous), per-agent pause/halt, voice-level confirm words for destructive actions, tool gating, a circuit breaker for runaway agents, and spend/scope escalation to a human. qm's Strict/Auto/Dangerous is org-level configuration; Munder Difflin's controls are per-floor and per-agent." } },
-    { "@type": "Question", "name": "Does qm have voice control, an IDE, or git visualization?", "acceptedAnswer": { "@type": "Answer", "text": "Not as of this writing. qm's interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Michael with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update." } },
+    { "@type": "Question", "name": "Does qm have voice control, an IDE, or git visualization?", "acceptedAnswer": { "@type": "Answer", "text": "Not as of this writing. qm's interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Nitya with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update." } },
     { "@type": "Question", "name": "Which one should I use?", "acceptedAnswer": { "@type": "Answer", "text": "Use qm if your whole team wants one shared harness in Slack with org-level admin control. Use Munder Difflin if you want your agent office on your own machine — watchable, local-first, with voice and an IDE — riding the CLI subscriptions you already pay for. Both are MIT-licensed; some teams will genuinely want both: qm as the shared org layer, Munder Difflin as the personal floor." } },
     { "@type": "Question", "name": "Is Munder Difflin older than qm?", "acceptedAnswer": { "@type": "Answer", "text": "Munder Difflin has been shipping public releases since v0.2.0 in mid-2026 and is on v0.3.5 with a stable auto-updating release train, while qm is a newer project that grew popular quickly. Popularity and maturity are different axes — evaluate both against your workflow." } }
     
@@ -236,7 +236,7 @@ Slack, that’s qm’s home turf, and Munder Difflin doesn’t try to be that.</
 <ul>
 <li><strong>Real terminals.</strong> Every agent is a watchable CLI process — when something goes
 sideways, you read the actual session, not a log abstraction.</li>
-<li><strong>Voice orchestration.</strong> Flip on talk mode and Michael greets you already knowing every
+<li><strong>Voice orchestration.</strong> Flip on talk mode and Nitya greets you already knowing every
 agent’s status, steers work, changes settings from an allowlist, and waits for a spoken
 confirm word before anything destructive.</li>
 <li><strong>A built-in IDE.</strong> Monaco (the VS Code engine) one click over the floor: side-by-side
@@ -291,7 +291,7 @@ helps more people find it.</p>
         
         <div class="qa">
           <p class="q">Does qm have voice control, an IDE, or git visualization?</p>
-          <p class="a">Not as of this writing. qm&#39;s interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Michael with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update.</p>
+          <p class="a">Not as of this writing. qm&#39;s interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Nitya with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update.</p>
         </div>
         
         <div class="qa">
@@ -328,7 +328,7 @@ helps more people find it.</p>
 
   <footer class="post-foot wrap"><div class="prevnext">
       <a class="pn prev" href="/blog/command-center-guide/"><span class="k">← Older</span><span class="t">The Command Center: Kanban, Fleet, and Budgets in One Place</span></a>
-      <a class="pn next" href="/blog/launching-munder-difflin-v0-3-5/"><span class="k">Newer →</span><span class="t">Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself</span></a>
+      <a class="pn next" href="/blog/launching-munder-difflin-v0-3-5/"><span class="k">Newer →</span><span class="t">Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself</span></a>
     </div>
     <section class="related">
       <h2>Related in Comparisons</h2>

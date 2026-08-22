@@ -1,10 +1,10 @@
 /**
- * Realtime Michael — completion toast (card rt-12, Phase 2, the visual half of
+ * Realtime Nitya — completion toast (card rt-12, Phase 2, the visual half of
  * "respond when done").
  *
- * When voice-Michael dispatches work fire-and-notify, main detects completion (see
+ * When voice-Nitya dispatches work fire-and-notify, main detects completion (see
  * src/main/realtimeCompletionWatcher.ts) and — while a session is live — pushes the
- * event to the renderer over the `realtime:completion` channel. Michael SPEAKS it; this
+ * event to the renderer over the `realtime:completion` channel. Nitya SPEAKS it; this
  * component shows a brief matching TOAST so the human has a glanceable record (handy when
  * audio is missed or several finish at once).
  *
@@ -14,13 +14,13 @@
  * Mount it ONCE anywhere in the renderer tree (Kevin wires the one-line mount near the
  * voice UI); positioning is a fixed bottom-right overlay so it's layout-independent.
  *
- * Branch feat/realtime-michael. See board.md "🎙 REALTIME MICHAEL".
+ * Branch feat/realtime-nitya. See board.md "🎙 REALTIME NITYA".
  */
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
 
 /** Mirrors the `window.cth.onRealtimeCompletion` payload (preload). `summary` is the
- *  human-speakable line Michael relays; the rest is context for this toast. */
+ *  human-speakable line Nitya relays; the rest is context for this toast. */
 export interface RealtimeCompletionToastData {
   correlationId: string;
   kind: string;
@@ -122,7 +122,7 @@ export function CompletionToast(): JSX.Element | null {
               textTransform: 'uppercase'
             }}
           >
-            <Icon name="bell" /> Michael · completed
+            <Icon name="bell" /> Nitya · completed
             <button
               type="button"
               onClick={() => dismiss(t.key)}

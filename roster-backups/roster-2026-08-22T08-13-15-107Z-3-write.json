@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T08:09:41.751Z",
+  "agents": [
+    {
+      "id": "god",
+      "name": "Nitya",
+      "character": "nitya",
+      "accent": "lemon",
+      "description": "on standby",
+      "project": "hive",
+      "tmuxTarget": "",
+      "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
+      "status": "idle",
+      "action": "switching to OmniRoute…",
+      "progress": 0,
+      "currentStation": "desk",
+      "ptyId": "pty-god",
+      "command": "omniroute --model omniroute/auto --yolo",
+      "provider": "omniroute",
+      "model": "omniroute/auto",
+      "isGod": true
+    }
+  ],
+  "archived": [],
+  "restorable": [],
+  "queues": {},
+  "selectedId": "god"
+}

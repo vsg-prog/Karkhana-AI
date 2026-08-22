@@ -79,7 +79,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What is the Command Center in Munder Difflin?", "acceptedAnswer": { "@type": "Answer", "text": "It's Michael's control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization)." } },
+    { "@type": "Question", "name": "What is the Command Center in Munder Difflin?", "acceptedAnswer": { "@type": "Answer", "text": "It's Nitya's control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization)." } },
     { "@type": "Question", "name": "How does the task kanban work?", "acceptedAnswer": { "@type": "Answer", "text": "The Tasks tab is a dependency-aware kanban board. You assign tasks to agents and track them across todo, doing, blocked, and done. Because tasks can declare dependencies, downstream work waits until its prerequisites finish, so a chain of related tasks starts in the right order without you babysitting the handoffs." } },
     { "@type": "Question", "name": "How do per-agent budgets and cost tracking work?", "acceptedAnswer": { "@type": "Answer", "text": "You set a token budget per agent, and live fleet monitoring tracks consumption across the roster. Cost numbers are real, not estimates from vibes: the Activity tab reads the JSONL transcripts Claude Code writes and surfaces actual token counts plus estimated USD cost per agent per session, backed by a durable cost ledger that survives restarts. The budget pairs with a circuit breaker that steers, then constrains, then stops an agent that loops or blows its cap." } },
     { "@type": "Question", "name": "When should I watch the office floor versus the Command Center?", "acceptedAnswer": { "@type": "Answer", "text": "The floor is for ambient awareness and single-agent moments — seeing who's working, watching envelopes fly, dropping into one terminal. The Command Center is for management questions: what's queued and blocked, what each agent has spent, whether CI is green, and what fires next on the schedule. Roughly: floor for one agent right now, board for the whole fleet over time." } },
@@ -164,12 +164,12 @@
 <video controls preload="none" playsinline poster="/media/demo/features-poster.jpg" style="width:100%; border-radius:12px; margin:12px 0 24px;">
   <source src="/media/demo/features.mp4" type="video/mp4" />
 </video>
-<p>Munder Difflin has two ways of looking at the same hive. The <strong>office floor</strong> is the ambient view: avatars at desks, envelopes flying between them, speech bubbles when a tool fires. The <strong>Command Center</strong> is the management view — Michael’s control surface, the place you go when the question stops being “what is Dwight doing?” and becomes “what is <em>everyone</em> doing, what has it cost, and what’s next?”</p>
+<p>Munder Difflin has two ways of looking at the same hive. The <strong>office floor</strong> is the ambient view: avatars at desks, envelopes flying between them, speech bubbles when a tool fires. The <strong>Command Center</strong> is the management view — Nitya’s control surface, the place you go when the question stops being “what is Dwight doing?” and becomes “what is <em>everyone</em> doing, what has it cost, and what’s next?”</p>
 <p>This guide walks through what’s in it and how the pieces fit together.</p>
 <h2 id="whats-in-the-command-center" tabindex="-1">What’s in the Command Center <a class="anchor" href="#whats-in-the-command-center" aria-hidden="true">#</a></h2>
 <p>Six tabs, one control surface:</p>
 <ul>
-<li><strong>Terminal</strong> — Michael’s own terminal, the <a href="/blog/how-the-god-orchestrator-works/">GOD orchestrator</a> you talk to directly.</li>
+<li><strong>Terminal</strong> — Nitya’s own terminal, the <a href="/blog/how-the-god-orchestrator-works/">GOD orchestrator</a> you talk to directly.</li>
 <li><strong>Floor</strong> — the roster and dispatch controls: hire, dispatch work, pick a model per agent, and watch live fleet monitoring across everyone at once.</li>
 <li><strong>Memory</strong> — semantic search over the shared memory palace, plain text search, and a memory graph.</li>
 <li><strong>Activity</strong> — the append-only event log, the blackboard, real token telemetry, the observability view, and a CI watcher.</li>
@@ -180,7 +180,7 @@
 <h2 id="the-task-kanban-work-as-a-board-not-a-chat-log" tabindex="-1">The task kanban: work as a board, not a chat log <a class="anchor" href="#the-task-kanban-work-as-a-board-not-a-chat-log" aria-hidden="true">#</a></h2>
 <p>The Tasks tab is a <strong>dependency-aware kanban board</strong>. Tasks move across four columns — todo, doing, blocked, done — and each task is assigned to a specific agent.</p>
 <p>The load-bearing word is <em>dependency-aware</em>. Real work has ordering: the refactor has to land before the tests get updated; the schema migration comes before the endpoint. On the board you wire those dependencies explicitly, and downstream tasks wait until their prerequisites finish. You’re not the sequencer anymore — the board is.</p>
-<p>Work gets onto the board a few ways: you create tasks yourself, Michael creates and assigns them as he routes requests, and you can <strong>pull open GitHub issues from any registered repo</strong> (via the <code>gh</code> CLI) and assign them to agents with one click. Issue in, task tracked, agent dispatched — and when the work ships, the <strong>CI status watcher</strong> in the Activity tab shows live pass/fail/in-progress for the repo’s GitHub Actions runs. The loop closes in the same window it opened in.</p>
+<p>Work gets onto the board a few ways: you create tasks yourself, Nitya creates and assigns them as he routes requests, and you can <strong>pull open GitHub issues from any registered repo</strong> (via the <code>gh</code> CLI) and assign them to agents with one click. Issue in, task tracked, agent dispatched — and when the work ships, the <strong>CI status watcher</strong> in the Activity tab shows live pass/fail/in-progress for the repo’s GitHub Actions runs. The loop closes in the same window it opened in.</p>
 <figure class="fig fig-inline"><img src="/blog/assets/media/command-center-guide/note-1.png" alt="Hand-drawn sketch from “The Command Center: Kanban, Fleet, and Budgets in One Place”" loading="lazy" decoding="async" /></figure>
 <h2 id="fleet-status-the-roster-at-a-glance" tabindex="-1">Fleet status: the roster at a glance <a class="anchor" href="#fleet-status-the-roster-at-a-glance" aria-hidden="true">#</a></h2>
 <p>The Floor tab is where the fleet stops being a set of individual terminals and becomes a roster. Each agent card shows what that agent is up to, and the card’s progress bar doubles as a <strong>context-window gauge</strong> — a glanceable read on how much of the model’s context each agent has burned. An agent near the top of its gauge is an agent about to compact or slow down; you can see it coming instead of discovering it.</p>
@@ -210,7 +210,7 @@
         
         <div class="qa">
           <p class="q">What is the Command Center in Munder Difflin?</p>
-          <p class="a">It&#39;s Michael&#39;s control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization).</p>
+          <p class="a">It&#39;s Nitya&#39;s control surface — the management view of the whole hive. It has tabs for the orchestrator Terminal, the Floor (roster, dispatch, per-agent model selector, live fleet monitoring), Memory (semantic search plus a memory graph), Activity (event log, board, real token telemetry, observability, and a CI watcher), Tasks (a dependency-aware kanban board), and Triggers (everything that starts work without you — schedules with last/next-fired times, context, webhooks, and organization).</p>
         </div>
         
         <div class="qa">
@@ -308,7 +308,7 @@
       <span>5 min</span>
     </div>
     <h3><a href="/blog/how-to-talk-to-your-orchestrator/">How to Brief Your Orchestrator (So the Floor Actually Ships)</a></h3>
-    <p class="dek">A practical guide to briefing Munder Difflin&#39;s GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Michael staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.</p>
+    <p class="dek">A practical guide to briefing Munder Difflin&#39;s GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Nitya staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.</p>
     <div class="foot">
       <span class="tag kind">Guides</span>
       <a class="more" href="/blog/how-to-talk-to-your-orchestrator/" aria-label="Read: How to Brief Your Orchestrator (So the Floor Actually Ships)">Read →</a>

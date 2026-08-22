@@ -30,7 +30,7 @@
     "character": {
       "type": "string",
       "maxLength": 24,
-      "description": "Office cast sprite id (michael, jim, pam, dwight, kevin, angela, oscar, stanley, phyllis, andy, kelly, ryan, toby, creed, meredith). Unknown values fall back to the default sprite.",
+      "description": "Office cast sprite id (nitya, jim, pam, dwight, kevin, angela, oscar, stanley, phyllis, andy, kelly, ryan, toby, creed, meredith). Unknown values fall back to the default sprite.",
       "examples": ["pam", "dwight"]
     },
     "accent": {

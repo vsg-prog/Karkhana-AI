@@ -212,7 +212,7 @@ driving the CLI directly rather than wrapping the SDK: when the SDK’s billing 
 built on the SDK have to adapt — and the tools driving Claude Code don’t.</p>
 <h2 id="the-one-honest-exception-the-optional-enrich-assistant" tabindex="-1">The one honest exception: the optional enrich assistant <a class="anchor" href="#the-one-honest-exception-the-optional-enrich-assistant" aria-hidden="true">#</a></h2>
 <p>We’d rather be precise than reassuring, so here’s the caveat in full. Munder Difflin has <strong>one</strong> feature
-that uses <code>claude -p</code>: the optional <strong>enrich assistant</strong> (internally, Michael’s prep helper). It’s a
+that uses <code>claude -p</code>: the optional <strong>enrich assistant</strong> (internally, Nitya’s prep helper). It’s a
 one-shot, headless, <strong>read-only</strong> <code>claude -p</code> session that gathers repo context to sharpen a prompt before
 the real agents run. It is <strong>toggle-gated and off by default.</strong></p>
 <p>Because it uses print mode, that feature <em>does</em> draw from the new Agent SDK credit after June 15. But two

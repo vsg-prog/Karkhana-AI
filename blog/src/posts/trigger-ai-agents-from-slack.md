@@ -82,7 +82,7 @@ follow: authenticate at the edge, fail closed, and keep the verification cheap a
 
 Once a `message` event passes verification, the handler does something refreshingly boring: it strips a
 leading bot mention from the text and hands the clean string to the app, which drops it into
-**Michael's queue** — the orchestrator's inbox. From there it's just another task: the orchestrator
+**Nitya's queue** — the orchestrator's inbox. From there it's just another task: the orchestrator
 reads it, decides who should handle it, and dispatches, the same way it handles work that arrives
 through [the hive's normal message routing](/blog/coordinating-ai-coding-agents/).
 

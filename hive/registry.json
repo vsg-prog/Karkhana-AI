@@ -1,0 +1,18 @@
+{
+  "godId": "god",
+  "agents": {
+    "god": {
+      "id": "god",
+      "name": "Nitya",
+      "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
+      "provider": "omniroute",
+      "isGod": true,
+      "role": "orchestrator (god)",
+      "capabilities": [],
+      "status": "idle",
+      "cwdValid": true,
+      "archived": true,
+      "lastSeen": 1787386181611
+    }
+  }
+}

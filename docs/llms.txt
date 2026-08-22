@@ -5,7 +5,7 @@
 > OpenAI Codex, Antigravity (Gemini), GitHub Copilot CLI, xAI Grok, Kimi Code, Qwen, OpenCode,
 > Crush, and pi.dev into a coordinated "office" of agents on
 > your own computer — each agent a real CLI process in a real terminal, with shared
-> long-term memory, inter-agent messaging, your clone ("Michael") orchestrating, scheduled missions, Slack
+> long-term memory, inter-agent messaging, your clone ("Nitya") orchestrating, scheduled missions, Slack
 > and webhook triggers, realtime voice orchestration, a built-in Monaco IDE with git
 > history and branch compare, markdown previews, and auto-update. Current version: 0.4.4
 > (August 2026). Desktop app for macOS, Windows, and Linux. No vendor cloud; code never

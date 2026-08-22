@@ -14,7 +14,7 @@ coordinates a whole office of agents on your own machine.
 Wraps [Claude Code](https://claude.com/claude-code), Antigravity (Gemini), OpenAI Codex,
 **xAI Grok**, **Kimi Code**, **Qwen**, **OpenCode**, **Crush**, **pi.dev**, and
 **GitHub Copilot CLI** — with bring-your-own keys and local LLMs.
-Agents that message, route, and remember, coordinated by **your clone** (Michael) and
+Agents that message, route, and remember, coordinated by **your clone** (Nitya) and
 visualized as avatars at work on a shared office floor.
 
 <p>
@@ -50,7 +50,7 @@ visualized as avatars at work on a shared office floor.
 > Munder Difflin takes the terminal-agent CLIs you already run — `claude`, `agy`, `codex`, `grok`,
 > `kimi`, `qwen`, `opencode`, `crush`, `pi`, and `copilot` — and turns them
 > into a self-coordinating team: each agent gets long-term memory, a mailbox, and a desk on a 2D
-> office floor — and **your clone** (Michael) routes work between them while you watch. He's the
+> office floor — and **your clone** (Nitya) routes work between them while you watch. He's the
 > boss of the floor; you're still the boss of him.
 
 ## Contents
@@ -71,7 +71,7 @@ visualized as avatars at work on a shared office floor.
 ## What it is
 
 Munder Difflin is a desktop app that wraps **real terminal-agent CLIs** as fully-capable agents,
-wires them into a **hive mind**, and puts **your clone** in charge — Michael, the one agent *you*
+wires them into a **hive mind**, and puts **your clone** in charge — Nitya, the one agent *you*
 talk to in order to get things done. Under the hood it runs the **fastest memory layer in the
 world** so every agent remembers what it learns and recalls it instantly.
 
@@ -89,7 +89,7 @@ world** so every agent remembers what it learns and recalls it instantly.
 ```
             you ── talk to ──►  ┌─────────────┐
                                 │  GOD agent  │  orchestrator / supervisor
-                                │ (Michael's  │  roster · routing · adjudication
+                                │ (Nitya's  │  roster · routing · adjudication
                                 │   office)   │  blackboard · task ledger
                                 └──────┬──────┘
                                        │ assigns · routes · escalates
@@ -141,11 +141,11 @@ terminal/event plane, and [`DESIGN.md`](./DESIGN.md) for the visual system.
 - **Built-in Monaco IDE** — file tree, editor tabs, save, plus CHANGES · HISTORY · COMPARE git rails with commit graph, diffs, branch compare, and guarded checkout. All fs/git access brokered through main.
 
 **Getting work in and out**
-- **Slack & webhooks** — message a channel or POST a webhook; Michael can spawn an ephemeral worker, reply in-thread, and tear it down.
+- **Slack & webhooks** — message a channel or POST a webhook; Nitya can spawn an ephemeral worker, reply in-thread, and tear it down.
 - **Shareable hires + Agent Gallery** — import a role from a `munderdifflin://hire` link; import only pre-fills the form, a human still spawns it. Browse roles at the [Agent Gallery](https://munderdiffl.in/hires/).
 - **BYOK keys + local LLMs** — per-provider keys in a write-only secret broker, plus Ollama / LM Studio / vLLM base URLs. Guides: [open models](https://munderdiffl.in/blog/run-munder-difflin-on-open-models/) · [Mac Mini](https://munderdiffl.in/blog/run-munder-difflin-on-a-mac-mini/).
 - **Auto-update** — new releases download in the background; you click restart, and the notes arrive as a designed page rather than a version number.
-- **Prerequisites** — one Settings page showing which supporting tools (uv, git, Node, MemPalace, each agent CLI) you have, what each is for, and a button that asks Michael to install what is missing.
+- **Prerequisites** — one Settings page showing which supporting tools (uv, git, Node, MemPalace, each agent CLI) you have, what each is for, and a button that asks Nitya to install what is missing.
 
 > [!NOTE]
 > **Status: v0.4.4 — Windows agents can finally talk to each other.** On Windows, agents were
@@ -190,7 +190,7 @@ npm run dev        # launches the Electron app with hot reload
 ```
 
 On first launch you'll go through the onboarding wizard, then land on the floor. Use **Add agent** to
-spawn your first session — the GOD agent seats itself in Michael's office automatically.
+spawn your first session — the GOD agent seats itself in Nitya's office automatically.
 
 ### Other scripts
 
@@ -263,7 +263,7 @@ src/
     App.tsx                  top-level layout + wiring
     design/                  tokens.css / tokens.ts / global.css (design source of truth)
     components/              PixelPanel, AgentDetailPanel, CommandBar, ApprovalsPanel, MemoryPanel, …
-    CommandCenterPanel,      Michael's control surface (Terminal/Floor/Memory/Activity/Tasks/Triggers/Handbook tabs)
+    CommandCenterPanel,      Nitya's control surface (Terminal/Floor/Memory/Activity/Tasks/Triggers/Handbook tabs)
     ToolWaterfall,           per-agent tool-span waterfall for the observability view
     TasksKanban,             dependency-aware kanban board (Tasks tab)
     ThreadsPanel,            hive message conversation viewer (Messages tab)
@@ -298,7 +298,7 @@ Full history in [`CHANGELOG.md`](./CHANGELOG.md).
 
 Next up:
 
-- [ ] **More chat integrations** — Telegram and richer chat bridges that pipe a channel into Michael's queue and route replies back out.
+- [ ] **More chat integrations** — Telegram and richer chat bridges that pipe a channel into Nitya's queue and route replies back out.
 - [ ] **More engines & integration templates** — keep growing the engine roster and the integrations registry.
 - [ ] **Fuller avatar coverage** — drive the remaining station visits and tool-bubbles entirely from real hook events.
 - [ ] **Durable layout & command history** — extend persistence to agent layout and per-session history.

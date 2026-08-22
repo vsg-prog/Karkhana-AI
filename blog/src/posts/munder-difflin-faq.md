@@ -37,7 +37,7 @@ faq:
   - q: "Where do I download Munder Difflin?"
     a: "From the install section on munderdiffl.in, which links to the latest release. It's free, open source, and available for macOS, Windows, and Linux."
   - q: "Does Munder Difflin show how much each agent is costing me?"
-    a: "Yes, as of v0.1.6. The Activity tab in Michael's Command Center reads your local Claude Code transcript files and surfaces real token counts (input, output, cache) and estimated USD cost per agent. No external service — it reads the same files Claude Code already writes to your machine."
+    a: "Yes, as of v0.1.6. The Activity tab in Nitya's Command Center reads your local Claude Code transcript files and surfaces real token counts (input, output, cache) and estimated USD cost per agent. No external service — it reads the same files Claude Code already writes to your machine."
   - q: "Can agents work in parallel on the same repo without colliding?"
     a: "Yes. The Git isolation toggle in Add Agent auto-provisions a dedicated git worktree for each agent on spawn and tears it down on kill. Agents on the same repo work on separate branches, so there are no branch-switch collisions."
 ---

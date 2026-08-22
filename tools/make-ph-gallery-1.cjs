@@ -31,7 +31,7 @@ rect(0,0,W,H,GROUND);
 rect(0,BAND_TOP,W,DESK_Y,WALL);
 rect(0,BAND_TOP,W,BAND_TOP+26,WALL_HI);   // light falloff at the wall top
 
-const CAST = ['michael','jim','pam','dwight','kevin'];
+const CAST = ['nitya','jim','pam','dwight','kevin'];
 const gap = Math.floor((W - CAST.length*SW*SCALE) / (CAST.length+1));
 
 // bodies first, desk drawn over them

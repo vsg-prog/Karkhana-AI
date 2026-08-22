@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Munder Difflin brand mark — Michael's portrait on the brand yellow tile.
+ * Munder Difflin brand mark — Nitya's portrait on the brand yellow tile.
  *
  * THE SVG IS THE SOURCE OF TRUTH. docs/logo.svg is authored here as pure
  * vector — every sprite pixel is a run-merged <rect>, no fonts, no gradients,
@@ -64,7 +64,7 @@ const R_STROKE = 26 / 800;
 // The margined variant put a band of brand yellow between the tile edge and the
 // figure, and that gap is what made the sprite's outermost columns — the far
 // edge of the hair (rows 3-11) and the outer shoulder (rows 19-24), with the
-// face between them — read as two detached dark tabs rather than as Michael's
+// face between them — read as two detached dark tabs rather than as Nitya's
 // own silhouette. At Dock size they looked like the edges of other characters.
 //
 // Full bleed fixes it without touching a single sprite pixel: the figure meets
@@ -322,7 +322,7 @@ function buildIco(pngs) {
 }
 
 // ── run ───────────────────────────────────────────────────────────────────
-const grid = buildGrid(centreEyes(art.sceneFrameBufs('michael').front[0]));
+const grid = buildGrid(centreEyes(art.sceneFrameBufs('nitya').front[0]));
 const D = (p) => path.join(ROOT, p);
 const wrote = [];
 const write = (rel, buf) => {

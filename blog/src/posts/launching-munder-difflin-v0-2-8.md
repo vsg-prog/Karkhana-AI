@@ -30,7 +30,7 @@ faq:
 
 <div class="callout tldr"><span class="ic">TL;DR</span><p><strong>Munder Difflin v0.2.8</strong> ships <strong>Shareable Hires</strong>. A <strong>hire</strong> is a portable JSON manifest — a job description for an AI coworker (provider, model, flags, goal, capability tags, token budget) — that you can share as a <strong>link</strong> or a <strong>file</strong>. Click a hire, and the Add-Agent modal opens <em>pre-filled</em>. It never spawns anything on its own: <strong>you</strong> review every field and hit spawn. Plus <strong>The Hiring Fair</strong> at <a href="https://munderdiffl.in/hires">munderdiffl.in/hires</a> — a no-login gallery of ready-made roles (Pam writes docs, Dwight does QA, Creed audits security…). Browse → ⚡hire → review → spawn. Free, open source, local-first.</p></div>
 
-ok so picture this. you've got a whole floor of pixel coworkers — Claude Code agents, Antigravity (Gemini) workers, Codex CLIs — all run by Michael, the GOD orchestrator who routes work like a slightly unhinged regional manager. it's great. but here's the part nobody tells you about a fresh, empty office:
+ok so picture this. you've got a whole floor of pixel coworkers — Claude Code agents, Antigravity (Gemini) workers, Codex CLIs — all run by Nitya, the GOD orchestrator who routes work like a slightly unhinged regional manager. it's great. but here's the part nobody tells you about a fresh, empty office:
 
 **the first hire is the hard one.**
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate a Dunder Mifflin (The Office) styled office.tmj — iconic zones:
-Michael's corner office, conference room, the open bullpen with desk pods,
+Nitya's corner office, conference room, the open bullpen with desk pods,
 accounting nook, the annex, reception, kitchen/break area, warehouse corner.
 
 Furniture is composed by copying multi-tile "stamps" out of the original
@@ -119,10 +119,10 @@ def place(stamp, gx, gy):
     return None
 
 # ══ ROOMS ════════════════════════════════════════════════════════════════════
-# Michael's office (top-left). Interior cols 1-6 rows 3-7.
+# Nitya's office (top-left). Interior cols 1-6 rows 3-7.
 vwall(7, 3, 10, doors=(5,))
 hwall(8, 1, 7, doors=(5,))                       # south door into the floor
-michael = place(EXEC, 2, 4)                     # boss desk, faces room (down)
+nitya = place(EXEC, 2, 4)                     # boss desk, faces room (down)
 place(PLANT2, 1, 3)
 place(WINDOW, 2, 1)
 
@@ -190,7 +190,7 @@ def pt(name, tile):
             'width': 0, 'height': 0, 'rotation': 0, 'visible': True, 'point': True}
 
 SEATS = {
-    'desk-ceo': michael,
+    'desk-ceo': nitya,
     # bullpen grid — front row then back row, left → right
     'pc-1': grid[0], 'pc-2': grid[1], 'pc-3': grid[2],
     'pc-4': grid[3], 'pc-5': grid[4], 'pc-6': grid[5],

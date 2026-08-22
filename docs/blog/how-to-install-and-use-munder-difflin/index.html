@@ -83,7 +83,7 @@
     { "@type": "Question", "name": "Is Munder Difflin free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Munder Difflin is free and open source under the MIT license. Download a build for macOS, Windows, or Linux, or run it from source — and once installed, the app keeps itself up to date from GitHub releases, telling you what's in each update before you restart into it." } },
     { "@type": "Question", "name": "Do I need Claude Code to use Munder Difflin?", "acceptedAnswer": { "@type": "Answer", "text": "No — you need at least one supported engine, and Claude Code is the most popular of ten: Claude Code, Antigravity, Codex, Grok, Kimi, Qwen, OpenCode, Crush, pi, and GitHub Copilot CLI. Each agent runs a real CLI process; the harness adds memory, messaging, skills, and the orchestrator on top. Mixing engines on one floor is normal." } },
     { "@type": "Question", "name": "Does it work properly on Windows?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — and if you tried before v0.4.4, try again. That release fixed the bug that silently broke agent-to-agent messaging on Windows, made first runs start their own hive services, and rebuilt dark mode. Windows is a first-class platform now, OpenCode included." } },
-    { "@type": "Question", "name": "Can I leave it running for hours or days?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — that's the point. With auto mode on, agents run unattended and Michael routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you're away." } },
+    { "@type": "Question", "name": "Can I leave it running for hours or days?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — that's the point. With auto mode on, agents run unattended and Nitya routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you're away." } },
     { "@type": "Question", "name": "Is auto mode safe?", "acceptedAnswer": { "@type": "Answer", "text": "Auto mode spawns agents without per-tool permission prompts, so they don't pause for file edits or shell commands. It's the right default for the unattended control-room experience, but it's a foot-gun on production repos. Keep it on for sandboxed or disposable working copies; turn it off (or per agent) when you want to babysit." } }
     
   ]
@@ -164,7 +164,7 @@
 downloading a build (macOS, Windows, or Linux) or running from source with Node 18+. Onboarding
 opens on the real pitch — <strong>a clone of you, working 24/7</strong> — validates your setup at
 step one, and the <strong>Prerequisites</strong> page shows live status for every tool an engine
-needs. Then you talk to <strong>Michael</strong>, spin up agents on any of <strong>ten
+needs. Then you talk to <strong>Nitya</strong>, spin up agents on any of <strong>ten
 engines</strong> with a <strong>Goal</strong>, hand them <strong>skills</strong>, and let the hive
 work <strong>long-horizon tasks for hours or days</strong> while you watch the floor.</p></div>
 <p><em>Watch the 51-second setup walkthrough:</em>
@@ -176,7 +176,7 @@ investigation that needs to grind overnight. This is the start-to-finish guide, 
 <h2 id="what-munder-difflin-does-best" tabindex="-1">What Munder Difflin does best <a class="anchor" href="#what-munder-difflin-does-best" aria-hidden="true">#</a></h2>
 <p>Before the steps, the mental model — because it shapes how you’ll use it. Munder Difflin wraps the
 agent CLIs you already run as full agents, gives each <strong>long-term memory</strong> and a <strong>mailbox</strong>, and
-puts <strong>Michael</strong> in charge — a clone of you, the one agent <em>you</em> talk to. His card says <strong>BOSS</strong>:
+puts <strong>Nitya</strong> in charge — a clone of you, the one agent <em>you</em> talk to. His card says <strong>BOSS</strong>:
 he’s the boss of the agents, you’re still the boss of him. You describe intent; he routes work,
 lets agents message each other, and escalates only the critical calls to you.</p>
 <p>That design pays off most on <strong>long-horizon work</strong>. A single session loses steam (and context) on a
@@ -197,8 +197,8 @@ works without it — plain-markdown memory still functions.</li>
 <p>And here’s the v0.4.4 upgrade to this whole step: you don’t have to audit any of it by hand.
 <strong>Settings → Prerequisites</strong> shows live status for uv, git, Node, MemPalace and every engine —
 with real paths, the platform-correct install command for anything missing, and a button that
-asks Michael to fill the gaps for you.</p>
-<figure class="fig fig-inline"><img src="/blog/assets/media/how-to-install-and-use-munder-difflin/note-1.png" alt="Hand-drawn sketch from “How to Install and Use Munder Difflin”" loading="lazy" decoding="async" /><figcaption>The Prerequisites page does this checklist for you — live status, real paths, and Michael on standby to install what's missing.</figcaption></figure>
+asks Nitya to fill the gaps for you.</p>
+<figure class="fig fig-inline"><img src="/blog/assets/media/how-to-install-and-use-munder-difflin/note-1.png" alt="Hand-drawn sketch from “How to Install and Use Munder Difflin”" loading="lazy" decoding="async" /><figcaption>The Prerequisites page does this checklist for you — live status, real paths, and Nitya on standby to install what's missing.</figcaption></figure>
 <h2 id="step-2-install-it" tabindex="-1">Step 2: Install it <a class="anchor" href="#step-2-install-it" aria-hidden="true">#</a></h2>
 <p>There are two paths. Pick whichever fits you.</p>
 <h3 id="option-a-download-a-build-easiest" tabindex="-1">Option A — Download a build (easiest) <a class="anchor" href="#option-a-download-a-build-easiest" aria-hidden="true">#</a></h3>
@@ -244,7 +244,7 @@ to load after an Electron upgrade, re-run <code>npm install</code> to rebuild it
 <p>First launch opens on what the product actually is — <strong>a clone of you, working 24/7</strong> — then asks
 the few questions that matter:</p>
 <ol>
-<li><strong>Your clone’s engine.</strong> Michael runs on a pluggable engine; the card names all ten. Claude
+<li><strong>Your clone’s engine.</strong> Nitya runs on a pluggable engine; the card names all ten. Claude
 Code is the natural default, and you can change it later.</li>
 <li><strong>Harness home.</strong> A folder where the harness keeps its own files — agent metadata, memory,
 mailboxes, logs. <code>~/HarnessAgents</code> is a fine default. The wizard validates this immediately:
@@ -255,20 +255,20 @@ floor; multiple agents can share a repo. Optional, and you can add more later.</
 anonymous usage stats” toggle — opt-out, governed by a
 <a href="https://github.com/chaitanyagiri/munder-difflin/blob/main/TELEMETRY.md">public contract</a>.</li>
 </ol>
-<p>Finish the wizard and you land on the office floor. Michael boots into his office automatically —
+<p>Finish the wizard and you land on the office floor. Nitya boots into his office automatically —
 and everything the hive needs (message router, hook server, mission scheduler) starts with him,
 on the very first run.</p>
-<h2 id="step-4-meet-michael-your-clone" tabindex="-1">Step 4: Meet Michael, your clone <a class="anchor" href="#step-4-meet-michael-your-clone" aria-hidden="true">#</a></h2>
-<p>Michael runs the floor: he triages requests, assigns work, and escalates only the critical calls
+<h2 id="step-4-meet-nitya-your-clone" tabindex="-1">Step 4: Meet Nitya, your clone <a class="anchor" href="#step-4-meet-nitya-your-clone" aria-hidden="true">#</a></h2>
+<p>Nitya runs the floor: he triages requests, assigns work, and escalates only the critical calls
 to you. He’s the agent you talk to.</p>
-<p>To talk to any agent (Michael included), select them on the floor to open their panel, then use the
+<p>To talk to any agent (Nitya included), select them on the floor to open their panel, then use the
 <strong>command bar</strong> at the bottom — type a message and hit Enter. The bar has three modes:</p>
 <ul>
 <li><strong>free</strong> — plain natural-language instructions (the default).</li>
 <li><strong>/skill</strong> — invoke an installed skill or slash command.</li>
 <li><strong>quick</strong> — fast canned actions.</li>
 </ul>
-<p>Talking to Michael in plain language is how you steer the whole team: describe a goal, and he
+<p>Talking to Nitya in plain language is how you steer the whole team: describe a goal, and he
 decomposes and routes it. You manage, he delegates. He also listens — his voice mode opens with a
 live floor snapshot and can run nearly the whole app hands-free. (New to the idea? <a href="/blog/how-to-run-multiple-claude-code-agents/">How to run
 multiple Claude Code agents</a> covers why an
@@ -286,7 +286,7 @@ mistake is cheap to undo.</li>
 a sensitive repo and approve each tool call.</li>
 </ul>
 <p>Either way, Munder Difflin keeps a <strong>human-in-the-loop approvals queue</strong>: even in auto mode,
-Michael escalates genuinely critical actions (spending real money, destructive operations, big
+Nitya escalates genuinely critical actions (spending real money, destructive operations, big
 scope changes) for your sign-off, so unattended doesn’t mean unsupervised.</p>
 <h2 id="step-6-spin-up-your-first-agent" tabindex="-1">Step 6: Spin up your first agent <a class="anchor" href="#step-6-spin-up-your-first-agent" aria-hidden="true">#</a></h2>
 <p>Click <strong>Add agent</strong> to open the spawn dialog. The fields:</p>
@@ -319,34 +319,34 @@ covers when skills beat tools.)</p>
 keeps orienting toward the same directive even as the conversation turns over. Write it like a
 brief: <em>“Migrate the test suite from Mocha to Vitest, one directory at a time, keeping CI green
 after each.”</em></li>
-<li><strong>Let Michael route the rest.</strong> Tell him the high-level objective and let him assign sub-tasks.
+<li><strong>Let Nitya route the rest.</strong> Tell him the high-level objective and let him assign sub-tasks.
 You describe the <em>what</em>; the hive figures out the <em>who</em> and <em>when</em>.</li>
 <li><strong>Scope each agent and let them coordinate.</strong> Clear roles, handoffs through mailboxes, and
 shared <a href="/blog/give-claude-code-long-term-memory/">long-term memory</a> so what one agent learns,
 the next inherits.</li>
 <li><strong>Walk away.</strong> With auto mode on, the team keeps going unattended. Check the approvals queue
-when you’re back; Michael only interrupts you for the critical calls.</li>
+when you’re back; Nitya only interrupts you for the critical calls.</li>
 </ol>
 <p>This is the <a href="/blog/run-an-office-of-ai-agents/">run-an-office-while-you-sleep</a> workflow, and the
 practical guardrails are in <a href="/blog/claude-code-automation-while-you-sleep/">Claude Code automation while you
 sleep</a>. Be honest about scope — bounded,
 well-specified jobs go best.</p>
-<h2 id="step-9-use-michaels-command-center" tabindex="-1">Step 9: Use Michael’s Command Center <a class="anchor" href="#step-9-use-michaels-command-center" aria-hidden="true">#</a></h2>
-<p>Select Michael on the floor and open his panel — a control surface, not a plain terminal:</p>
+<h2 id="step-9-use-nityas-command-center" tabindex="-1">Step 9: Use Nitya’s Command Center <a class="anchor" href="#step-9-use-nityas-command-center" aria-hidden="true">#</a></h2>
+<p>Select Nitya on the floor and open his panel — a control surface, not a plain terminal:</p>
 <ul>
-<li><strong>Terminal</strong> — Michael’s live session, plus a message queue so you can park tasks while he works.</li>
+<li><strong>Terminal</strong> — Nitya’s live session, plus a message queue so you can park tasks while he works.</li>
 <li><strong>Floor</strong> — the full agent roster with per-agent model selectors, a dispatch box, and your
 registered repos. The <strong>Enrich</strong> toggle routes queued messages through a background prep
-assistant who gathers context before Michael sees them.</li>
+assistant who gathers context before Nitya sees them.</li>
 <li><strong>Memory</strong> — MemPalace semantic search plus full-text search across all hive files, and a
 memory graph.</li>
 <li><strong>Activity</strong> — live event log, the shared board, and real token + cost telemetry per agent.</li>
-<li><strong>Tasks</strong> — a dependency-aware kanban board Michael and his team track status on.</li>
+<li><strong>Tasks</strong> — a dependency-aware kanban board Nitya and his team track status on.</li>
 <li><strong>Triggers</strong> — every way the office wakes itself: recurring missions with a label, interval,
 and directive body, dispatched to the target agent automatically.</li>
 </ul>
 <p>For long-running floors, Triggers is the most powerful tab: a “30-minute floor check” mission
-pointed at Michael — <em>“Are all agents making progress? Re-engage anyone idle.”</em> — keeps the team
+pointed at Nitya — <em>“Are all agents making progress? Re-engage anyone idle.”</em> — keeps the team
 moving even when you’re away.</p>
 <h2 id="tips-for-best-results" tabindex="-1">Tips for best results <a class="anchor" href="#tips-for-best-results" aria-hidden="true">#</a></h2>
 <ul>
@@ -406,7 +406,7 @@ big task.</p>
         
         <div class="qa">
           <p class="q">Can I leave it running for hours or days?</p>
-          <p class="a">Yes — that&#39;s the point. With auto mode on, agents run unattended and Michael routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you&#39;re away.</p>
+          <p class="a">Yes — that&#39;s the point. With auto mode on, agents run unattended and Nitya routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you&#39;re away.</p>
         </div>
         
         <div class="qa">
@@ -430,7 +430,7 @@ big task.</p>
     <aside class="toc-rail" aria-label="Table of contents">
       <div class="tt">On this page</div>
       <ol>
-        <li class="lvl-2"><a href="#what-munder-difflin-does-best">What Munder Difflin does best</a></li><li class="lvl-2"><a href="#step-1-what-youll-need">Step 1: What you’ll need</a></li><li class="lvl-2"><a href="#step-2-install-it">Step 2: Install it</a></li><li class="lvl-3"><a href="#option-a-download-a-build-easiest">Option A — Download a build (easiest)</a></li><li class="lvl-3"><a href="#option-b-build-from-source-two-commands">Option B — Build from source (two commands)</a></li><li class="lvl-2"><a href="#step-3-first-launch-the-onboarding-wizard">Step 3: First launch — the onboarding wizard</a></li><li class="lvl-2"><a href="#step-4-meet-michael-your-clone">Step 4: Meet Michael, your clone</a></li><li class="lvl-2"><a href="#step-5-understand-auto-mode">Step 5: Understand auto mode</a></li><li class="lvl-2"><a href="#step-6-spin-up-your-first-agent">Step 6: Spin up your first agent</a></li><li class="lvl-2"><a href="#step-7-give-your-agents-skills">Step 7: Give your agents skills</a></li><li class="lvl-2"><a href="#step-8-run-an-ambitious-long-horizon-task">Step 8: Run an ambitious, long-horizon task</a></li><li class="lvl-2"><a href="#step-9-use-michaels-command-center">Step 9: Use Michael’s Command Center</a></li><li class="lvl-2"><a href="#tips-for-best-results">Tips for best results</a></li><li class="lvl-2"><a href="#troubleshooting">Troubleshooting</a></li><li class="lvl-2"><a href="#where-to-go-next">Where to go next</a></li>
+        <li class="lvl-2"><a href="#what-munder-difflin-does-best">What Munder Difflin does best</a></li><li class="lvl-2"><a href="#step-1-what-youll-need">Step 1: What you’ll need</a></li><li class="lvl-2"><a href="#step-2-install-it">Step 2: Install it</a></li><li class="lvl-3"><a href="#option-a-download-a-build-easiest">Option A — Download a build (easiest)</a></li><li class="lvl-3"><a href="#option-b-build-from-source-two-commands">Option B — Build from source (two commands)</a></li><li class="lvl-2"><a href="#step-3-first-launch-the-onboarding-wizard">Step 3: First launch — the onboarding wizard</a></li><li class="lvl-2"><a href="#step-4-meet-nitya-your-clone">Step 4: Meet Nitya, your clone</a></li><li class="lvl-2"><a href="#step-5-understand-auto-mode">Step 5: Understand auto mode</a></li><li class="lvl-2"><a href="#step-6-spin-up-your-first-agent">Step 6: Spin up your first agent</a></li><li class="lvl-2"><a href="#step-7-give-your-agents-skills">Step 7: Give your agents skills</a></li><li class="lvl-2"><a href="#step-8-run-an-ambitious-long-horizon-task">Step 8: Run an ambitious, long-horizon task</a></li><li class="lvl-2"><a href="#step-9-use-nityas-command-center">Step 9: Use Nitya’s Command Center</a></li><li class="lvl-2"><a href="#tips-for-best-results">Tips for best results</a></li><li class="lvl-2"><a href="#troubleshooting">Troubleshooting</a></li><li class="lvl-2"><a href="#where-to-go-next">Where to go next</a></li>
       </ol>
     </aside>
     

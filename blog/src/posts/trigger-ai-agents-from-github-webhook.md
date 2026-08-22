@@ -40,7 +40,7 @@ can speak HTTP.
 The contract is small and worth stating exactly, because everything downstream depends on it.
 
 - **`POST`** to the endpoint with an `x-md-webhook-secret: <your-secret>` header and a JSON body of
-  `{ message, title? }`. On success the message is routed to god/Michael, a stamped kanban card is created,
+  `{ message, title? }`. On success the message is routed to god/Nitya, a stamped kanban card is created,
   and you get back `{ ok: true, token, taskId }`.
 - **`GET`** the endpoint with `x-md-webhook-token: <token>` (or `?token=<token>`) and you get back
   `{ ok, status, title, result }` — **only** for that one token's task.
@@ -144,7 +144,7 @@ one, so a probe can't tell "valid but unknown" from "wrong shape."
 ## What the hive does with it
 
 Once a POST passes the secret check, the handler hands `{ message, title }` to the app, which **routes the
-message to god/Michael** — the orchestrator's inbox — and **files a stamped kanban card**. From there it's
+message to god/Nitya** — the orchestrator's inbox — and **files a stamped kanban card**. From there it's
 just another task: the orchestrator reads it, decides who should handle it, and dispatches to the right agent,
 exactly like work that arrives through [the hive's normal message
 routing](/blog/coordinating-ai-coding-agents/). A reviewer agent might read the PR; a writer might draft the

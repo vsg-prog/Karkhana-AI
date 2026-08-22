@@ -81,9 +81,9 @@ inventing busywork. You're not setting a duration — you're filling a queue and
 it.
 
 v0.1.6 adds **scheduled missions** — the harness itself dispatches recurring directives to any agent on
-a timer you set. A 30-minute floor-check mission pointing at Michael (body: 'Are all agents making
+a timer you set. A 30-minute floor-check mission pointing at Nitya (body: 'Are all agents making
 progress? Re-engage anyone idle.') turns the orchestrator into a self-healing system: even if the floor
-goes quiet, Michael wakes up, reads the hive state, and re-engages stuck agents without you touching
+goes quiet, Nitya wakes up, reads the hive state, and re-engages stuck agents without you touching
 anything.
 
 ## Ingredient 3 — Guardrails (the part that makes it safe)

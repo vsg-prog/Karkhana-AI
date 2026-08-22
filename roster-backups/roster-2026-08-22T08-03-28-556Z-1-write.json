@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T08:03:24.268Z",
+  "agents": [
+    {
+      "id": "god",
+      "name": "Nitya",
+      "character": "nitya",
+      "accent": "lemon",
+      "description": "god — runs the floor, triages requests, escalates only critical calls to you",
+      "project": "hive",
+      "tmuxTarget": "",
+      "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
+      "status": "idle",
+      "action": "running the floor",
+      "progress": 0,
+      "currentStation": "desk",
+      "ptyId": "pty-god",
+      "command": "qwen --model qwen3-coder-plus --yolo",
+      "provider": "qwen",
+      "model": "qwen3-coder-plus",
+      "isGod": true
+    }
+  ],
+  "archived": [],
+  "restorable": [],
+  "queues": {},
+  "selectedId": "god"
+}

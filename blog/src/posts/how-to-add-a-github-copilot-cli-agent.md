@@ -34,7 +34,7 @@ This guide walks the whole path: install, hire, model choice, what auto-mode cha
 
 ## Step 0: have the floor running
 
-You need Munder Difflin itself first — if you don't, [the install guide](/blog/how-to-install-and-use-munder-difflin/) covers it in a few minutes. Everything below assumes you're looking at the office floor with Michael seated in his office.
+You need Munder Difflin itself first — if you don't, [the install guide](/blog/how-to-install-and-use-munder-difflin/) covers it in a few minutes. Everything below assumes you're looking at the office floor with Nitya seated in his office.
 
 ## Step 1: install Copilot CLI (or don't — the harness will offer)
 
@@ -60,7 +60,7 @@ Here's the whole hire flow in nineteen seconds:
   <source src="/media/demo/agents.mp4" type="video/mp4" />
 </video>
 
-Copilot hires also work through voice — Realtime Michael's `spawn` action can hire one — and if you paste a raw `copilot ...` command into the custom-command field, the harness infers the binary and treats it as a Copilot engine.
+Copilot hires also work through voice — Realtime Nitya's `spawn` action can hire one — and if you paste a raw `copilot ...` command into the custom-command field, the harness infers the binary and treats it as a Copilot engine.
 
 ## Step 3: choose a model
 
@@ -90,7 +90,7 @@ Session continuity is handled with `--resume` (best-effort): print mode exits af
 
 This is the part worth reading twice. Print mode **exits per turn and exposes no hook bridge**, which means a Copilot worker can't do the thing hive-aware engines do: sit idle, notice mail in its inbox, and drain it. The engine is registered as non-hive-aware (`canReceiveInbox: false`) on purpose.
 
-So what happens when another agent routes a message to your Copilot worker? It **bounces to the GOD orchestrator** instead of silently dropping. Michael sees the bounced mail and handles or re-routes it — the message survives, it just doesn't land in a mailbox nobody is checking. (If you're new to how Michael adjudicates traffic, [the GOD orchestrator post](/blog/how-the-god-orchestrator-works/) explains the routing model.)
+So what happens when another agent routes a message to your Copilot worker? It **bounces to the GOD orchestrator** instead of silently dropping. Nitya sees the bounced mail and handles or re-routes it — the message survives, it just doesn't land in a mailbox nobody is checking. (If you're new to how Nitya adjudicates traffic, [the GOD orchestrator post](/blog/how-the-god-orchestrator-works/) explains the routing model.)
 
 The practical rule: **use Copilot workers for dispatched, self-contained tasks.** "Take this issue, fix it, report back" is their sweet spot. Long-running conversational back-and-forth between agents is not — hand that to a hive-aware engine. Shipping the limitation honestly, with a bounce path instead of a black hole, was a deliberate design call in PR #101, and it's the right one.
 

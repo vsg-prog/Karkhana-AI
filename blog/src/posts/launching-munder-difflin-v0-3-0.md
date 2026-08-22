@@ -1,6 +1,6 @@
 ---
 title: "Launching Munder Difflin v0.3.0: Selectable Engines, Integrations & Slack-Spawned Workers"
-description: "Munder Difflin v0.3.0 makes every hire — and Michael himself — a pluggable engine, adds an integrations registry with a write-only secret broker, and lets the god orchestrator spawn an ephemeral worker straight from Slack."
+description: "Munder Difflin v0.3.0 makes every hire — and Nitya himself — a pluggable engine, adds an integrations registry with a write-only secret broker, and lets the god orchestrator spawn an ephemeral worker straight from Slack."
 date: 2026-06-21
 category: story
 categoryLabel: Story
@@ -13,22 +13,22 @@ author:
   initials: CG
 faq:
   - q: "What's new in Munder Difflin v0.3.0?"
-    a: "The floor stops being Claude-shaped. Three big things: selectable agent engines (every hire — and Michael, the god orchestrator — runs on a pluggable engine: Claude Code, Antigravity, Codex, or a local provider), each carrying its own consented skills + MCP catalog; an integrations registry with a loopback secret broker that keeps secrets write-only; and a god-triggered ephemeral Slack worker loop where Michael spawns an isolated worker straight from a Slack message, replies in-thread, and tears it down safely. Plus temporal date-range skills, a worker capability catalog, a visual Provider/Hive picker, the Agent Gallery (the rebranded Hiring Fair) with six off-the-shelf hires, feature-aware onboarding, and wake-reliability hardening."
+    a: "The floor stops being Claude-shaped. Three big things: selectable agent engines (every hire — and Nitya, the god orchestrator — runs on a pluggable engine: Claude Code, Antigravity, Codex, or a local provider), each carrying its own consented skills + MCP catalog; an integrations registry with a loopback secret broker that keeps secrets write-only; and a god-triggered ephemeral Slack worker loop where Nitya spawns an isolated worker straight from a Slack message, replies in-thread, and tears it down safely. Plus temporal date-range skills, a worker capability catalog, a visual Provider/Hive picker, the Agent Gallery (the rebranded Hiring Fair) with six off-the-shelf hires, feature-aware onboarding, and wake-reliability hardening."
   - q: "What does 'selectable agent engines' mean?"
-    a: "Until now the runtime behind an agent was effectively fixed. In v0.3.0 the engine is pluggable per hire: you choose Claude Code, Antigravity, OpenAI Codex, or a local provider (a claw/qwen backend proxy) from a visual picker. Even Michael — the god orchestrator you talk to — is swappable, with an engine picker in onboarding and a change-engine flow. Each hire also carries a manifest of allowed skills + MCP servers, surfaced through a consent UI before anything can use them."
+    a: "Until now the runtime behind an agent was effectively fixed. In v0.3.0 the engine is pluggable per hire: you choose Claude Code, Antigravity, OpenAI Codex, or a local provider (a claw/qwen backend proxy) from a visual picker. Even Nitya — the god orchestrator you talk to — is swappable, with an engine picker in onboarding and a change-engine flow. Each hire also carries a manifest of allowed skills + MCP servers, surfaced through a consent UI before anything can use them."
   - q: "How does the integrations registry keep my secrets safe?"
     a: "Secrets are write-only. You set a credential once through a registry-driven Settings form, and it's reached only through a loopback secret broker — it's never read back into the renderer. The connectivity-test path is confined so it can't be turned into a secret-exfiltration or SSRF primitive. v0.3.0 ships a first wave of declarative integration templates."
-  - q: "Michael can spawn a worker from Slack — is that safe?"
-    a: "Yes, and safety is the point. Michael spawns an isolated, ephemeral worker in response to a Slack request; the worker does the job, posts its reply back into the thread, and is then torn down. Teardown is gated so it never auto-discards a worker's unintegrated work, every worker runs under a token cap, and abandoned worktrees are garbage-collected. Live workers show up in a new Workers tab."
+  - q: "Nitya can spawn a worker from Slack — is that safe?"
+    a: "Yes, and safety is the point. Nitya spawns an isolated, ephemeral worker in response to a Slack request; the worker does the job, posts its reply back into the thread, and is then torn down. Teardown is gated so it never auto-discards a worker's unintegrated work, every worker runs under a token cap, and abandoned worktrees are garbage-collected. Live workers show up in a new Workers tab."
   - q: "Does v0.3.0 still include shareable hires and the gallery?"
     a: "Yes. Everything from v0.2.8 — shareable hires and the community gallery — is included. The Hiring Fair is rebranded the Agent Gallery and now ships six off-the-shelf hires, with a visual Provider/Hive picker in onboarding and add-agent. Import still only pre-fills the Add-Agent modal; the human always clicks spawn."
   - q: "Do I still get everything from v0.2.7 and earlier?"
     a: "Yes. v0.3.0 is additive. Free Flow voice dictation, the enterprise Knowledge Graph, multi-window floors, the rich composer, agent session resume, observability, the circuit breaker, durable persistence, the Command Center, task kanban, GitHub/CI integration, and the Schedules tab all remain functional and shipping."
 ---
 
-<div class="callout tldr"><span class="ic">TL;DR</span><p><strong>Munder Difflin v0.3.0</strong> makes the floor <strong>engine-agnostic</strong>. Every hire — and Michael himself — runs on a <strong>pluggable engine</strong> (Claude Code, Antigravity, Codex, or a local provider), each with its own consented <strong>skills + MCP catalog</strong>. A new <strong>integrations registry</strong> connects your tools behind a <strong>write-only secret broker</strong>. And Michael can now <strong>spawn an ephemeral worker straight from Slack</strong> — reply, then tear it down safely (worktree GC + token caps), all visible in a new <strong>Workers tab</strong>. Plus <strong>temporal date-range skills</strong>, a <strong>worker capability catalog</strong>, a visual <strong>Provider/Hive picker</strong>, and the <strong>Agent Gallery</strong> with six off-the-shelf hires. Free, open source, local-first.</p></div>
+<div class="callout tldr"><span class="ic">TL;DR</span><p><strong>Munder Difflin v0.3.0</strong> makes the floor <strong>engine-agnostic</strong>. Every hire — and Nitya himself — runs on a <strong>pluggable engine</strong> (Claude Code, Antigravity, Codex, or a local provider), each with its own consented <strong>skills + MCP catalog</strong>. A new <strong>integrations registry</strong> connects your tools behind a <strong>write-only secret broker</strong>. And Nitya can now <strong>spawn an ephemeral worker straight from Slack</strong> — reply, then tear it down safely (worktree GC + token caps), all visible in a new <strong>Workers tab</strong>. Plus <strong>temporal date-range skills</strong>, a <strong>worker capability catalog</strong>, a visual <strong>Provider/Hive picker</strong>, and the <strong>Agent Gallery</strong> with six off-the-shelf hires. Free, open source, local-first.</p></div>
 
-for a while now the floor has had a not-so-secret default. Michael — the GOD orchestrator who routes work like a slightly unhinged regional manager — and most of his coworkers were, deep down, *Claude-shaped*. you could bring Antigravity and Codex to the party (and they were first-class), but the orchestrator at the center of it all was wired to one CLI. the team was multi-provider; the brain wasn't.
+for a while now the floor has had a not-so-secret default. Nitya — the GOD orchestrator who routes work like a slightly unhinged regional manager — and most of his coworkers were, deep down, *Claude-shaped*. you could bring Antigravity and Codex to the party (and they were first-class), but the orchestrator at the center of it all was wired to one CLI. the team was multi-provider; the brain wasn't.
 
 **v0.3.0 fixes that.** this is the biggest platform release we've shipped — the version where the floor stops assuming what runs it.
 
@@ -41,7 +41,7 @@ the headline is **selectable agent engines**. the runtime behind each agent is n
 - 🟢 **OpenAI Codex**
 - 🖥️ a **local provider** — a claw/qwen backend proxy, for when you want a model running on your own machine
 
-and crucially: **Michael is swappable too.** the god orchestrator is no longer hard-wired. there's an engine picker right in onboarding, and a change-engine flow so you can re-home the orchestrator onto a different engine without tearing down the whole office. don't love the brain running your floor? change it. it's a setting now, not a rebuild.
+and crucially: **Nitya is swappable too.** the god orchestrator is no longer hard-wired. there's an engine picker right in onboarding, and a change-engine flow so you can re-home the orchestrator onto a different engine without tearing down the whole office. don't love the brain running your floor? change it. it's a setting now, not a rebuild.
 
 ### every hire brings its own skills + MCP — with a consent step
 
@@ -65,9 +65,9 @@ so the UI can let you configure an integration without the secret ever round-tri
 
 ## Slack → spawn → reply → safe teardown
 
-the third headline is the one that feels like magic the first time: **Michael can spawn a worker straight from Slack.**
+the third headline is the one that feels like magic the first time: **Nitya can spawn a worker straight from Slack.**
 
-here's the loop. a request lands in Slack. Michael spins up an **isolated, ephemeral worker** to handle it. the worker does the job and **posts its reply back into the thread itself**. then — and this is the whole trick — it gets **torn down safely**.
+here's the loop. a request lands in Slack. Nitya spins up an **isolated, ephemeral worker** to handle it. the worker does the job and **posts its reply back into the thread itself**. then — and this is the whole trick — it gets **torn down safely**.
 
 "safely" is doing real work in that sentence:
 
@@ -115,10 +115,10 @@ the floor you already love — now engine-agnostic, with a front door for your t
 
 Munder Difflin is **free, open source, and local-first** on macOS, Windows, and Linux. no account, no cloud — your machine, your subscriptions, your floor.
 
-[**Download v0.3.0**](https://github.com/chaitanyagiri/munder-difflin/releases/latest), then pick an engine for your first hire, browse the [**Agent Gallery**](https://munderdiffl.in/hires), and — if you're feeling brave — point a Slack channel at Michael and watch him spawn a worker, answer, and tidy up after himself.
+[**Download v0.3.0**](https://github.com/chaitanyagiri/munder-difflin/releases/latest), then pick an engine for your first hire, browse the [**Agent Gallery**](https://munderdiffl.in/hires), and — if you're feeling brave — point a Slack channel at Nitya and watch him spawn a worker, answer, and tidy up after himself.
 
 curious how the orchestrator decides any of this? read [how the god orchestrator works](/blog/how-the-god-orchestrator-works/). want the local-first philosophy? that's [why local-first matters](/blog/why-local-first-matters-for-ai-agents/). missed the last launch? [v0.2.8 shareable hires is right here](/blog/launching-munder-difflin-v0-2-8/).
 
 full release notes live in the [CHANGELOG](https://github.com/chaitanyagiri/munder-difflin/blob/main/CHANGELOG.md).
 
-that's it. go pick a brain, plug in a tool, and let Michael run the floor. (he'd like you to know the engine is now *his* choice too.)
+that's it. go pick a brain, plug in a tool, and let Nitya run the floor. (he'd like you to know the engine is now *his* choice too.)

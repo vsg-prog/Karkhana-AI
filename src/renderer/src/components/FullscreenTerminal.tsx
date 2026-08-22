@@ -10,7 +10,7 @@ import { CommandCenterPanel } from './CommandCenterPanel';
 import { Icon } from './Icon';
 import { SpritePortrait } from './SpritePortrait';
 import { PORTRAIT_W } from '@/scene/office/portraitArt';
-import { RealtimeMichaelToggle } from './RealtimeMichaelToggle';
+import { RealtimeNityaToggle } from './RealtimeNityaToggle';
 import { CostHud } from '@/realtime/CostHud';
 import { useStore, type Agent } from '@/store/store';
 import { usePtyParser } from '@/hooks/usePtyParser';
@@ -528,7 +528,7 @@ export function FullscreenTerminal({ config }: FullscreenTerminalProps) {
           padding: 12, gap: 10
         }}>
           {agent.isGod ? (
-            // Michael runs the floor from the command center — its tabs (tasks,
+            // Nitya runs the floor from the command center — its tabs (tasks,
             // ask me, triggers, memory, graph…) are the whole point of selecting
             // him, and fullscreen used to drop them for a bare terminal.
             // Column so the panel's `height: 100%` resolves against a definite
@@ -892,7 +892,7 @@ function Header({ agent }: { agent: Agent }) {
 
   /** Kill + archive, mirroring AgentDetailPanel. Confirmed, because it ends a
    *  running process. God is exempt: the floor respawns it immediately, so the
-   *  button would read as "restart Michael" while looking like "close". */
+   *  button would read as "restart Nitya" while looking like "close". */
   const onKill = async () => {
     if (!agent.ptyId) return;
     if (!confirm(`Close ${agent.name}? The PTY process will terminate and the agent is archived (kept in history, off the floor).`)) return;
@@ -933,11 +933,11 @@ function Header({ agent }: { agent: Agent }) {
             <Icon name="code" /> IDE
           </span>
         </PixelButton>
-        {/* Voice toggle is ALWAYS reachable in fullscreen — it controls Michael (the
+        {/* Voice toggle is ALWAYS reachable in fullscreen — it controls Nitya (the
             god orchestrator) globally, not the agent in view, so users can start a
             voice session even while a worker's terminal fills the screen. The cost
-            HUD stays Michael-only (it belongs to his card). */}
-        <RealtimeMichaelToggle />
+            HUD stays Nitya-only (it belongs to his card). */}
+        <RealtimeNityaToggle />
         {agent.isGod && <CostHud compact />}
         <PixelButton variant="secondary" size="sm" onClick={openTerminal} disabled={openState === 'opening'}>
           <span

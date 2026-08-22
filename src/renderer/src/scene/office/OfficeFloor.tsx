@@ -93,11 +93,11 @@ const ERRAND_THOUGHTS: Record<ErrandKind, readonly string[]> = {
 /** What workers blurt out when the boss walks by — performative excellence.
  *  `{done}` is replaced with that worker's REAL done-task count. */
 const SUCK_UP_LINES = [
-  'already shipped {done} tasks, Michael. raise? 🥺',
+  'already shipped {done} tasks, Nitya. raise? 🥺',
   '{done} tasks done this week, boss!',
   'great vision as always, boss!',
   'I was JUST about to do exactly that!',
-  'love the tie today, Michael',
+  'love the tie today, Nitya',
   'working hard, boss! 💪',
   'best boss ever. genuinely.'
 ] as const;
@@ -155,6 +155,190 @@ function firstWords(prompt: string | undefined, maxWords = 6, maxChars = 42): st
   else if (truncatedWords) out += '…';
   return out;
 }
+
+
+function createRangoliGraphic(x: number, y: number, variant: number, tileSize: number): Graphics {
+  const rangoliG = new Graphics();
+  rangoliG.position.set(x, y);
+  rangoliG.zIndex = 1 * tileSize;
+
+  if (variant === 0) {
+    // Bullpen Entrance: Crimson & Saffron Lotus Mandala
+    for (let i = 0; i < 16; i++) {
+      const angle = (i * Math.PI) / 8;
+      rangoliG.circle(Math.cos(angle) * 32, Math.sin(angle) * 32, 1.5).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 28).fill(0xd32f2f);
+    rangoliG.circle(0, 0, 26).fill(0xff6f00);
+    rangoliG.circle(0, 0, 24).fill(0xffb300);
+
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * Math.PI) / 6;
+      const p1x = Math.cos(angle) * 24;
+      const p1y = Math.sin(angle) * 24;
+      const p2x = Math.cos(angle + 0.25) * 16;
+      const p2y = Math.sin(angle + 0.25) * 16;
+      const p3x = Math.cos(angle - 0.25) * 16;
+      const p3y = Math.sin(angle - 0.25) * 16;
+      const color = i % 4 === 0 ? 0xe65100 : i % 4 === 1 ? 0xffd54f : i % 4 === 2 ? 0xc62828 : 0xffffff;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+    }
+    rangoliG.circle(0, 0, 16).fill(0x00838f);
+    rangoliG.circle(0, 0, 14).fill(0x00acc1);
+    rangoliG.circle(0, 0, 12).fill(0xff8f00);
+
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI) / 4;
+      const p1x = Math.cos(angle) * 12;
+      const p1y = Math.sin(angle) * 12;
+      const p2x = Math.cos(angle + 0.3) * 6;
+      const p2y = Math.sin(angle + 0.3) * 6;
+      const p3x = Math.cos(angle - 0.3) * 6;
+      const p3y = Math.sin(angle - 0.3) * 6;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffeb3b : 0xff3d00);
+    }
+
+    rangoliG.circle(0, 0, 6).fill(0xbf360c);
+    rangoliG.circle(0, 0, 4.5).fill(0xffd700);
+    rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);
+    rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600);
+    rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);
+  } else if (variant === 1) {
+    // Nitya's Office Threshold: Royal Purple & Gold Mandala
+    for (let i = 0; i < 20; i++) {
+      const angle = (i * Math.PI) / 10;
+      rangoliG.circle(Math.cos(angle) * 34, Math.sin(angle) * 34, 1.5).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 30).fill(0x4a148c);
+    rangoliG.circle(0, 0, 28).fill(0x7b1fa2);
+    rangoliG.circle(0, 0, 25).fill(0xffd700);
+
+    for (let i = 0; i < 16; i++) {
+      const angle = (i * Math.PI) / 8;
+      const p1x = Math.cos(angle) * 25;
+      const p1y = Math.sin(angle) * 25;
+      const p2x = Math.cos(angle + 0.2) * 17;
+      const p2y = Math.sin(angle + 0.2) * 17;
+      const p3x = Math.cos(angle - 0.2) * 17;
+      const p3y = Math.sin(angle - 0.2) * 17;
+      const color = i % 4 === 0 ? 0xc2185b : i % 4 === 1 ? 0xffc107 : i % 4 === 2 ? 0x8e24aa : 0xffffff;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+    }
+    rangoliG.circle(0, 0, 17).fill(0x00695c);
+    rangoliG.circle(0, 0, 15).fill(0x009688);
+    rangoliG.circle(0, 0, 12.5).fill(0xff6f00);
+
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * Math.PI) / 6;
+      const p1x = Math.cos(angle) * 12.5;
+      const p1y = Math.sin(angle) * 12.5;
+      const p2x = Math.cos(angle + 0.25) * 6;
+      const p2y = Math.sin(angle + 0.25) * 6;
+      const p3x = Math.cos(angle - 0.25) * 6;
+      const p3y = Math.sin(angle - 0.25) * 6;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffecb3 : 0xd81b60);
+    }
+
+    rangoliG.circle(0, 0, 6.5).fill(0x3e2723);
+    rangoliG.circle(0, 0, 5).fill(0xffd700);
+    rangoliG.ellipse(0, 1, 4, 2.2).fill(0x6d4c41);
+    rangoliG.ellipse(0, 0.5, 3.2, 1.6).fill(0xffca28);
+    rangoliG.poly([0, -4.5, -2, 0, 2, 0]).fill(0xff6f00);
+    rangoliG.poly([0, -4, -1.3, -0.5, 1.3, -0.5]).fill(0xffeb3b);
+    rangoliG.circle(0, -1.8, 0.9).fill(0xffffff);
+  } else if (variant === 2) {
+    // Chai Tapri / Lounge Corridor: Warm Amber & Terracotta Mandala
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * Math.PI) / 6;
+      rangoliG.circle(Math.cos(angle) * 30, Math.sin(angle) * 30, 1.5).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 27).fill(0xe65100);
+    rangoliG.circle(0, 0, 25).fill(0xff8f00);
+    rangoliG.circle(0, 0, 22).fill(0xffca28);
+
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI) / 4;
+      const p1x = Math.cos(angle) * 22;
+      const p1y = Math.sin(angle) * 22;
+      const p2x = Math.cos(angle + 0.3) * 14;
+      const p2y = Math.sin(angle + 0.3) * 14;
+      const p3x = Math.cos(angle - 0.3) * 14;
+      const p3y = Math.sin(angle - 0.3) * 14;
+      const color = i % 4 === 0 ? 0xff5722 : i % 4 === 1 ? 0xffb300 : i % 4 === 2 ? 0xc62828 : 0xffe082;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+    }
+    rangoliG.circle(0, 0, 15).fill(0x00838f);
+    rangoliG.circle(0, 0, 13).fill(0x26c6da);
+    rangoliG.circle(0, 0, 11).fill(0xd81b60);
+
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI) / 4 + Math.PI / 8;
+      const p1x = Math.cos(angle) * 11;
+      const p1y = Math.sin(angle) * 11;
+      const p2x = Math.cos(angle + 0.3) * 5.5;
+      const p2y = Math.sin(angle + 0.3) * 5.5;
+      const p3x = Math.cos(angle - 0.3) * 5.5;
+      const p3y = Math.sin(angle - 0.3) * 5.5;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0x80deea : 0xff6e40);
+    }
+
+    rangoliG.circle(0, 0, 5.5).fill(0xbf360c);
+    rangoliG.circle(0, 0, 4.2).fill(0xffd700);
+    rangoliG.ellipse(0, 1, 3.4, 1.9).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.5, 2.8, 1.4).fill(0xffb74d);
+    rangoliG.poly([0, -3.8, -1.6, 0, 1.6, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -3.2, -1.1, -0.5, 1.1, -0.5]).fill(0xffd600);
+    rangoliG.circle(0, -1.4, 0.7).fill(0xffffff);
+  } else {
+    // East Bullpen Center: Peacock Blue & Saffron Blossom
+    for (let i = 0; i < 18; i++) {
+      const angle = (i * Math.PI) / 9;
+      rangoliG.circle(Math.cos(angle) * 32, Math.sin(angle) * 32, 1.5).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 29).fill(0x0d47a1);
+    rangoliG.circle(0, 0, 27).fill(0x1976d2);
+    rangoliG.circle(0, 0, 24).fill(0xffc107);
+
+    for (let i = 0; i < 16; i++) {
+      const angle = (i * Math.PI) / 8;
+      const p1x = Math.cos(angle) * 24;
+      const p1y = Math.sin(angle) * 24;
+      const p2x = Math.cos(angle + 0.22) * 16;
+      const p2y = Math.sin(angle + 0.22) * 16;
+      const p3x = Math.cos(angle - 0.22) * 16;
+      const p3y = Math.sin(angle - 0.22) * 16;
+      const color = i % 4 === 0 ? 0x0288d1 : i % 4 === 1 ? 0xff9800 : i % 4 === 2 ? 0xd32f2f : 0xffd54f;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+    }
+    rangoliG.circle(0, 0, 16).fill(0xc2185b);
+    rangoliG.circle(0, 0, 14).fill(0xe91e63);
+    rangoliG.circle(0, 0, 12).fill(0xffb300);
+
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI) / 4;
+      const p1x = Math.cos(angle) * 12;
+      const p1y = Math.sin(angle) * 12;
+      const p2x = Math.cos(angle + 0.3) * 6;
+      const p2y = Math.sin(angle + 0.3) * 6;
+      const p3x = Math.cos(angle - 0.3) * 6;
+      const p3y = Math.sin(angle - 0.3) * 6;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xfff59d : 0x00bcd4);
+    }
+
+    rangoliG.circle(0, 0, 6).fill(0xbf360c);
+    rangoliG.circle(0, 0, 4.5).fill(0xffd700);
+    rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);
+    rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600);
+    rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);
+  }
+
+  return rangoliG;
+}
+
 
 export function OfficeFloor() {
   const hostRef = useRef<HTMLDivElement | null>(null);
@@ -283,65 +467,24 @@ export function OfficeFloor() {
       world.addChild(mapRenderer.getContainer());
       const charLayer = mapRenderer.getCharacterContainer();
 
-      // ─── Traditional Indian Rangoli Floor Mandala Artwork ─────────────────
-      // Rendered on the bullpen floor layer (x: 13 * calTs, y: 14 * calTs)
-      const rangoliG = new Graphics();
-      rangoliG.position.set(13 * mapRenderer.tileSize, 14 * mapRenderer.tileSize);
-
-      // 1. Outer Rice-Powder (Alpana) White Dots Ring
-      for (let i = 0; i < 16; i++) {
-        const angle = (i * Math.PI) / 8;
-        const rx = Math.cos(angle) * 32;
-        const ry = Math.sin(angle) * 32;
-        rangoliG.circle(rx, ry, 1.5).fill(0xffffff);
-      }
-
-      // 2. Outer Border Circles (Deep Crimson Red & Saffron Orange)
-      rangoliG.circle(0, 0, 28).fill(0xd32f2f);
-      rangoliG.circle(0, 0, 26).fill(0xff6f00);
-      rangoliG.circle(0, 0, 24).fill(0xffb300);
-
-      // 3. Outer Lotus Petals (12 petals - Orange, Yellow, Red, White)
-      for (let i = 0; i < 12; i++) {
-        const angle = (i * Math.PI) / 6;
-        const p1x = Math.cos(angle) * 24;
-        const p1y = Math.sin(angle) * 24;
-        const p2x = Math.cos(angle + 0.25) * 16;
-        const p2y = Math.sin(angle + 0.25) * 16;
-        const p3x = Math.cos(angle - 0.25) * 16;
-        const p3y = Math.sin(angle - 0.25) * 16;
-        const color = i % 4 === 0 ? 0xe65100 : i % 4 === 1 ? 0xffd54f : i % 4 === 2 ? 0xc62828 : 0xffffff;
-        rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
-      }
-
-      // 4. Middle Concentric Ring (Teal / Turquoise accent ring)
-      rangoliG.circle(0, 0, 16).fill(0x00838f);
-      rangoliG.circle(0, 0, 14).fill(0x00acc1);
-      rangoliG.circle(0, 0, 12).fill(0xff8f00);
-
-      // 5. Inner Star / Diamond Geometric Pattern (8 points)
-      for (let i = 0; i < 8; i++) {
-        const angle = (i * Math.PI) / 4;
-        const p1x = Math.cos(angle) * 12;
-        const p1y = Math.sin(angle) * 12;
-        const p2x = Math.cos(angle + 0.3) * 6;
-        const p2y = Math.sin(angle + 0.3) * 6;
-        const p3x = Math.cos(angle - 0.3) * 6;
-        const p3y = Math.sin(angle - 0.3) * 6;
-        rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffeb3b : 0xff3d00);
-      }
-
-      // 6. Central Base & Brass Diya Oil Lamp
-      rangoliG.circle(0, 0, 6).fill(0xbf360c);
-      rangoliG.circle(0, 0, 4.5).fill(0xffd700);
-
-      rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);            // Brass diya bowl
-      rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);          // Diya oil surface
-      rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);   // Outer flame glow
-      rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600); // Inner yellow flame
-      rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);             // Flame core
-
-      mapRenderer.getFloorContainer().addChild(rangoliG);
+            // ─── Traditional Indian Rangoli Floor Mandala Artworks ─────────────────
+      // Render 4 distinct Rangoli floor mandalas on the floor layer (zIndex: 1 * calTs):
+      // - Rangoli 1: Bullpen Entrance (x: 13 * calTs, y: 14 * calTs)
+      // - Rangoli 2: Nitya's Office Threshold (x: 7 * calTs, y: 6 * calTs)
+      // - Rangoli 3: Chai Tapri / Lounge Corridor (x: 24 * calTs, y: 12 * calTs)
+      // - Rangoli 4: East Bullpen Center (x: 20 * calTs, y: 20 * calTs)
+      const calTs = mapRenderer.tileSize;
+      const rangoliSpots = [
+        { x: 13 * calTs, y: 14 * calTs, variant: 0 },
+        { x: 7 * calTs, y: 6 * calTs, variant: 1 },
+        { x: 24 * calTs, y: 12 * calTs, variant: 2 },
+        { x: 20 * calTs, y: 20 * calTs, variant: 3 },
+      ];
+      const floorContainer = mapRenderer.getFloorContainer();
+      rangoliSpots.forEach((spot) => {
+        const rangoliG = createRangoliGraphic(spot.x, spot.y, spot.variant, calTs);
+        floorContainer.addChild(rangoliG);
+      });
       const tileCount = mapRenderer.getContainer().children.reduce(
         (n, c) => n + ((c as Container).children?.length ?? 0), 0);
       console.log(`[OfficeFloor] map ${mapRenderer.width}x${mapRenderer.height}, ${tileCount} tile sprites rendered`);
@@ -353,9 +496,8 @@ export function OfficeFloor() {
 
       // ─── The boss's wall calendar → TRIGGERS ───────────────────────────────
       // A little tear-off month page hangs on the CEO office wall. Clicking it
-      // selects Michael (the god) and opens the Command Center's TRIGGERS tab —
+      // selects Nitya (the god) and opens the Command Center's TRIGGERS tab —
       // everything that wakes the hive without you, schedules first among them.
-      const calTs = mapRenderer.tileSize;
       const calG = new Graphics();
       calG.eventMode = 'static';
       calG.cursor = 'pointer';
@@ -386,7 +528,7 @@ export function OfficeFloor() {
       // ─── Goddess Durga Artwork Canvas / Graphic ───────────────────────────
       // Rendered on top wall of Nitya's Orchestrator room (enlarged golden frame, detailed divine aura graphic, red/gold accents)
       const durgaG = new Graphics();
-      durgaG.position.set(2 * calTs - 4, 1 * calTs - 4);
+      durgaG.position.set(16 * calTs, 0.8 * calTs);
       durgaG.zIndex = 3 * calTs;
 
       // 1. Golden Frame (Outer shadow, bright gold frame, inner bevel, deep crimson canvas)
@@ -491,7 +633,7 @@ export function OfficeFloor() {
       }
       if (waitTiles.length === 0) waitTiles.push(entrance);
 
-      // Seat 0 is desk-ceo — "Michael's room" — reserved for the god agent.
+      // Seat 0 is desk-ceo — "Nitya's room" — reserved for the god agent.
       // All other workers claim seats from 1 onward.
       const GOD_SEAT = 0;
       const claimSeat = (agent: Agent): number | null => {
@@ -1009,7 +1151,7 @@ export function OfficeFloor() {
         if (free.length === 0) return;
         const idx = free[Math.floor(Math.random() * free.length)];
         const spot = ERRAND_SPOTS[idx];
-        // Pick the performer. The CEO office's spots belong to Michael alone —
+        // Pick the performer. The CEO office's spots belong to Nitya alone —
         // and unlike workers he runs his errands FROM his desk (he's seated
         // while idle, so the sitting check doesn't apply to him).
         let agent: Agent | undefined;
@@ -1052,10 +1194,10 @@ export function OfficeFloor() {
         });
       };
 
-      // ─── The boss aura: performative excellence in Michael's presence ──────
+      // ─── The boss aura: performative excellence in Nitya's presence ──────
       // When the god's avatar wanders close to a worker, the worker bursts
       // into suck-up mode — including REAL stats ("already shipped N tasks,
-      // Michael. raise?" with N from the actual ledger). What they say once
+      // Nitya. raise?" with N from the actual ledger). What they say once
       // he's out of earshot is a different story (see emitQuip's gossip).
       const lastSuckUp = new Map<string, number>();
       let doneByAssignee = new Map<string, number>();
@@ -1137,7 +1279,7 @@ export function OfficeFloor() {
       // assignee) literally TAKES THE NOTE ALONG: it leaves the boards and
       // sticks to that worker's desk instead. Finished tasks archive as a green
       // stack on the little table at the end. Clicking any of it selects
-      // Michael and opens the Command Center's tasks tab.
+      // Nitya and opens the Command Center's tasks tab.
       const BOARD_TILE: Tile = theme.anchors.boards;
       // The ensemble (two boards + archive table) is 82px wide; the wall run
       // between the two doorways spans tiles 6..12 (112px) — center it.
@@ -1232,7 +1374,7 @@ export function OfficeFloor() {
       drawTaskBoard([]);
 
       // ─── The office clock: clicking it is CLOCKING OUT ─────────────────────
-      // The wall clock beside Michael's window doubles as the quit entry:
+      // The wall clock beside Nitya's window doubles as the quit entry:
       // a click runs the real close flow (window.close() → the main process
       // intercepts while agents run → the "Quitting now?" dialog with its
       // closing-time option). The office clock literally opens quitting time.
@@ -1296,7 +1438,7 @@ export function OfficeFloor() {
       drawAskBoard(0);
 
       // ─── Board choreography: every ledger move is ACTED on the floor ───────
-      // Michael walks over and pins fresh cards; an assigned worker walks to
+      // Nitya walks over and pins fresh cards; an assigned worker walks to
       // the TODO board, takes its note and carries it home; finishing carries
       // the note to the archive table; a card going blocked gets walked to the
       // red board. While a move is in flight, the boards keep showing the OLD

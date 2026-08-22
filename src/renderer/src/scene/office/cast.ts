@@ -11,7 +11,7 @@ import { paintPortrait, sceneFrameBufs, SCENE_W, SCENE_H } from './portraitArt';
 export type OfficeCharacterName =
   | 'nitya' | 'vikram' | 'devi' | 'kavi' | 'rudra'
   | 'ananya' | 'arjun' | 'priya' | 'sanjay' | 'aarav'
-  | 'michael' | 'jim' | 'pam' | 'dwight' | 'kevin' | 'angela'
+  | 'jim' | 'pam' | 'dwight' | 'kevin' | 'angela'
   | 'oscar' | 'stanley' | 'phyllis' | 'andy' | 'kelly' | 'ryan'
   | 'toby' | 'creed' | 'meredith';
 

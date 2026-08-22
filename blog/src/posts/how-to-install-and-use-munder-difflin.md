@@ -20,7 +20,7 @@ faq:
   - q: "Does it work properly on Windows?"
     a: "Yes — and if you tried before v0.4.4, try again. That release fixed the bug that silently broke agent-to-agent messaging on Windows, made first runs start their own hive services, and rebuilt dark mode. Windows is a first-class platform now, OpenCode included."
   - q: "Can I leave it running for hours or days?"
-    a: "Yes — that's the point. With auto mode on, agents run unattended and Michael routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you're away."
+    a: "Yes — that's the point. With auto mode on, agents run unattended and Nitya routes work and escalates only the critical calls to you. Give an agent a persistent Goal and it keeps working a long-horizon task across many prompts while you're away."
   - q: "Is auto mode safe?"
     a: "Auto mode spawns agents without per-tool permission prompts, so they don't pause for file edits or shell commands. It's the right default for the unattended control-room experience, but it's a foot-gun on production repos. Keep it on for sandboxed or disposable working copies; turn it off (or per agent) when you want to babysit."
 ---
@@ -29,7 +29,7 @@ faq:
 downloading a build (macOS, Windows, or Linux) or running from source with Node 18+. Onboarding
 opens on the real pitch — <strong>a clone of you, working 24/7</strong> — validates your setup at
 step one, and the <strong>Prerequisites</strong> page shows live status for every tool an engine
-needs. Then you talk to <strong>Michael</strong>, spin up agents on any of <strong>ten
+needs. Then you talk to <strong>Nitya</strong>, spin up agents on any of <strong>ten
 engines</strong> with a <strong>Goal</strong>, hand them <strong>skills</strong>, and let the hive
 work <strong>long-horizon tasks for hours or days</strong> while you watch the floor.</p></div>
 
@@ -45,7 +45,7 @@ investigation that needs to grind overnight. This is the start-to-finish guide, 
 
 Before the steps, the mental model — because it shapes how you'll use it. Munder Difflin wraps the
 agent CLIs you already run as full agents, gives each **long-term memory** and a **mailbox**, and
-puts **Michael** in charge — a clone of you, the one agent *you* talk to. His card says **BOSS**:
+puts **Nitya** in charge — a clone of you, the one agent *you* talk to. His card says **BOSS**:
 he's the boss of the agents, you're still the boss of him. You describe intent; he routes work,
 lets agents message each other, and escalates only the critical calls to you.
 
@@ -68,9 +68,9 @@ use case is exactly what it's built for. Keep that in mind as you set it up.
 And here's the v0.4.4 upgrade to this whole step: you don't have to audit any of it by hand.
 **Settings → Prerequisites** shows live status for uv, git, Node, MemPalace and every engine —
 with real paths, the platform-correct install command for anything missing, and a button that
-asks Michael to fill the gaps for you.
+asks Nitya to fill the gaps for you.
 
-{% img "note-1", "The Prerequisites page does this checklist for you — live status, real paths, and Michael on standby to install what's missing." %}
+{% img "note-1", "The Prerequisites page does this checklist for you — live status, real paths, and Nitya on standby to install what's missing." %}
 
 ## Step 2: Install it
 
@@ -113,7 +113,7 @@ to load after an Electron upgrade, re-run `npm install` to rebuild it.
 First launch opens on what the product actually is — **a clone of you, working 24/7** — then asks
 the few questions that matter:
 
-1. **Your clone's engine.** Michael runs on a pluggable engine; the card names all ten. Claude
+1. **Your clone's engine.** Nitya runs on a pluggable engine; the card names all ten. Claude
    Code is the natural default, and you can change it later.
 2. **Harness home.** A folder where the harness keeps its own files — agent metadata, memory,
    mailboxes, logs. `~/HarnessAgents` is a fine default. The wizard validates this immediately:
@@ -124,23 +124,23 @@ the few questions that matter:
    anonymous usage stats" toggle — opt-out, governed by a
    [public contract](https://github.com/chaitanyagiri/munder-difflin/blob/main/TELEMETRY.md).
 
-Finish the wizard and you land on the office floor. Michael boots into his office automatically —
+Finish the wizard and you land on the office floor. Nitya boots into his office automatically —
 and everything the hive needs (message router, hook server, mission scheduler) starts with him,
 on the very first run.
 
-## Step 4: Meet Michael, your clone
+## Step 4: Meet Nitya, your clone
 
-Michael runs the floor: he triages requests, assigns work, and escalates only the critical calls
+Nitya runs the floor: he triages requests, assigns work, and escalates only the critical calls
 to you. He's the agent you talk to.
 
-To talk to any agent (Michael included), select them on the floor to open their panel, then use the
+To talk to any agent (Nitya included), select them on the floor to open their panel, then use the
 **command bar** at the bottom — type a message and hit Enter. The bar has three modes:
 
 - **free** — plain natural-language instructions (the default).
 - **/skill** — invoke an installed skill or slash command.
 - **quick** — fast canned actions.
 
-Talking to Michael in plain language is how you steer the whole team: describe a goal, and he
+Talking to Nitya in plain language is how you steer the whole team: describe a goal, and he
 decomposes and routes it. You manage, he delegates. He also listens — his voice mode opens with a
 live floor snapshot and can run nearly the whole app hands-free. (New to the idea? [How to run
 multiple Claude Code agents](/blog/how-to-run-multiple-claude-code-agents/) covers why an
@@ -164,7 +164,7 @@ for a "set it going and walk away" workflow. It's also a loaded foot-gun on a pr
   a sensitive repo and approve each tool call.
 
 Either way, Munder Difflin keeps a **human-in-the-loop approvals queue**: even in auto mode,
-Michael escalates genuinely critical actions (spending real money, destructive operations, big
+Nitya escalates genuinely critical actions (spending real money, destructive operations, big
 scope changes) for your sign-off, so unattended doesn't mean unsupervised.
 
 ## Step 6: Spin up your first agent
@@ -204,36 +204,36 @@ Here's where Munder Difflin earns its keep. To set a team working for hours or d
    keeps orienting toward the same directive even as the conversation turns over. Write it like a
    brief: *"Migrate the test suite from Mocha to Vitest, one directory at a time, keeping CI green
    after each."*
-2. **Let Michael route the rest.** Tell him the high-level objective and let him assign sub-tasks.
+2. **Let Nitya route the rest.** Tell him the high-level objective and let him assign sub-tasks.
    You describe the *what*; the hive figures out the *who* and *when*.
 3. **Scope each agent and let them coordinate.** Clear roles, handoffs through mailboxes, and
    shared [long-term memory](/blog/give-claude-code-long-term-memory/) so what one agent learns,
    the next inherits.
 4. **Walk away.** With auto mode on, the team keeps going unattended. Check the approvals queue
-   when you're back; Michael only interrupts you for the critical calls.
+   when you're back; Nitya only interrupts you for the critical calls.
 
 This is the [run-an-office-while-you-sleep](/blog/run-an-office-of-ai-agents/) workflow, and the
 practical guardrails are in [Claude Code automation while you
 sleep](/blog/claude-code-automation-while-you-sleep/). Be honest about scope — bounded,
 well-specified jobs go best.
 
-## Step 9: Use Michael's Command Center
+## Step 9: Use Nitya's Command Center
 
-Select Michael on the floor and open his panel — a control surface, not a plain terminal:
+Select Nitya on the floor and open his panel — a control surface, not a plain terminal:
 
-- **Terminal** — Michael's live session, plus a message queue so you can park tasks while he works.
+- **Terminal** — Nitya's live session, plus a message queue so you can park tasks while he works.
 - **Floor** — the full agent roster with per-agent model selectors, a dispatch box, and your
   registered repos. The **Enrich** toggle routes queued messages through a background prep
-  assistant who gathers context before Michael sees them.
+  assistant who gathers context before Nitya sees them.
 - **Memory** — MemPalace semantic search plus full-text search across all hive files, and a
   memory graph.
 - **Activity** — live event log, the shared board, and real token + cost telemetry per agent.
-- **Tasks** — a dependency-aware kanban board Michael and his team track status on.
+- **Tasks** — a dependency-aware kanban board Nitya and his team track status on.
 - **Triggers** — every way the office wakes itself: recurring missions with a label, interval,
   and directive body, dispatched to the target agent automatically.
 
 For long-running floors, Triggers is the most powerful tab: a "30-minute floor check" mission
-pointed at Michael — *"Are all agents making progress? Re-engage anyone idle."* — keeps the team
+pointed at Nitya — *"Are all agents making progress? Re-engage anyone idle."* — keeps the team
 moving even when you're away.
 
 ## Tips for best results

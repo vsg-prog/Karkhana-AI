@@ -19,7 +19,7 @@ faq:
   - q: "Does Munder Difflin do what qm's security postures do?"
     a: "Yes, the same job with different controls: a floor-wide auto-mode toggle (the equivalent of switching between approval-gated and autonomous), per-agent pause/halt, voice-level confirm words for destructive actions, tool gating, a circuit breaker for runaway agents, and spend/scope escalation to a human. qm's Strict/Auto/Dangerous is org-level configuration; Munder Difflin's controls are per-floor and per-agent."
   - q: "Does qm have voice control, an IDE, or git visualization?"
-    a: "Not as of this writing. qm's interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Michael with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update."
+    a: "Not as of this writing. qm's interfaces are Slack and a web UI. Munder Difflin ships realtime voice orchestration (a talking Nitya with live floor context), a built-in Monaco IDE with commit history, branch compare and side-by-side diffs, markdown previews, real watchable terminals, and auto-update."
   - q: "Which one should I use?"
     a: "Use qm if your whole team wants one shared harness in Slack with org-level admin control. Use Munder Difflin if you want your agent office on your own machine — watchable, local-first, with voice and an IDE — riding the CLI subscriptions you already pay for. Both are MIT-licensed; some teams will genuinely want both: qm as the shared org layer, Munder Difflin as the personal floor."
   - q: "Is Munder Difflin older than qm?"
@@ -80,7 +80,7 @@ Slack, that's qm's home turf, and Munder Difflin doesn't try to be that.
 
 - **Real terminals.** Every agent is a watchable CLI process — when something goes
   sideways, you read the actual session, not a log abstraction.
-- **Voice orchestration.** Flip on talk mode and Michael greets you already knowing every
+- **Voice orchestration.** Flip on talk mode and Nitya greets you already knowing every
   agent's status, steers work, changes settings from an allowlist, and waits for a spoken
   confirm word before anything destructive.
 - **A built-in IDE.** Monaco (the VS Code engine) one click over the floor: side-by-side

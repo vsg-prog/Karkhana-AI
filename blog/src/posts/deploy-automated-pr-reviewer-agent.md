@@ -14,7 +14,7 @@ author:
   initials: CG
 faq:
   - q: "How do you deploy an automated PR reviewer in Munder Difflin?"
-    a: "You brief Michael, the orchestrator, in plain English: give him a review objective, point him at the repo and its open PRs/issues, and ask him to post reviews back and escalate anything serious. He spins up a dedicated PR Reviewer agent, runs the first pass, and registers a recurring mission in the Triggers tab so new PRs get reviewed on a cadence. No YAML, no webhook, no per-seat SaaS subscription."
+    a: "You brief Nitya, the orchestrator, in plain English: give him a review objective, point him at the repo and its open PRs/issues, and ask him to post reviews back and escalate anything serious. He spins up a dedicated PR Reviewer agent, runs the first pass, and registers a recurring mission in the Triggers tab so new PRs get reviewed on a cadence. No YAML, no webhook, no per-seat SaaS subscription."
   - q: "Does the reviewer read the actual code or just the PR description?"
     a: "The actual code. The PR Reviewer agent is a real CLI agent — any of the ten supported engines, Claude Code being the usual pick — with filesystem and git access to the checked-out repo, so it reviews diffs and issues against the released source, not just the summary text in the PR. That's what lets it verify a claimed bug is real before it escalates."
   - q: "Will it spam every PR with low-value comments?"
@@ -43,7 +43,7 @@ That framing matters because of what it unlocks:
 
 ## Deploying it: the one-prompt version
 
-You don't configure this. You brief it. Open Munder Difflin, select Michael, and describe the outcome the way you'd brief a coworker:
+You don't configure this. You brief it. Open Munder Difflin, select Nitya, and describe the outcome the way you'd brief a coworker:
 
 > *Stand up a PR Reviewer for our GitHub repo. Review the open PRs and any new bug-report issues against the released source — verify each claim in the actual code, post a review comment on each, consolidate duplicates into one finding, and ping me directly for anything HIGH severity. Then check for new ones every hour and do the same.*
 
@@ -101,7 +101,7 @@ If you maintain a repo with more inbound than time, this is roughly a five-minut
 
 1. [Download Munder Difflin](https://munderdiffl.in/#install) — free, open source, local-first, macOS/Windows/Linux (and yes, [Windows is first-class as of v0.4.4](/blog/launching-munder-difflin-v0-4-4/)).
 2. Add a CLI agent on whichever engine subscription you already have — the app supports ten, and **Settings → Prerequisites** confirms which binaries it can see.
-3. Brief Michael with the prompt above, swapping in your repo and your escalation bar.
+3. Brief Nitya with the prompt above, swapping in your repo and your escalation bar.
 4. Leave it running on a second monitor and let new PRs get reviewed on the hour.
 
 The pitch is simple, and it's true: **a reviewer that never sleeps, reads your real source, de-dupes the noise, and only escalates what matters — set up in about one prompt.** Go point one at your backlog.

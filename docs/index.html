@@ -1062,7 +1062,7 @@
         <figure class="cap-shot rv">
           <video class="hero-video" src="./media/hero-demo.mp4?v=2" width="2300" height="1440"
             autoplay muted loop playsinline
-            aria-label="Munder Difflin home screen: a pixel office floor with agents at desks, speech bubbles, and a live Claude Code terminal open for the agent Michael"></video>
+            aria-label="Munder Difflin home screen: a pixel office floor with agents at desks, speech bubbles, and a live Claude Code terminal open for the agent Nitya"></video>
                       <figcaption>Monitor agents in 'the office' themed simulation or use the cleaner fullscreen mode. Simulation is deterministic, does not consume tokens.</figcaption><br>
 
         </figure>
@@ -1101,7 +1101,7 @@
             <div class="idc">
               <div class="idc-head"><span>MUNDER&nbsp;DIFFLIN</span><span id="idSerial">NODE&nbsp;#001</span></div>
               <div class="idc-photo"><canvas id="idPortrait" width="90" height="140"></canvas></div>
-              <div class="idc-name" id="idName">Michael</div>
+              <div class="idc-name" id="idName">Nitya</div>
               <div class="idc-role" id="idRole">Team Lead's clone</div>
               <dl class="idc-rows">
                 <div class="r"><dt>WRAPS</dt><dd id="idAgent">Claude Code</dd></div>
@@ -1111,7 +1111,7 @@
               </dl>
               <div class="idc-bar" aria-hidden="true"></div>
               <div class="idc-tabs" id="idTabs" role="tablist" aria-label="Pick a clone">
-                <button data-char="michael" class="on">Michael</button>
+                <button data-char="nitya" class="on">Nitya</button>
                 <button data-char="jim">Jim</button>
                 <button data-char="pam">Pam</button>
                 <button data-char="dwight">Dwight</button>
@@ -1204,7 +1204,7 @@
     <div class="sysmap rv">
       <!-- desktop · 16:9 -->
       <svg class="wide" viewBox="0 0 960 540" role="img"
-        aria-label="Michael's node runs on his laptop: you, Slack, or a schedule kick it off; a GOD orchestrator routes work to CLI agents (research, build, review), each in an isolated git worktree with shared MemPalace memory, running autonomously. An end-to-end encrypted clone-to-clone link connects to Dwight's node on his own laptop, whose clone asks questions and gets answers from Michael's memory even while Michael sleeps.">
+        aria-label="Nitya's node runs on his laptop: you, Slack, or a schedule kick it off; a GOD orchestrator routes work to CLI agents (research, build, review), each in an isolated git worktree with shared MemPalace memory, running autonomously. An end-to-end encrypted clone-to-clone link connects to Dwight's node on his own laptop, whose clone asks questions and gets answers from Nitya's memory even while Nitya sleeps.">
         <defs>
           <marker id="wA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)" /></marker>
@@ -2089,19 +2089,19 @@
 
   /* ---- cast: sprite recipes + card data ---- */
   var RECIPES = {
-    michael: { skin:'light', hairc:[58,42,28],  hair:'styleShort',  hairargs:{part:'L'}, cloth:'suit', c1:[58,63,74], tie:[170,58,58], brow:'flat', mouth:'smile' },
+    nitya: { skin:'light', hairc:[58,42,28],  hair:'styleShort',  hairargs:{part:'L'}, cloth:'suit', c1:[58,63,74], tie:[170,58,58], brow:'flat', mouth:'smile' },
     jim:     { skin:'light', hairc:[92,60,34],  hair:'styleFloppy', cloth:'dressshirt', c1:[172,196,224], tie:[120,130,150], brow:'flat', mouth:'smile' },
     pam:     { skin:'light', hairc:[120,76,42], hair:'styleFrame',  hairargs:{length:18, vol:2}, cloth:'cardigan', c1:[236,174,192], c2:[244,242,238], brow:'soft', mouth:'smile', blush:true, lashes:true },
     dwight:  { skin:'light', hairc:[64,48,28],  hair:'styleShort',  hairargs:{part:'L', recede:1}, cloth:'dressshirt', c1:[184,155,62], tie:[120,82,46], glasses:true, brow:'angry', mouth:'neutral' }
   };
   var TAGS = {
-    michael: { tag: 'LEAD',     color: '#FFD93D' },
+    nitya: { tag: 'LEAD',     color: '#FFD93D' },
     jim:     { tag: 'ENGINEER', color: '#4ECDC4' },
     pam:     { tag: 'DESIGNER', color: '#FFB4B4' },
     dwight:  { tag: 'SALES',    color: '#6BCF7F' }
   };
   var CAST = {
-    michael: { name:'Michael', role:"Team Lead's clone", agent:'Claude Code', serial:'NODE #001',
+    nitya: { name:'Nitya', role:"Team Lead's clone", agent:'Claude Code', serial:'NODE #001',
       tasks:['triaging the PR queue','writing standup notes','re-planning sprint 12','unblocking two threads'],
       ships:['standup notes posted','sprint re-planned','3 threads unblocked'] },
     jim:     { name:'Jim', role:"Engineer's clone", agent:'Antigravity', serial:'NODE #002',
@@ -2114,7 +2114,7 @@
       tasks:['updating the CRM','drafting 12 outreach emails','prepping the demo brief','scoring new leads'],
       ships:['CRM updated','12 emails drafted','leads scored'] }
   };
-  var ORDER = ['michael', 'jim', 'pam', 'dwight'];
+  var ORDER = ['nitya', 'jim', 'pam', 'dwight'];
 
   var frames = {}, holoFrames = {}, portraits = {};
   ORDER.forEach(function (k) {
@@ -2131,7 +2131,7 @@
   /* ---- world layout (352×240 logical px) ---- */
   var W = 352, H = 240, WALL = 40;
   var DESKS = {
-    michael: { x: 44,  y: 96 },  jim:    { x: 240, y: 96 },
+    nitya: { x: 44,  y: 96 },  jim:    { x: 240, y: 96 },
     pam:     { x: 44,  y: 170 }, dwight: { x: 240, y: 170 }
   };
   function seatOf(k)   { var d = DESKS[k]; return { x: d.x + 46, y: d.y + 6 }; }  /* human, right side */
@@ -2153,7 +2153,7 @@
   });
 
   var packets = [], replies = [], toasts = [], flashes = {};
-  var selected = 'michael';
+  var selected = 'nitya';
   var simNow = 0;
 
   /* ---- floor states ---- */
@@ -2724,7 +2724,7 @@
     }
   });
 
-  select('michael');
+  select('nitya');
 })();
 </script>
 

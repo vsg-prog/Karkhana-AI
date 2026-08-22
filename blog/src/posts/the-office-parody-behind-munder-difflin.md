@@ -15,7 +15,7 @@ faq:
   - q: "Why is it called Munder Difflin?"
     a: "It's an affectionate parody of Dunder Mifflin, the fictional paper company from The Office. The tagline says it best: 'the world's best agents, the world's worst paper company.' The joke also does real work — an office is the most intuitive way to picture a team of AI agents coordinating."
   - q: "Are the agents really named after The Office characters?"
-    a: "Yes. The avatars are the cast of The Office, each differentiated by its own look, working at desks on a visual office floor — with Michael running the room as the orchestrator."
+    a: "Yes. The avatars are the cast of The Office, each differentiated by its own look, working at desks on a visual office floor — with Nitya running the room as the orchestrator."
   - q: "Is Munder Difflin affiliated with The Office or NBC?"
     a: "No. It's an affectionate, unaffiliated parody — not associated with NBC's The Office or Dunder Mifflin. The homage is a tribute, not a partnership."
   - q: "Is the parody just a gimmick?"
@@ -56,7 +56,7 @@ bunch of workers coordinate to get things done without stepping on each other?" 
 costume on top of the tech; it's a one-to-one map of it:
 
 - **A manager who routes work.** Every office has someone deciding who does what. In a hive, that's the
-  [orchestrator](/blog/how-the-god-orchestrator-works/) — and naturally, it's *Michael* running the
+  [orchestrator](/blog/how-the-god-orchestrator-works/) — and naturally, it's *Nitya* running the
   room, the control surface the whole floor reports through.
 - **Specialists at their desks.** An office is a set of people with roles. A hive is a set of agents
   with roles. "Give that to the researcher" and "give that to Dwight" are the same instruction.
@@ -77,8 +77,8 @@ structure. The metaphor pre-loads the mental model so the documentation doesn't 
 
 The parody isn't skin-deep; it's wired through the real software:
 
-- **Michael's control surface.** The command center you drive the hive from is literally framed as
-  Michael's office — the one room everything routes through.
+- **Nitya's control surface.** The command center you drive the hive from is literally framed as
+  Nitya's office — the one room everything routes through.
 - **A living office floor.** A Pixi.js scene renders the cast as avatars at desks, walking the floor
   with real pathfinding, carrying messages between coworkers. It's [a developer tool you can watch like
   a room](/blog/building-an-ai-office-floor/), not a wall of logs.
@@ -118,4 +118,4 @@ the bit is how we make it make sense.
 ---
 
 Come meet the team. [Download Munder Difflin](/#install) to run your own office of Claude Code agents —
-Michael's already at his desk. Free and open source.
+Nitya's already at his desk. Free and open source.

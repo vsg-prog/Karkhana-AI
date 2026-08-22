@@ -83,7 +83,7 @@ There's a second kind of human-in-the-loop, though: not "approve this tool call"
 genuinely need a *person* to decide something" — an ambiguity, a conflict, a scope call. Where does that
 go when there's no human queue?
 
-To the **orchestrator**. In a hive, the [god/orchestrator](/#how) (we call him Michael) is the human's
+To the **orchestrator**. In a hive, the [god/orchestrator](/#how) (we call him Nitya) is the human's
 proxy on the floor — so a message addressed to `"human"` is simply routed there. (Triage, delegation,
 and escalation are the orchestrator's whole job —
 [how the god orchestrator works](/blog/how-the-god-orchestrator-works/).) The router does it with one

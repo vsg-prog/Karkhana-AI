@@ -23,7 +23,7 @@ Three days into a sudden wave of attention on GitHub, the Munder Difflin repo cr
 
 Good problems. But still problems.
 
-I didn't reach for GitHub's notification pane or a code-review checklist. I opened Munder Difflin and typed one prompt to Michael (the god orchestrator):
+I didn't reach for GitHub's notification pane or a code-review checklist. I opened Munder Difflin and typed one prompt to Nitya (the god orchestrator):
 
 > *Review all the open PRs on the GitHub repo, and set up a recurring mission that checks for new PRs every hour and reviews them.*
 

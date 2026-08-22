@@ -1306,7 +1306,7 @@
     "hero": {
       "file": "assets/media/how-to-talk-to-your-orchestrator/hero.png",
       "alt": "Illustration: How to Brief Your Orchestrator (So the Floor Actually Ships)",
-      "prompt": "Hero image for a blog post titled \"How to Brief Your Orchestrator (So the Floor Actually Ships)\". The post is about: A practical guide to briefing Munder Difflin's GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Michael staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.",
+      "prompt": "Hero image for a blog post titled \"How to Brief Your Orchestrator (So the Floor Actually Ships)\". The post is about: A practical guide to briefing Munder Difflin's GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Nitya staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.",
       "status": "ready"
     },
     "inline": {
@@ -1506,7 +1506,7 @@
     "hero": {
       "file": "assets/media/launching-munder-difflin-v0-3-0/hero.png",
       "alt": "Illustration: Launching Munder Difflin v0.3.0: Selectable Engines, Integrations & Slack-Spawned Workers",
-      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.0: Selectable Engines, Integrations & Slack-Spawned Workers\". The post is about: Munder Difflin v0.3.0 makes every hire — and Michael himself — a pluggable engine, adds an integrations registry with a write-only secret broker, and lets the god orchestrator spawn an ephemeral worker straight from Slack.",
+      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.0: Selectable Engines, Integrations & Slack-Spawned Workers\". The post is about: Munder Difflin v0.3.0 makes every hire — and Nitya himself — a pluggable engine, adds an integrations registry with a write-only secret broker, and lets the god orchestrator spawn an ephemeral worker straight from Slack.",
       "status": "ready"
     },
     "inline": {
@@ -1526,24 +1526,24 @@
     "youtube": []
   },
   "launching-munder-difflin-v0-3-2": {
-    "title": "Launching Munder Difflin v0.3.2: Talk to Michael, a Realtime Voice Orchestrator",
+    "title": "Launching Munder Difflin v0.3.2: Talk to Nitya, a Realtime Voice Orchestrator",
     "category": "story",
     "hero": {
       "file": "assets/media/launching-munder-difflin-v0-3-2/hero.png",
-      "alt": "Illustration: Launching Munder Difflin v0.3.2: Talk to Michael, a Realtime Voice Orchestrator",
-      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.2: Talk to Michael, a Realtime Voice Orchestrator\". The post is about: Munder Difflin v0.3.2 adds Realtime Michael — a low-latency voice channel to the GOD orchestrator. Talk to Michael and he listens, answers, and acts: reading the hive and, behind spoken echo-back confirmation, dispatching, spawning, and steering the floor in real time.",
+      "alt": "Illustration: Launching Munder Difflin v0.3.2: Talk to Nitya, a Realtime Voice Orchestrator",
+      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.2: Talk to Nitya, a Realtime Voice Orchestrator\". The post is about: Munder Difflin v0.3.2 adds Realtime Nitya — a low-latency voice channel to the GOD orchestrator. Talk to Nitya and he listens, answers, and acts: reading the hive and, behind spoken echo-back confirmation, dispatching, spawning, and steering the floor in real time.",
       "status": "ready"
     },
     "inline": {
       "note-1": {
         "file": "assets/media/launching-munder-difflin-v0-3-2/note-1.png",
-        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.2: Talk to Michael, a Realtime Voice Orchestrator”",
+        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.2: Talk to Nitya, a Realtime Voice Orchestrator”",
         "prompt": "",
         "status": "ready"
       },
       "note-2": {
         "file": "assets/media/launching-munder-difflin-v0-3-2/note-2.png",
-        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.2: Talk to Michael, a Realtime Voice Orchestrator”",
+        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.2: Talk to Nitya, a Realtime Voice Orchestrator”",
         "prompt": "",
         "status": "ready"
       }
@@ -1576,24 +1576,24 @@
     "youtube": []
   },
   "launching-munder-difflin-v0-3-5": {
-    "title": "Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself",
+    "title": "Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself",
     "category": "story",
     "hero": {
       "file": "assets/media/launching-munder-difflin-v0-3-5/hero.png",
-      "alt": "Illustration: Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself",
-      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself\". The post is about: The v0.3.4 + v0.3.5 wave: voice orchestration with live floor context and full app control, markdown previews everywhere, commit history and branch compare in the built-in IDE, a six-tab Settings redesign, xAI Grok and Kimi Code engines, auto-update, and a queue that always has an escape hatch.",
+      "alt": "Illustration: Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself",
+      "prompt": "Hero image for a blog post titled \"Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself\". The post is about: The v0.3.4 + v0.3.5 wave: voice orchestration with live floor context and full app control, markdown previews everywhere, commit history and branch compare in the built-in IDE, a six-tab Settings redesign, xAI Grok and Kimi Code engines, auto-update, and a queue that always has an escape hatch.",
       "status": "ready"
     },
     "inline": {
       "note-1": {
         "file": "assets/media/launching-munder-difflin-v0-3-5/note-1.png",
-        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself”",
+        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself”",
         "prompt": "",
         "status": "ready"
       },
       "note-2": {
         "file": "assets/media/launching-munder-difflin-v0-3-5/note-2.png",
-        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.5: A Michael Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself”",
+        "alt": "Hand-drawn sketch from “Launching Munder Difflin v0.3.5: A Nitya Who Knows the Floor, a Git Time-Machine, and an App That Updates Itself”",
         "prompt": "",
         "status": "ready"
       }
@@ -2837,7 +2837,7 @@
     "hero": {
       "file": "assets/media/voice-as-a-control-plane-for-agent-fleets/hero.png",
       "alt": "Illustration: Voice Is a Control Plane, Not a Gimmick",
-      "prompt": "Hero image for a blog post titled \"Voice Is a Control Plane, Not a Gimmick\". The post is about: Voice is a terrible way to write code and a great way to run a fleet. Why low-bandwidth commands over high-bandwidth work is the right split — with Munder Difflin's Talk mode (echo-back confirmation, spend caps, michael-voice attribution) as the case study.",
+      "prompt": "Hero image for a blog post titled \"Voice Is a Control Plane, Not a Gimmick\". The post is about: Voice is a terrible way to write code and a great way to run a fleet. Why low-bandwidth commands over high-bandwidth work is the right split — with Munder Difflin's Talk mode (echo-back confirmation, spend caps, nitya-voice attribution) as the case study.",
       "status": "ready"
     },
     "inline": {
@@ -3062,7 +3062,7 @@
     "hero": {
       "file": "assets/media/whats-up-with-munder-difflin/hero.png",
       "alt": "Illustration: What's Up With Munder Difflin: Six Weeks, Four Releases, and the Part of the Stack You Actually Own",
-      "prompt": "Hero image for a blog post titled \"What's Up With Munder Difflin: Six Weeks, Four Releases, and the Part of the Stack You Actually Own\". The post is about: Everything that shipped between v0.3.3 and v0.3.7 — a Michael who knows the floor and runs the app by voice, a git time-machine in the IDE, nine agent engines, a queue that respects your draft, Node that installs itself, and the auto-update bug that had been silently broken since the day we shipped it.",
+      "prompt": "Hero image for a blog post titled \"What's Up With Munder Difflin: Six Weeks, Four Releases, and the Part of the Stack You Actually Own\". The post is about: Everything that shipped between v0.3.3 and v0.3.7 — a Nitya who knows the floor and runs the app by voice, a git time-machine in the IDE, nine agent engines, a queue that respects your draft, Node that installs itself, and the auto-update bug that had been silently broken since the day we shipped it.",
       "status": "ready"
     },
     "inline": {
@@ -3212,7 +3212,7 @@
     "hero": {
       "file": "assets/media/your-first-hour-with-munder-difflin/hero.png",
       "alt": "Illustration: Your First Hour With Munder Difflin",
-      "prompt": "Hero image for a blog post titled \"Your First Hour With Munder Difflin\". The post is about: A minute-by-minute walkthrough of your first hour with Munder Difflin: install, the onboarding wizard, your first brief to Michael, watching the floor, approving your first escalation, and leaving a schedule running.",
+      "prompt": "Hero image for a blog post titled \"Your First Hour With Munder Difflin\". The post is about: A minute-by-minute walkthrough of your first hour with Munder Difflin: install, the onboarding wizard, your first brief to Nitya, watching the floor, approving your first escalation, and leaving a schedule running.",
       "status": "ready"
     },
     "inline": {

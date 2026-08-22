@@ -89,7 +89,7 @@ built on the SDK have to adapt — and the tools driving Claude Code don't.
 ## The one honest exception: the optional enrich assistant
 
 We'd rather be precise than reassuring, so here's the caveat in full. Munder Difflin has **one** feature
-that uses `claude -p`: the optional **enrich assistant** (internally, Michael's prep helper). It's a
+that uses `claude -p`: the optional **enrich assistant** (internally, Nitya's prep helper). It's a
 one-shot, headless, **read-only** `claude -p` session that gathers repo context to sharpen a prompt before
 the real agents run. It is **toggle-gated and off by default.**
 

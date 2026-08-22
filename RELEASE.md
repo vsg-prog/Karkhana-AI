@@ -1,7 +1,7 @@
 # Munder Difflin v0.4.4
 
 **A local hive of Claude Code, Antigravity, Codex, Grok & Copilot agents that run themselves** — messaging,
-routing, and remembering, coordinated by your clone, Michael, who you talk to. Local-first and open source.
+routing, and remembering, coordinated by your clone, Nitya, who you talk to. Local-first and open source.
 
 ### → [**munderdiffl.in**](https://munderdiffl.in/) — see it in action, then grab a build below
 
@@ -39,7 +39,7 @@ reopened the app.
 - **Skills** — see every skill your agents can use, browse 227 more, and install or remove them
   in a click.
 - **Prerequisites** — one page in Settings that says which supporting tools you have, which you
-  don't, and what each one is for. A button asks Michael to set up whatever is missing.
+  don't, and what each one is for. A button asks Nitya to set up whatever is missing.
 - **Release notes you'll actually read** — like this one. Updates can now bring a designed page
   instead of a version number in the corner.
 - **A card at the top of Settings** with your version, plan, and a way to reopen these notes.
@@ -54,7 +54,7 @@ softer, text is a warm off-white instead of glaring white, and the selected tab 
 ### Everything else
 
 Copy from a terminal comes back clean, with accents and dashes intact. Dictation pastes what you
-just said. Images and screenshots open in the IDE. Michael sits first on the dock again and it's
+just said. Images and screenshots open in the IDE. Nitya sits first on the dock again and it's
 obvious which agent you're looking at. Task cards stop going missing. Idle agents stop being told
 to compact every hour. Grok 4.6 is selectable. The office stops drawing itself when nobody's
 looking at it.
@@ -275,7 +275,7 @@ because xterm takes literals, so it moved with them.
           <span class="tag">Prerequisites</span>
           <h2>Whether you actually have the tools</h2>
           <p>MemPalace, uv, git and every agent engine, with live status and where
-          each one sits on disk. One button asks Michael to fill in the gaps.</p>
+          each one sits on disk. One button asks Nitya to fill in the gaps.</p>
         </div>
         <div class="card">
           <span class="tag">Release drops</span>
@@ -320,7 +320,7 @@ because xterm takes literals, so it moved with them.
         <li><i>Hive</i><div><b>Compact fires once, not every hour</b></div></li>
         <li><i>Hive</i><div><b>The cost ledger is out of your git history</b></div></li>
         <li><i>Office</i><div><b>The floor stops rendering when nobody is looking</b></div></li>
-        <li><i>Layout</i><div><b>Michael sits first on the dock again</b></div></li>
+        <li><i>Layout</i><div><b>Nitya sits first on the dock again</b></div></li>
       </ul>
     </div>
     <div class="nav">
@@ -358,10 +358,10 @@ because xterm takes literals, so it moved with them.
 </div>
 <!-- /drop -->
 
-## Still new in 0.4.3 — *Michael is the logo*
+## Still new in 0.4.3 — *Nitya is the logo*
 
 **The mark is a face now.** Munder Difflin has always been an office you watch people work in,
-and the icon was a pair of script initials on a gradient. It's Michael — your clone — drawn in
+and the icon was a pair of script initials on a gradient. It's Nitya — your clone — drawn in
 the app's own pixel art, on the brand yellow, looking straight back at you.
 
 - **One mark, everywhere.** The dock icon on macOS, Windows and Linux, the site favicon and
@@ -404,10 +404,10 @@ open-source project should build it:
 
 ## Still new in 0.4.1 — *The app says what the site says*
 
-**Michael is your clone.** The website has been describing Munder Difflin as a clone of you that
+**Nitya is your clone.** The website has been describing Munder Difflin as a clone of you that
 works around the clock — the app still called it a "GOD agent." Now they match.
 
-- **Your clone, not the GOD agent.** Michael is described as your clone throughout onboarding,
+- **Your clone, not the GOD agent.** Nitya is described as your clone throughout onboarding,
   and his card on the floor carries a **BOSS** tag — he's the boss of the agents, you're still
   the boss of him.
 - **Onboarding was rewritten.** It opens on what you actually get ("a clone of you, working
@@ -451,7 +451,7 @@ works around the clock — the app still called it a "GOD agent." Now they match
   [@gts-47](https://github.com/gts-47) and [@qschmick](https://github.com/qschmick).
 - **0.3.3** — the built-in Monaco IDE, and GitHub Copilot CLI as the first community-contributed
   engine ([@anxkhn](https://github.com/anxkhn)).
-- **0.3.2** — Realtime Michael: a voice channel to the GOD orchestrator.
+- **0.3.2** — Realtime Nitya: a voice channel to the GOD orchestrator.
 - **0.3.1** — three more engines: OpenCode, Crush, and pi.dev.
 
 Full history in the [CHANGELOG](https://github.com/chaitanyagiri/munder-difflin/blob/main/CHANGELOG.md).
@@ -530,7 +530,7 @@ Apple Silicon and Intel.
 - macOS 12+, Windows 10/11, or a modern Linux desktop
 - [Claude Code](https://claude.com/claude-code) installed and on your `PATH` (and/or the Antigravity `agy` or OpenAI `codex` CLI for those providers)
 - A Claude Code subscription (Munder Difflin drives your existing `claude` CLI — it doesn't replace it)
-- For **Realtime Michael** (voice): your own **OpenAI key with Realtime API access** — without it the **Talk** button stays disabled
+- For **Realtime Nitya** (voice): your own **OpenAI key with Realtime API access** — without it the **Talk** button stays disabled
 
 ---
 
@@ -548,8 +548,8 @@ To produce installers yourself: `npm run dist` (current OS), or `dist:mac` / `di
 
 ## What's inside
 - **The simulation** — every agent is a real `claude` (or `agy` / `codex` / local-provider) pseudo-terminal, visualized as an avatar on a watchable office floor (`node-pty` · `xterm.js` · Pixi.js).
-- **Talk to Michael** — a realtime **voice channel to the GOD orchestrator** that reads the hive and acts behind spoken echo-back confirmation, BYOK and main-only.
-- **Selectable engines + per-hire capabilities** — each hire (and Michael himself) runs on a pluggable engine, with its own consented skills + MCP catalog.
+- **Talk to Nitya** — a realtime **voice channel to the GOD orchestrator** that reads the hive and acts behind spoken echo-back confirmation, BYOK and main-only.
+- **Selectable engines + per-hire capabilities** — each hire (and Nitya himself) runs on a pluggable engine, with its own consented skills + MCP catalog.
 - **MemPalace** — a markdown-first, semantic memory layer the whole office shares; cross-session recall in ~12ms.
 - **GOD orchestrator + hive** — one agent you talk to routes work to specialists and stays autonomous, escalating only critical items (spend, destructive ops, scope) to you natively, through human-in-the-loop prompts. It can also spawn an ephemeral worker straight from Slack and tear it down safely.
 - **Plugs into your setup** — your subscription, settings, skills, and MCP servers, plus an integrations registry with a write-only secret broker; `/remote-control` reaches the whole floor from your phone.

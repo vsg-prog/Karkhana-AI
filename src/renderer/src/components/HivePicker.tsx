@@ -74,10 +74,10 @@ export function HivePicker({ config, onOpenCurrent }: HivePickerProps) {
       padding: 32
     }}>
       <div style={{ width: 560, maxWidth: '94vw' }}>
-        <PixelPanel variant="dialog" title="SELECT A HARNESS CONFIG" noPadding>
+        <PixelPanel variant="dialog" title="SELECT A KARKHANA WORKSPACE" noPadding>
           <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
             <p style={{ margin: 0, fontSize: 12, lineHeight: '19px', color: 'var(--cth-ink-700)' }}>
-              A <strong>harness config</strong> is the folder where the app keeps everything for one
+              A <strong>Karkhana workspace</strong> is the folder where the app keeps everything for one
               workspace — its settings, your agents and their memory, tasks, triggers, and history.
               Each config is separate and self-contained, so you can run different setups side by side.
               Open the one you were working in, switch to another, or start a new one.

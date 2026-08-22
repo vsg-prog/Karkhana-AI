@@ -72,7 +72,7 @@ Everything the IDE does — listing the tree, reading files, writing saves, comp
 
 Here's the loop the whole feature is shaped around:
 
-1. **An agent finishes.** You get the desktop notification, or Michael tells you.
+1. **An agent finishes.** You get the desktop notification, or Nitya tells you.
 2. **Select that agent, click IDE.** You're in its workspace.
 3. **Read the CHANGES rail.** Click through each touched file, read the side-by-side diff vs HEAD. This is the honest answer to "what did it do," straight from git — not the agent's summary of itself.
 4. **Tweak in place.** Wrong variable name, missing edge case, comment you'd phrase differently — open the file from the tree, fix it, Cmd/Ctrl+S. No editor switch.

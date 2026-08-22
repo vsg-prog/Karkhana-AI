@@ -77,7 +77,6 @@ const BY_CHARACTER: Partial<Record<OfficeCharacterName, readonly string[]>> = {
   aarav:   ['I should file a bug ticket for that…', 'automation test suite is 100% green', 'no one ever sits with compliance'],
 
   // Legacy fallback support
-  michael:  ['I DECLARE… BANKRUPTCY!', "that's what she said", "I'm not superstitious. just a little stitious."],
   dwight:   ['FALSE.', 'identity theft is not a joke', 'that mug is regulation'],
   jim:      ["...that's what she said", 'bears. beets. Battlestar Galactica.'],
   pam:      ['Dunder Mifflin, this is Pam', 'sketching the vending machine'],
@@ -152,7 +151,6 @@ const KEYED_EXCHANGES: Partial<Record<OfficeCharacterName, Exchange>> = {
   aarav:   ['I’m filing a ticket.', '...for a typo?'],
 
   // Legacy fallback
-  michael: ['that’s what she said.', '...there it is.'],
   dwight:  ['identity theft is not a joke.', 'nobody touched your stapler, Dwight.'],
   jim:     ['question.', 'yes.', 'nothing. just checking.'],
 };

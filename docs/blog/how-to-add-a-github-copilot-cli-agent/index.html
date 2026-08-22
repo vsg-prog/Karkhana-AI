@@ -164,7 +164,7 @@
 <p>If you already pay for GitHub Copilot, you have an agent engine sitting in your subscription that most people only ever use as autocomplete. Copilot CLI is the terminal version — a real coding agent you run with <code>copilot</code> — and since <a href="/blog/launching-munder-difflin-v0-3-3/">v0.3.3</a>, Munder Difflin can hire it onto the floor next to your Claude Code, Codex, and OpenCode workers.</p>
 <p>This guide walks the whole path: install, hire, model choice, what auto-mode changes, and the one behavioral caveat you should understand before you assign work.</p>
 <h2 id="step-0-have-the-floor-running" tabindex="-1">Step 0: have the floor running <a class="anchor" href="#step-0-have-the-floor-running" aria-hidden="true">#</a></h2>
-<p>You need Munder Difflin itself first — if you don’t, <a href="/blog/how-to-install-and-use-munder-difflin/">the install guide</a> covers it in a few minutes. Everything below assumes you’re looking at the office floor with Michael seated in his office.</p>
+<p>You need Munder Difflin itself first — if you don’t, <a href="/blog/how-to-install-and-use-munder-difflin/">the install guide</a> covers it in a few minutes. Everything below assumes you’re looking at the office floor with Nitya seated in his office.</p>
 <h2 id="step-1-install-copilot-cli-or-dont-the-harness-will-offer" tabindex="-1">Step 1: install Copilot CLI (or don’t — the harness will offer) <a class="anchor" href="#step-1-install-copilot-cli-or-dont-the-harness-will-offer" aria-hidden="true">#</a></h2>
 <p>The engine drives the official npm package:</p>
 <pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> @github/copilot</code></pre>
@@ -177,7 +177,7 @@
 <video controls preload="none" playsinline poster="/media/demo/agents-poster.jpg" style="width:100%; border-radius:12px; margin:12px 0 24px;">
   <source src="/media/demo/agents.mp4" type="video/mp4" />
 </video>
-<p>Copilot hires also work through voice — Realtime Michael’s <code>spawn</code> action can hire one — and if you paste a raw <code>copilot ...</code> command into the custom-command field, the harness infers the binary and treats it as a Copilot engine.</p>
+<p>Copilot hires also work through voice — Realtime Nitya’s <code>spawn</code> action can hire one — and if you paste a raw <code>copilot ...</code> command into the custom-command field, the harness infers the binary and treats it as a Copilot engine.</p>
 <h2 id="step-3-choose-a-model" tabindex="-1">Step 3: choose a model <a class="anchor" href="#step-3-choose-a-model" aria-hidden="true">#</a></h2>
 <p>The Copilot engine ships with a model picker, <code>COPILOT_MODELS</code>, with three options:</p>
 <ul>
@@ -194,7 +194,7 @@
 <figure class="fig fig-inline"><img src="/blog/assets/media/how-to-add-a-github-copilot-cli-agent/note-2.png" alt="Hand-drawn sketch from “How to Add a GitHub Copilot CLI Agent to Your Floor”" loading="lazy" decoding="async" /></figure>
 <h2 id="the-honest-inbox-caveat" tabindex="-1">The honest inbox caveat <a class="anchor" href="#the-honest-inbox-caveat" aria-hidden="true">#</a></h2>
 <p>This is the part worth reading twice. Print mode <strong>exits per turn and exposes no hook bridge</strong>, which means a Copilot worker can’t do the thing hive-aware engines do: sit idle, notice mail in its inbox, and drain it. The engine is registered as non-hive-aware (<code>canReceiveInbox: false</code>) on purpose.</p>
-<p>So what happens when another agent routes a message to your Copilot worker? It <strong>bounces to the GOD orchestrator</strong> instead of silently dropping. Michael sees the bounced mail and handles or re-routes it — the message survives, it just doesn’t land in a mailbox nobody is checking. (If you’re new to how Michael adjudicates traffic, <a href="/blog/how-the-god-orchestrator-works/">the GOD orchestrator post</a> explains the routing model.)</p>
+<p>So what happens when another agent routes a message to your Copilot worker? It <strong>bounces to the GOD orchestrator</strong> instead of silently dropping. Nitya sees the bounced mail and handles or re-routes it — the message survives, it just doesn’t land in a mailbox nobody is checking. (If you’re new to how Nitya adjudicates traffic, <a href="/blog/how-the-god-orchestrator-works/">the GOD orchestrator post</a> explains the routing model.)</p>
 <p>The practical rule: <strong>use Copilot workers for dispatched, self-contained tasks.</strong> “Take this issue, fix it, report back” is their sweet spot. Long-running conversational back-and-forth between agents is not — hand that to a hive-aware engine. Shipping the limitation honestly, with a bounce path instead of a black hole, was a deliberate design call in PR #101, and it’s the right one.</p>
 <h2 id="recap" tabindex="-1">Recap <a class="anchor" href="#recap" aria-hidden="true">#</a></h2>
 <ol>
@@ -313,7 +313,7 @@
       <span>5 min</span>
     </div>
     <h3><a href="/blog/how-to-talk-to-your-orchestrator/">How to Brief Your Orchestrator (So the Floor Actually Ships)</a></h3>
-    <p class="dek">A practical guide to briefing Munder Difflin&#39;s GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Michael staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.</p>
+    <p class="dek">A practical guide to briefing Munder Difflin&#39;s GOD orchestrator: state the goal not the steps, set constraints and budgets, name the deliverable, and let Nitya staff the floor. With bad-vs-good brief examples, mid-run steering, and Talk mode.</p>
     <div class="foot">
       <span class="tag kind">Guides</span>
       <a class="more" href="/blog/how-to-talk-to-your-orchestrator/" aria-label="Read: How to Brief Your Orchestrator (So the Floor Actually Ships)">Read →</a>

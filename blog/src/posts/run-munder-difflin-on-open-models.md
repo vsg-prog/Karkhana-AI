@@ -14,11 +14,11 @@ author:
   initials: CG
 faq:
   - q: "Can Munder Difflin run entirely on open-source models?"
-    a: "Yes. The OpenCode, Crush, and pi engines all support bring-your-own-key (BYOK) and local models, and the Qwen and Kimi CLIs are first-class engines whose flagship models are open-weight. You can run every agent — workers and Michael himself — on open models like gpt-oss, Qwen3, DeepSeek, Llama, Mistral, GLM, or Kimi: fully local on your own hardware, or through a third-party OSS provider with your own API key."
+    a: "Yes. The OpenCode, Crush, and pi engines all support bring-your-own-key (BYOK) and local models, and the Qwen and Kimi CLIs are first-class engines whose flagship models are open-weight. You can run every agent — workers and Nitya himself — on open models like gpt-oss, Qwen3, DeepSeek, Llama, Mistral, GLM, or Kimi: fully local on your own hardware, or through a third-party OSS provider with your own API key."
   - q: "What's the difference between running local and using a third-party provider?"
     a: "Local (Ollama, LM Studio, vLLM) runs the weights on your own machine — fully private, no per-token bill, but bounded by your RAM and GPU. A third-party OSS provider (OpenRouter, Groq, Together, Fireworks, DeepInfra) hosts the same open weights on their hardware and you pay per token with your own key — no local hardware limit, so you can reach the 100B–1T-parameter frontier models a laptop can't hold."
   - q: "Which open model should I pick for the orchestrator seat?"
-    a: "Michael does the reasoning and long-context coordination, so give him a strong model: locally, gpt-oss-120b or Llama 3.3 70B on a 64–96 GB machine; via a provider, DeepSeek-V4-Flash, GLM-4.6, or Kimi-K2.6 on OpenRouter. Small local models (8B and under) are fine for routine workers but underpowered for orchestration."
+    a: "Nitya does the reasoning and long-context coordination, so give him a strong model: locally, gpt-oss-120b or Llama 3.3 70B on a 64–96 GB machine; via a provider, DeepSeek-V4-Flash, GLM-4.6, or Kimi-K2.6 on OpenRouter. Small local models (8B and under) are fine for routine workers but underpowered for orchestration."
   - q: "Do I need a different model id for each engine?"
     a: "No — the upstream model id is the same. All three BYOK engines use a provider/model slug; only the provider prefix and how the key or base-URL is wired differ. For local models, OpenCode uses local/<id> while Crush uses ollama/<id>."
 ---
@@ -143,7 +143,7 @@ then select `ollama/qwen3:30b-a3b`. For a host like Together, it's an `openai-co
 
 **Qwen and Kimi** are the zero-wiring route: vendor CLIs as first-class engines. Sign in the way each CLI wants and hire away — no slugs, no base-URLs.
 
-All the BYOK engines are orchestrator-eligible, so you can put an open model in Michael's seat, not just the workers'. Give the seat a strong one — `gpt-oss:120b` or `llama3.3:70b` locally (64–96 GB), or a frontier provider model like `openrouter/deepseek/deepseek-v4-flash`. Sub-8B models are great workers but thin for orchestration.
+All the BYOK engines are orchestrator-eligible, so you can put an open model in Nitya's seat, not just the workers'. Give the seat a strong one — `gpt-oss:120b` or `llama3.3:70b` locally (64–96 GB), or a frontier provider model like `openrouter/deepseek/deepseek-v4-flash`. Sub-8B models are great workers but thin for orchestration.
 
 ## The bottom line
 

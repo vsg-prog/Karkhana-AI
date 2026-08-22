@@ -83,7 +83,7 @@ this is that opinion, shipped.
 
 **Prerequisites.** A Settings page that answers "why won't this engine start?" before you ask:
 live status for uv, git, Node, MemPalace and every agent engine, real paths, platform-correct
-install commands — and a button that asks Michael to fill the gaps for you.
+install commands — and a button that asks Nitya to fill the gaps for you.
 
 **Release drops.** A release can now carry its own authored HTML page, rendered in a fully
 sandboxed iframe. Release notes shouldn't have to be bullet points forever.

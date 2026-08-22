@@ -487,7 +487,7 @@ Single-page site + blog. `<lastmod>` must be updated on real changes (don't fake
 
 ### 5.5 Image `alt` guidelines
 - Describe content + function, include a keyword **only when natural**. No keyword stuffing.
-- Good (already in repo): *"Munder Difflin running a floor of Claude Code agents — avatars at their desks, the GOD orchestrator in Michael's office, and a live terminal session."*
+- Good (already in repo): *"Munder Difflin running a floor of Claude Code agents — avatars at their desks, the GOD orchestrator in Nitya's office, and a live terminal session."*
 - Decorative images (pure ornament): `alt=""`.
 - Blog hero images: `alt` = post topic in plain language, e.g. *"Diagram of a GOD orchestrator routing tasks to three Claude Code agents."*
 - Provide `width`/`height` on every `<img>` (prevents CLS — the repo already does this on the logo).

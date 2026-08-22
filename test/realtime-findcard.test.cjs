@@ -63,8 +63,8 @@ function findCard(tasks, ref) {
 // ── fixtures (same synthetic cards as bin/find-task.cjs --selftest) ──────────
 const TASKS = [
   { id: 'build-orchestrator-message-visibility-cli-ab12', title: 'Build orchestrator message-visibility CLI (hive-msg.cjs)', status: 'done' },
-  { id: 'rt-2-realtime-session', title: 'Realtime Michael 2: WebRTC session — mic capture, VAD, barge-in', status: 'done' },
-  { id: 'rt-3-toggle-ui', title: 'Realtime Michael 3: mic toggle + live state dot on AgentCard', status: 'done' },
+  { id: 'rt-2-realtime-session', title: 'Realtime Nitya 2: WebRTC session — mic capture, VAD, barge-in', status: 'done' },
+  { id: 'rt-3-toggle-ui', title: 'Realtime Nitya 3: mic toggle + live state dot on AgentCard', status: 'done' },
   { id: 'test-3-playwright-e2e', title: 'Test harness 3: Playwright _electron E2E config + launch fixture', status: 'todo' },
   { id: 'ondev-d-oss-model-catalog', title: 'On-device D: research the open-source model catalog', status: 'done' },
 ];
@@ -104,9 +104,9 @@ test('word-prefix: "playwright e2e" -> test-3', () => {
 test('exact-id: "test-3-playwright-e2e"', () => {
   assert.strictEqual(find('test-3-playwright-e2e').card?.id, 'test-3-playwright-e2e');
 });
-// 6. ambiguity: "realtime michael" matches rt-2 AND rt-3 closely -> must flag, not guess
-test('ambiguous: "realtime michael" flags disambiguation (no silent write)', () => {
-  const r = find('realtime michael');
+// 6. ambiguity: "realtime nitya" matches rt-2 AND rt-3 closely -> must flag, not guess
+test('ambiguous: "realtime nitya" flags disambiguation (no silent write)', () => {
+  const r = find('realtime nitya');
   assert.strictEqual(r.card, null, 'must not pick a card when ambiguous');
   assert.ok(Array.isArray(r.ambiguous) && r.ambiguous.length >= 2, 'lists the close candidates');
 });

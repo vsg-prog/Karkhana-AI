@@ -264,7 +264,7 @@ const RICH = {
     // stage 2: wizard checklist
     s += checklist(390, 480, 220, [true, true, true, false]);
     s += txt(390, 452, "min 5 — meet your clone", BLUE, 28);
-    // stage 3: brief Michael at his desk
+    // stage 3: brief Nitya at his desk
     s += desk(720, 620, 300) + terminal(770, 500, 170, 100) + hei(700, 560, 0.72, { legs: "none", armR: "out", armL: "none" });
     s += bubble(640, 350, 250, 84, 1) + txt(672, 402, "brief him once", BLUE, 26);
     s += mug(1000, 618, 1) + plant(1090, 690, 1);
@@ -325,7 +325,7 @@ const RICH = {
     s += `<rect x="370" y="560" width="70" height="8" rx="2"/><rect x="365" y="548" width="70" height="8" rx="2"/><rect x="372" y="536" width="70" height="8" rx="2"/>`;
     s += book(300, 660, 120);
     s += txt(150, 460, "draft, in a worktree", BLUE, 27);
-    // Michael integrates: stamp
+    // Nitya integrates: stamp
     s += desk(620, 620, 260) + hei(700, 545, 0.7, { legs: "none", armL: "down", armR: "up" });
     s += stampI(790, 512, 1.2);
     s += txt(610, 452, "one committer", AMBER, 26);

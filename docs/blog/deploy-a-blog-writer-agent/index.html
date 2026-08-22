@@ -79,7 +79,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Did an AI actually write the Munder Difflin blog?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Michael integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post's illustrations as code." } },
+    { "@type": "Question", "name": "Did an AI actually write the Munder Difflin blog?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Nitya integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post's illustrations as code." } },
     { "@type": "Question", "name": "Is the blog-writer agent fully autonomous?", "acceptedAnswer": { "@type": "Answer", "text": "Almost — it's deliberately human-gated at one point: publish. The agent drafts and self-reviews against a style reference in an isolated worktree; the orchestrator integrates and builds; a person reviews the diff and approves the deploy. That keeps the volume high and hands-off without putting an unreviewed post on the live domain." } },
     { "@type": "Question", "name": "How do I build my own blog-writer agent?", "acceptedAnswer": { "@type": "Answer", "text": "Give one agent in the hive three things: a topic or brief, a house-style reference (a few of your best existing posts), and write access to an isolated worktree. Let it draft, have a reviewer agent or the orchestrator check it, then human-approve the build and deploy. Munder Difflin gives you the worktree isolation, single-committer git, skills, and approval queue out of the box." } },
     { "@type": "Question", "name": "Why use a multi-agent hive instead of one prompt to write blog posts?", "acceptedAnswer": { "@type": "Answer", "text": "One prompt writes one post. A hive runs a content function: a writer drafts, a reviewer checks, the orchestrator integrates and builds, and a scheduled mission can fire the loop on a cadence — so you get a steady, compounding stream of on-topic posts rather than a single output you have to re-prompt for each time." } }
@@ -160,7 +160,7 @@
     <div class="prose">
       <div class="callout tldr"><span class="ic">TL;DR</span><p>The Munder Difflin blog is written by an
 <strong>automated writer agent</strong> living in the hive. The loop: a writer agent drafts a post in an
-<strong>isolated worktree</strong> from a topic brief + a house-style reference; <strong>Michael</strong>
+<strong>isolated worktree</strong> from a topic brief + a house-style reference; <strong>Nitya</strong>
 integrates it as the single committer; <strong>Eleventy</strong> builds
 <code>blog/src/posts</code> → <code>docs/blog</code>; and a human approves the deploy to
 <strong>munderdiffl.in</strong>. The outcome is a steady, on-topic stream — <strong>well over a hundred
@@ -207,7 +207,7 @@ description, category, keywords, FAQ schema), and drafts ~1,000–1,400 words of
 against the style reference before handing off. The output is a single <code>.md</code> file in
 <code>blog/src/posts/</code> — filename becomes the URL slug.</p>
 <h3 id="2-integrate-the-orchestrator-is-the-single-committer" tabindex="-1">2. Integrate — the orchestrator is the single committer <a class="anchor" href="#2-integrate-the-orchestrator-is-the-single-committer" aria-hidden="true">#</a></h3>
-<p>The writer <strong>never commits</strong>. It writes a plain file; <strong>Michael</strong> owns every commit. This is
+<p>The writer <strong>never commits</strong>. It writes a plain file; <strong>Nitya</strong> owns every commit. This is
 the <a href="/blog/single-committer-git-pattern/">single-committer pattern</a> — agents write files, one process
 serializes all the git, so parallel agents never race on <code>.git/index.lock</code> and the repo stays a clean audit
 log. The orchestrator picks up the finished draft, reviews routing, and commits it into the real tree.</p>
@@ -268,7 +268,7 @@ floor; it’s free and open source.</p>
         
         <div class="qa">
           <p class="q">Did an AI actually write the Munder Difflin blog?</p>
-          <p class="a">Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Michael integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post&#39;s illustrations as code.</p>
+          <p class="a">Yes — most of it. A writer agent in the hive drafts each post from a topic brief and a house-style reference, Nitya integrates it as the single committer, Eleventy builds the markdown into the static site, and a human approves the final deploy to munderdiffl.in. This very post is an example of that pipeline running — and as of August 2026, the same office also draws every post&#39;s illustrations as code.</p>
         </div>
         
         <div class="qa">

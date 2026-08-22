@@ -1,0 +1,3 @@
+{"ts":1787386181194,"kind":"spawn","agentId":"god","name":"Nitya","isGod":true}
+{"ts":1787386181611,"kind":"archive","agentId":"god","archived":true}
+{"ts":1787386394433,"kind":"message","from":"scheduler","to":"god","act":"request","subject":"Hourly ops standup","id":"2026-08-22T08-13-14-431Z-7ffb1a"}
