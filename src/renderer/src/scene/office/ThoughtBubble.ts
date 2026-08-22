@@ -1,5 +1,5 @@
 import { Container, Graphics, Text } from 'pixi.js';
-import { colors } from '@/design/tokens';
+import { colors, type } from '@/design/tokens';
 import { toolIcon } from './ToolBubble';
 
 // A comic "thought cloud" pinned above an avatar's head showing what it's doing
@@ -84,7 +84,7 @@ export class ThoughtBubble {
         fontSize: FONT_SIZE,
         fontWeight: 'bold',
         fill: TEXT_COLOR,
-        fontFamily: 'monospace',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, monospace',
         align: 'left',
         wordWrap: true,
         wordWrapWidth: WRAP_WIDTH,

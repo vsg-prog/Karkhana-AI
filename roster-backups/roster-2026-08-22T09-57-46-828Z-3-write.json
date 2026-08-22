@@ -1,18 +1,18 @@
 {
   "version": 1,
-  "savedAt": "2026-08-22T10:16:11.850Z",
+  "savedAt": "2026-08-22T09:57:44.023Z",
   "agents": [
     {
       "id": "god",
       "name": "Nitya",
       "character": "nitya",
       "accent": "lemon",
-      "description": "on standby",
+      "description": "god — runs the floor, triages requests, escalates only critical calls to you",
       "project": "hive",
       "tmuxTarget": "",
       "cwd": "/Users/raai/Claude/Projects/Karkhana-AI",
       "status": "idle",
-      "action": "awaiting",
+      "action": "running the floor",
       "progress": 0,
       "currentStation": "desk",
       "ptyId": "pty-god",
@@ -42,19 +42,6 @@
     }
   ],
   "restorable": [],
-  "queues": {
-    "god": [
-      {
-        "id": "q-1787392666326-1",
-        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787392666326
-      },
-      {
-        "id": "q-1787393771344-2",
-        "text": "You have new hive inbox message(s) — read your inbox, act on them now, and move handled ones to inbox/.done/. Act autonomously; only message god if you genuinely need a decision.",
-        "ts": 1787393771344
-      }
-    ]
-  },
+  "queues": {},
   "selectedId": "god"
 }

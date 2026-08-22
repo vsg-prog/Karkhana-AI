@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "savedAt": "2026-08-22T09:57:38.820Z",
+  "agents": [],
+  "archived": [
+    {
+      "id": "jim-mt464s0y",
+      "name": "Jim",
+      "character": "vikram",
+      "accent": "sky",
+      "description": "on standby",
+      "project": "Jobs",
+      "tmuxTarget": "",
+      "cwd": "/Users/raai/Claude/Projects/Jobs",
+      "status": "idle",
+      "action": "archived",
+      "progress": 0,
+      "command": "kilo --model omniroute/auto --yolo",
+      "provider": "omniroute",
+      "model": "omniroute/auto",
+      "archived": true
+    }
+  ],
+  "restorable": [],
+  "queues": {
+    "god": [
+      {
+        "id": "q-1787390405693-2",
+        "text": "hello",
+        "ts": 1787390405693
+      }
+    ]
+  },
+  "selectedId": null
+}

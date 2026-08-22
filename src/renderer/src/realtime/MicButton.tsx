@@ -101,7 +101,7 @@ export function MicButton({ compact = false, className = '', onTranscript }: Mic
     if (l.includes('tamil') || l.includes('தமிழ்') || l === 'ta') return 'ta-IN';
     if (l.includes('telugu') || l.includes('తెలుగు') || l === 'te') return 'te-IN';
     if (l.includes('bengali') || l.includes('বাংলা') || l === 'bn') return 'bn-IN';
-    if (l.includes('assamese') || l.includes('অसमীয়া') || l === 'as') return 'as-IN';
+    if (l.includes('assamese') || l.includes('অসমীয়া') || l === 'as') return 'as-IN';
     return 'en-IN';
   }, []);
 
