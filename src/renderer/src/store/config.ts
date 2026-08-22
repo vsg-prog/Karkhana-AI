@@ -14,6 +14,7 @@ import type {
   OrgTriggerConfig,
   WebhookTrigger
 } from '@shared/triggers';
+import type { McpCatalogEntry } from '@shared/mcpCatalog';
 
 export {
   AGENT_PROVIDER_PRESETS,
@@ -76,6 +77,8 @@ export interface HarnessConfig {
   /** Per-server consent for the default MCP bundle, keyed by catalog id (mirrors
    *  src/main/config.ts; seeded from MCP_CATALOG). */
   mcpDefaults?: { [id: string]: { enabled: boolean } };
+  /** User-added MCP servers beyond the built-in catalog. Mirrors src/main/config.ts. */
+  customMcpServers?: McpCatalogEntry[];
   semanticMemory: boolean;
   embeddingModel: 'minilm' | 'embeddinggemma';
   missions?: ScheduledMission[];
@@ -289,9 +292,20 @@ export const COPILOT_MODELS: ModelOption[] = [
 /** Models reported by the installed Grok CLI (`grok models`). */
 
 /** Models offered when an agent runs on OmniRoute (omniroute). */
+// CAVEAT: OmniRoute "combos" are user-defined per server — there is no fixed,
+// universal set of names (every previous guess here, including the generic
+// 'auto/*' template names, turned out not to exist as real combos and got
+// rejected with a 400 from OmniRoute itself: "Unable to determine provider
+// for model X ... or ensure the model is added as a combo entry"). The three
+// entries below are verified against THIS deployment's own `GET /api/combos`
+// and will not exist on another user's OmniRoute server. This dropdown
+// should eventually be populated live from /api/combos (or accept free text)
+// instead of a hardcoded guess — tracked as a known gap, not fixed here.
 export const OMNIROUTE_MODELS: ModelOption[] = [
   { id: undefined, label: "CLI default" },
-  { id: "omniroute/auto", label: "OmniRoute Auto" },
+  { id: "claude-priority", label: "OmniRoute: claude-priority" },
+  { id: "reasoning-priority", label: "OmniRoute: reasoning-priority" },
+  { id: "free-fallback-pool", label: "OmniRoute: free-fallback-pool" },
   { id: "claude-sonnet-4.6", label: "Claude Sonnet 4.6" },
   { id: "gpt-5.6", label: "GPT-5.6" },
   { id: "gemini-3.1-pro", label: "Gemini 3.1 Pro" }

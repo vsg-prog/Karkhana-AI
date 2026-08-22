@@ -28,14 +28,14 @@ import { randomBytes, createHash } from 'node:crypto';
 import type { AgentUsageSample } from './usage';
 import { COMMAND_GROUPS } from '../shared/claudeCommands';
 import {
-  isClaudeProvider,
+  spawnsClaudeCli,
   isHiveAwareProvider,
   canReceiveInbox,
   providerPreset,
   bridgeOf,
   type AgentProvider
 } from '../shared/agentProvider';
-import { MCP_CATALOG } from '../shared/mcpCatalog';
+import { MCP_CATALOG, type McpCatalogEntry } from '../shared/mcpCatalog';
 import { expandTilde } from './fs';
 
 /** The subset of HarnessConfig the hive consumes for the default-MCP merge.
@@ -554,6 +554,11 @@ export class HiveManager {
       /** Consent state for the default-MCP bundle (W3). Threaded from the live
        *  HarnessConfig by the caller; undefined → catalog defaults apply. */
       mcpDefaults?: { [id: string]: { enabled: boolean } };
+      /** User-added MCP servers beyond the built-in catalog. Threaded from the
+       *  live HarnessConfig; merged into the same consent/enable path as
+       *  MCP_CATALOG so a custom server is never armed without explicit
+       *  `mcpDefaults[id].enabled === true`. */
+      customMcpServers?: McpCatalogEntry[];
       /** App-resources `skills/` source dir (W3). The bundled read-only skills are
        *  copied into the agent's `.claude/skills/` per spawn; undefined or missing
        *  is a no-op (tolerated until Kevin populates the resource dir). */
@@ -637,7 +642,15 @@ export class HiveManager {
     // we write for an agent to run bake `nodeCommand()`'s absolute path instead.
     env.HIVE_NODE = this.nodeCommand();
 
-    const claudeProvider = isClaudeProvider(meta.provider ?? 'claude');
+    // spawnsClaudeCli, not isClaudeProvider: this gates --settings hook wiring
+    // (SessionStart/PostToolUse/etc.), which works whenever the real `claude`
+    // binary is running — true for 'omniroute' too, not just the literal
+    // 'claude' provider. Using isClaudeProvider here meant every omniroute
+    // agent (including god) never got hooks wired at all: no SessionStart, so
+    // recordSession() was never called, so "Restart & Continue" permanently
+    // failed with "No recorded session ID", and context/tool-call telemetry
+    // never populated.
+    const claudeProvider = spawnsClaudeCli(meta.provider ?? 'claude');
 
     // Non-hive-aware providers (Antigravity's `agy`, OpenAI's `codex`, xAI's
     // `grok`) don't
@@ -787,7 +800,7 @@ export class HiveManager {
     if (sock && shim) {
       env.HIVE_SOCK = sock;
       const settingsPath = join(dir, 'settings.json');
-      this.writeJson(settingsPath, this.hookSettings(shim, meta.cwd, opts.mcpDefaults, opts.theme));
+      this.writeJson(settingsPath, this.hookSettings(shim, meta.cwd, opts.mcpDefaults, opts.theme, opts.customMcpServers));
       args.push('--settings', settingsPath);
     }
     return { args, env };
@@ -846,7 +859,13 @@ export class HiveManager {
    *  (W3) the default MCP bundle merged into this PER-SESSION settings file. cwd
    *  scopes the filesystem/git servers; cfg (the consent map) gates which servers
    *  are written. Claude-only — this is invoked solely on the Claude spawn path. */
-  private hookSettings(shim: string, cwd: string, cfg: McpDefaultsMap, theme?: 'light' | 'dark'): unknown {
+  private hookSettings(
+    shim: string,
+    cwd: string,
+    cfg: McpDefaultsMap,
+    theme?: 'light' | 'dark',
+    customServers?: McpCatalogEntry[]
+  ): unknown {
     // Bundled node, NOT bare `node` — see nodeLauncherPath(). Claude runs each of
     // these through `sh -c` with a stripped PATH, where `node` is often absent.
     const cmd = this.nodeRun(shim);
@@ -854,7 +873,7 @@ export class HiveManager {
       ...(matcher ? { matcher } : {}),
       hooks: [{ type: 'command', command: cmd }]
     });
-    const mcpServers = this.buildDefaultMcpServers(cwd, cfg);
+    const mcpServers = this.buildDefaultMcpServers(cwd, cfg, customServers);
     return {
       // Match the TUI's truecolor palette to the harness terminal theme —
       // PER SESSION, so the user's global Claude theme (their own terminals
@@ -897,10 +916,11 @@ export class HiveManager {
    */
   private buildDefaultMcpServers(
     cwd: string,
-    cfg: McpDefaultsMap
+    cfg: McpDefaultsMap,
+    customServers?: McpCatalogEntry[]
   ): Record<string, { command: string; args: string[]; env?: Record<string, string> }> {
     const out: Record<string, { command: string; args: string[]; env?: Record<string, string> }> = {};
-    for (const e of MCP_CATALOG) {
+    for (const e of [...MCP_CATALOG, ...(customServers ?? [])]) {
       const consented = cfg?.[e.id]?.enabled;
       const enabled = consented ?? e.defaultEnabled;
       if (!enabled) continue;

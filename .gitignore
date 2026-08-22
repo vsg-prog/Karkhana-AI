@@ -28,3 +28,16 @@ docs/media/MunderDifflin*.mp4
 
 # blog theme previews (local only)
 docs/blog-preview-*/
+
+# Live hive runtime data — per-agent memory, inbox/outbox, event log, task
+# registry, MemPalace semantic-memory store, roster + its rolling backups.
+# This is the user's own personal session/work history (agent conversations,
+# task content, timestamps), not source — it was previously tracked (a
+# pre-existing issue, not introduced here) and was about to grow by dozens of
+# roster-backups/*.json files per session. Untracked going forward; existing
+# committed copies remain in history until a deliberate history rewrite.
+hive/
+roster.json
+roster-backups/
+palace/
+hallways.json

@@ -18,6 +18,8 @@ import type {
 export type {
   ContextRule, ContextTriggerConfig, OrgTriggerConfig, TriggerHistoryEntry, WebhookTrigger
 } from '../shared/triggers';
+import type { McpCatalogEntry } from '../shared/mcpCatalog';
+export type { McpCatalogEntry } from '../shared/mcpCatalog';
 
 /** Renderer-visible integration record: the secretRef handle is redacted to a
  *  presence boolean. Matches main `integrations.listRecordsRedacted()` — the
@@ -272,6 +274,8 @@ export interface HarnessConfig {
   /** Per-server consent for the default MCP bundle, keyed by catalog id. Mirrors
    *  src/main/config.ts. */
   mcpDefaults?: { [id: string]: { enabled: boolean } };
+  /** User-added MCP servers beyond the built-in catalog. Mirrors src/main/config.ts. */
+  customMcpServers?: McpCatalogEntry[];
   semanticMemory: boolean;
   embeddingModel: 'minilm' | 'embeddinggemma';
   missions?: ScheduledMission[];

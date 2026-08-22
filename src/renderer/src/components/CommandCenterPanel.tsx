@@ -12,6 +12,7 @@ import { TriggersTab } from './triggers/TriggersTab';
 import { TriggerHistoryTab } from './triggers/TriggerHistoryTab';
 import { WorkersTab } from './WorkersTab';
 import { SkillsTab } from './SkillsTab';
+import { McpServersTab } from './McpServersTab';
 import { acquireTerminal, disposeTerminal, resetTerminal } from './terminalPool';
 import { terminalInstanceKey } from './terminalRecovery';
 import { Icon } from './Icon';
@@ -44,7 +45,7 @@ import { canReceiveInbox } from '@shared/agentProvider';
 // the old Schedules tab: schedules are now one of four trigger types, and the
 // whole surface lives in ./triggers (see src/shared/triggers.ts for the contract).
 type CCTab = 'terminal' | 'floor' | 'tasks' | 'human' | 'triggers' | 'trigger-history'
-  | 'memory' | 'graph' | 'activity' | 'skills' | 'workers';
+  | 'memory' | 'graph' | 'activity' | 'skills' | 'mcp' | 'workers';
 
 /** Fallback denominator for the per-agent token meter when no floor token budget
  *  is configured — so the bar reads as a budget estimate (filled + remaining)
@@ -73,6 +74,7 @@ const TABS: { key: CCTab; label: string; icon: Parameters<typeof Icon>[0]['name'
   { key: 'graph', label: 'graph', icon: 'web' },
   { key: 'activity', label: 'activity', icon: 'bell' },
   { key: 'skills', label: 'skills', icon: 'sparkle' },
+  { key: 'mcp', label: 'mcp', icon: 'mcp' },
   { key: 'workers', label: 'workers', icon: 'gear' }
 ];
 
@@ -323,6 +325,7 @@ export function CommandCenterPanel({ agent, fullscreen = false }: { agent: Agent
         )}
         {tab === 'activity' && <ActivityTab />}
         {tab === 'skills' && <SkillsTab agentCwd={agent.cwd} />}
+        {tab === 'mcp' && <McpServersTab />}
         {tab === 'workers' && <WorkersTab />}
       </div>
     </PixelPanel>
@@ -863,14 +866,19 @@ function FloorTab({ seed }: { seed: { text: string; seq: number } }) {
                   {restarting === a.id ? 'restarting…' : 'apply'}
                 </PixelButton>
                 {/* Redraw a garbled terminal without losing the thread (resume the
-                    SAME engine+model). Kept here since the god has no per-agent row above. */}
+                    SAME engine+model). Kept here since the god has no per-agent row above.
+                    resumeOptional: true — same reasoning as the non-god button below:
+                    god has no explicit "start fresh" affordance, so a missing/stale
+                    session id should degrade to a fresh session (still gets her back
+                    online) rather than hard-fail with "No recorded session ID" and
+                    leave the human stuck with a dead terminal and no next step. */}
                 <PixelButton
                   variant="secondary"
                   size="sm"
                   disabled={restarting === a.id}
-                  onClick={() => restartWithModel(a, a.model, { resume: true })}
+                  onClick={() => restartWithModel(a, a.model, { resume: true, resumeOptional: true })}
                 >
-                  <span title="Kill and respawn Nitya, resuming the current conversation — fixes a corrupted/garbled terminal without losing context">
+                  <span title="Kill and respawn Nitya, resuming the current conversation when possible — fixes a corrupted/garbled terminal or a stuck agent without losing context when a session is on record">
                     restart &amp; continue
                   </span>
                 </PixelButton>

@@ -64,7 +64,7 @@ import { parseHireDeepLink, type HireManifest } from '../shared/hire';
 import { ClosingTimeController } from './closingTime';
 import {
   inferAgentProvider,
-  isClaudeProvider,
+  spawnsClaudeCli,
   nonInteractiveEnvForProvider,
   providerPreset,
   installInfoForProvider,
@@ -355,7 +355,11 @@ const BACKEND_KEY_ENV: Record<string, string> = {
   openai: 'OPENAI_API_KEY',
   google: 'GEMINI_API_KEY',
   openrouter: 'OPENROUTER_API_KEY',
-  groq: 'GROQ_API_KEY'
+  groq: 'GROQ_API_KEY',
+  // The OmniRoute gateway itself — distinct from the 'anthropic' backend above
+  // (a direct Anthropic API key). This key authenticates to the user's own
+  // OmniRoute server, which then does its own multi-provider routing.
+  omniroute: 'ANTHROPIC_AUTH_TOKEN'
 };
 const providerKeyRef = (backend: string): string => `apikey:${backend}`;
 
@@ -2239,11 +2243,20 @@ function createWindow(opts: { floor?: boolean } = {}): BrowserWindow {
     if (details.isMainFrame) rendererReadyForHires = false;
   });
 
+  // ELECTRON_RENDERER_URL is set ONLY by `electron-vite dev` (never in a
+  // packaged/production build), so its presence is the dev-mode signal — check
+  // it FIRST. The previous order checked `out/renderer/index.html` first: once
+  // a single production build ever ran (leaving that file on disk), every
+  // subsequent `npm run dev` silently loaded that stale prebuilt bundle instead
+  // of the live Vite dev server — no renderer-side source edit ever took
+  // effect, no matter how many times the app was restarted, with no error or
+  // any other symptom (main-process edits still worked normally, since those
+  // rebuild into out/main/index.js directly regardless of this path).
   const builtRendererPath = join(__dirname, '../renderer/index.html');
-  if (existsSync(builtRendererPath)) {
-    win.loadFile(builtRendererPath);
-  } else if (process.env.ELECTRON_RENDERER_URL) {
+  if (process.env.ELECTRON_RENDERER_URL) {
     win.loadURL(process.env.ELECTRON_RENDERER_URL);
+  } else if (existsSync(builtRendererPath)) {
+    win.loadFile(builtRendererPath);
   }
 
   win.on('closed', () => {
@@ -2419,7 +2432,12 @@ async function spawnAgentCore(opts: AgentSpawnOptions, owner: Electron.WebConten
   // below. Persist the resolved provider onto opts (+ hive meta) so the registry
   // record and downstream provider-aware steps agree on one value.
   const provider = inferAgentProvider(opts.command, opts.provider ?? opts.hive?.provider);
-  const claudeProvider = isClaudeProvider(provider);
+  // spawnsClaudeCli, not isClaudeProvider: this gates --model/--resume/--max-turns/
+  // --settings and ensureClaudePermissionsAccepted — all of which work whenever
+  // the real `claude` binary is running (true for 'omniroute' too), not only for
+  // the literal 'claude' provider. See spawnsClaudeCli's doc comment for the bug
+  // this fixes (omniroute agents never got --resume or hook wiring at all).
+  const claudeProvider = spawnsClaudeCli(provider);
   opts.provider = provider;
   if (opts.hive) opts.hive = { ...opts.hive, provider };
   // ── Missing engine CLI → run its installer visibly (pre-spawn) ───────────────
@@ -2551,6 +2569,7 @@ async function spawnAgentCore(opts: AgentSpawnOptions, owner: Electron.WebConten
           theme: readConfig().terminalTheme ?? 'light',
           // W3 — default-MCP consent state + the bundled skills source dir.
           mcpDefaults: readConfig().mcpDefaults,
+          customMcpServers: readConfig().customMcpServers,
           skillsDir: skillsResourceDir()
         }
       );
@@ -2745,6 +2764,38 @@ async function spawnAgentCore(opts: AgentSpawnOptions, owner: Electron.WebConten
         };
       }
       extra.OPENCODE_CONFIG_CONTENT = JSON.stringify(oc);
+    }
+    opts.env = { ...(opts.env ?? {}), ...extra };
+  }
+  // ── OmniRoute gateway wiring ──────────────────────────────────────────────
+  // The 'omniroute' provider spawns the real `claude` binary (like 'claude'
+  // itself), but pointed at the user's OmniRoute server instead of Anthropic's
+  // OAuth-authenticated first-party endpoint. Claude Code only honors
+  // ANTHROPIC_BASE_URL in API-key auth mode — it ignores it entirely under a
+  // normal OAuth/subscription login — so ANTHROPIC_AUTH_TOKEN MUST be set
+  // alongside the base URL for this to take effect at all. Previously this
+  // provider had NO env wiring here whatsoever: every omniroute-provider agent
+  // (including the boss) ran bare `claude` with no gateway pointer, so it
+  // either crashed on an unrecognized --model value or silently fell through
+  // to the user's own Anthropic OAuth session, defeating the whole point.
+  if (opts.hive && provider === 'omniroute') {
+    const cfg = readConfig();
+    const baseUrl = cfg.providerBaseUrls?.omniroute;
+    const authToken = integrations.getSecret(providerKeyRef('omniroute'));
+    const extra: Record<string, string> = {
+      // The picker/model discovery lists claude*/anthropic* ids from the
+      // gateway's /v1/models; without this, custom OmniRoute combo names
+      // (auto/best-coding, a user's own combo, …) are rejected as unrecognized.
+      CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY: '1'
+    };
+    if (baseUrl) extra.ANTHROPIC_BASE_URL = baseUrl;
+    if (authToken) extra.ANTHROPIC_AUTH_TOKEN = authToken;
+    if (!baseUrl || !authToken) {
+      console.warn(
+        '[spawn] omniroute provider missing config — ' +
+        (!baseUrl ? 'no base URL set (Settings → AI Engines → OmniRoute). ' : '') +
+        (!authToken ? 'no API key set (Settings → AI Engines → OmniRoute).' : '')
+      );
     }
     opts.env = { ...(opts.env ?? {}), ...extra };
   }

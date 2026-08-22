@@ -9,7 +9,7 @@ import {
   providerPreset,
   type AgentProvider
 } from '../shared/agentProvider';
-import { defaultMcpDefaults } from '../shared/mcpCatalog';
+import { defaultMcpDefaults, type McpCatalogEntry } from '../shared/mcpCatalog';
 import { expandTilde, normalizeHiveHome } from './fs';
 import type { IntegrationRecord } from '../shared/integrations';
 import {
@@ -198,6 +198,10 @@ export interface HarnessConfig {
    *  Seeded from MCP_CATALOG (safe-readonly ON, write/secret OFF); the user flips
    *  these in Settings. A server is wired into an agent only when enabled here. */
   mcpDefaults?: { [id: string]: { enabled: boolean } };
+  /** User-added MCP servers beyond the built-in catalog (Settings → MCP → Add
+   *  server). Merged into MCP_CATALOG at spawn time by buildDefaultMcpServers;
+   *  gated by the same `mcpDefaults[id].enabled === true` consent path. */
+  customMcpServers?: McpCatalogEntry[];
   /** Enable semantic memory (MemPalace CLI). No-op if mempalace isn't installed. */
   semanticMemory: boolean;
   /** Embedding model for the palace: lightweight 'minilm' or multilingual 'embeddinggemma'. */
@@ -416,6 +420,7 @@ const DEFAULTS: HarnessConfig = {
   // Seeded from the MCP catalog so the consent defaults never drift from it
   // (safe-readonly ON, write/secret OFF).
   mcpDefaults: defaultMcpDefaults(),
+  customMcpServers: [],
   maxConcurrentWorkers: 4,
   workerIdleTimeoutMinutes: 20,
   integrations: [],

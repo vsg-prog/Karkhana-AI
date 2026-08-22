@@ -508,14 +508,34 @@ export const AGENT_PROVIDER_PRESETS: AgentProviderPreset[] = [
     autoFlag: '--dangerously-skip-permissions',
     supportsModel: true,
     modelFlag: '--model',
-    hiveAware: false,
+    // The real bug behind "No recorded session ID" / "restart & continue"
+    // permanently failing / context+tool-call telemetry never populating for
+    // EVERY omniroute agent (including god): hiveAware was false, so
+    // hive.ts's ensureAgent() took the non-hive-aware branch (protocol text
+    // rides in as the plain positional prompt) and returned BEFORE ever
+    // reaching the --append-system-prompt/--settings block — the block that
+    // wires SessionStart/PostToolUse hooks and is what calls recordSession().
+    // omniroute spawns the real `claude` binary (defaultCommand: 'claude'),
+    // just pointed at a different backend via env vars, so it's exactly as
+    // hook-capable as the literal 'claude' provider — hiveAware should be
+    // true. (isClaudeProvider→spawnsClaudeCli, fixed earlier for the SAME
+    // underlying bug, was necessary but not sufficient: this hiveAware gate
+    // is checked FIRST and was short-circuiting before that fix ever ran.)
+    hiveAware: true,
     canReceiveInbox: true,
     initialPromptFlag: '-p',
     positionalInitialPrompt: true,
-    recommendedOrchestratorModel: 'omniroute/auto',
+    // Every prior guess here ('omniroute/auto', 'auto/best-coding',
+    // 'auto-best-coding') was a fabricated combo id — none of OmniRoute's
+    // generic "auto/*" template names are actually registered on a given
+    // server. Confirmed via `GET /api/combos` against this user's own
+    // OmniRoute instance: the only real combos are claude-priority,
+    // reasoning-priority, free-fallback-pool, best-vision, auto/best-vision.
+    // 'claude-priority' is the one built for coding/orchestrator routing.
+    recommendedOrchestratorModel: 'claude-priority',
     resumeFlag: '--resume',
     installCommand: 'npm install -g omniroute',
-    docsUrl: 'https://github.com/Kilo-Org/omniroute'
+    docsUrl: 'https://github.com/diegosouzapw/OmniRoute'
   },
   {
     id: 'kilo',
@@ -576,6 +596,24 @@ export function providerPreset(provider: AgentProvider): AgentProviderPreset {
 
 export function isClaudeProvider(provider: AgentProvider | undefined): boolean {
   return provider === 'claude';
+}
+
+/** Whether this provider's agent process IS the real `claude` binary — true for
+ *  the literal 'claude' provider AND for any provider (currently just
+ *  'omniroute') whose preset.defaultCommand is also 'claude', just pointed at a
+ *  different backend via env vars (ANTHROPIC_BASE_URL/AUTH_TOKEN). Distinct from
+ *  isClaudeProvider on purpose: that one gates "does this provider use
+ *  Anthropic's own model catalog" (correctly narrow — omniroute has its own
+ *  OMNIROUTE_MODELS list), while THIS one gates "can Claude Code's --settings
+ *  hooks, --resume, and --model flags actually work on this process" (correctly
+ *  broad — they work whenever the real claude binary is what's running).
+ *  Using isClaudeProvider for the latter was a real bug: every omniroute agent
+ *  (including the god/orchestrator) silently never got --settings hook wiring,
+ *  so SessionStart never fired, recordSession() was never called, and "Restart
+ *  & Continue" permanently failed with "No recorded session ID" — plus context
+ *  tokens and tool-call counts never populated ("ctx no status tick yet"). */
+export function spawnsClaudeCli(provider: AgentProvider | undefined): boolean {
+  return providerPreset(provider ?? 'claude').defaultCommand === 'claude';
 }
 
 /** Whether this provider takes the hive's Claude-only identity injection. */

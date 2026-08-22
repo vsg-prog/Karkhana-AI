@@ -23,7 +23,8 @@ const BACKENDS: Array<{ id: string; label: string; envVar: string }> = [
   { id: 'openai', label: 'OpenAI', envVar: 'OPENAI_API_KEY' },
   { id: 'google', label: 'Google · Gemini', envVar: 'GEMINI_API_KEY' },
   { id: 'openrouter', label: 'OpenRouter', envVar: 'OPENROUTER_API_KEY' },
-  { id: 'groq', label: 'Groq', envVar: 'GROQ_API_KEY' }
+  { id: 'groq', label: 'Groq', envVar: 'GROQ_API_KEY' },
+  { id: 'omniroute', label: 'OmniRoute', envVar: 'ANTHROPIC_AUTH_TOKEN' }
 ];
 
 /** CLI engines that take a per-provider local base-URL + default model. */
@@ -31,7 +32,8 @@ const CLIS: Array<{ id: AgentProvider; label: string; hint: string }> = [
   { id: 'opencode', label: 'OpenCode', hint: 'http://localhost:11434/v1 (Ollama) — injected as a local provider' },
   { id: 'crush', label: 'Crush', hint: 'OpenAI-compatible endpoint — used as the proxy upstream' },
   { id: 'pi', label: 'Pi', hint: 'local models are file-based (models.json); base-URL reserved' },
-  { id: 'qwen', label: 'Qwen', hint: 'OpenAI-compatible endpoint — used as the proxy upstream' }
+  { id: 'qwen', label: 'Qwen', hint: 'OpenAI-compatible endpoint — used as the proxy upstream' },
+  { id: 'omniroute', label: 'OmniRoute', hint: 'http://localhost:20128 — your OmniRoute gateway root (no /v1 suffix)' }
 ];
 
 const inputStyle: CSSProperties = {

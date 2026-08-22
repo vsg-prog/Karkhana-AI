@@ -16,7 +16,7 @@ import {
 } from '../../../shared/providerAutomation';
 import { DEFAULT_CONTEXT_TRIGGER, type ContextRule } from '../../../shared/triggers';
 import type { AgentProvider } from '../../../shared/agentProvider';
-import { acquireTerminal, resetTerminal, isTerminalAutomationSafe } from '@/components/terminalPool';
+import { acquireTerminal, resetTerminal, isTerminalAutomationSafe, terminalAutomationBlockFor } from '@/components/terminalPool';
 import { deliverWithAcknowledgement } from './queueDelivery';
 import { OFFICE_CAST, DEFAULT_CHARACTER } from '@/scene/office/cast';
 
@@ -306,6 +306,15 @@ export function useHive(config: HarnessConfig | null): void {
   // mid-revive) within REVIVE_DEBOUNCE_MS is skipped. Set BEFORE the async spawn
   // so a re-entrant event can't race a second respawn for the same id.
   const reviving = useRef<Record<string, number>>({});
+  // Guards godRespawnIfQueued (effect #4) against a double-spawn: god's PTY exits
+  // after EVERY turn by design (single-turn `claude -p` invocation), and every
+  // other agent gets a manual "Restart & Continue" button for exactly this state
+  // — but god is deliberately excluded from that control (CommandCenterPanel).
+  // Previously nothing filled the gap: a message queued after god's clean exit
+  // sat forever (flush() skips any agent with no live ptyId), needing a full app
+  // restart to ever get a response. Keyed by agent id (there is no ptyId to key
+  // on once she's dead), same claim-before-await pattern as `reviving` above.
+  const godRespawning = useRef<Record<string, number>>({});
   // Reactive so the assistant bootstrap (effect #1b) re-runs once Nitya is ready.
   const godStatus = useStore((s) => s.godStatus);
   // #5C/#7C.4 — latest circuit-breaker level per agent. When 'constrained'/
@@ -809,12 +818,81 @@ export function useHive(config: HarnessConfig | null): void {
       } catch { /* best-effort: card promotion must never sink dispatch */ }
     };
 
+    // Respawn god's PTY when a message is queued for her but her single-turn
+    // process has already exited (see godRespawning comment above for why this
+    // is needed at all). Resumes her prior session (`resume: true`) so no hive
+    // context is lost — same continuity as the manual "Restart & Continue"
+    // button non-god agents get, and the same spawn shape auto-revive (effect
+    // #7) uses, minus the killPty/worktree steps (there's nothing alive to
+    // kill, and god never runs isolated).
+    const GOD_RESPAWN_DEBOUNCE_MS = 8000;
+    // god's `ptyId` is NEVER cleared by the pty-exit handler (terminalPool only
+    // flips its own local `entry.exited` flag — by design, so the non-god
+    // "Restart & Continue" button still has a ptyId to relaunch under). So
+    // `!a.ptyId` is true only before her very first spawn; after any exit it
+    // stays populated with the dead pty's id. The real "is she actually gone"
+    // signal is terminalAutomationBlockFor(a.ptyId) === 'exited' — the same
+    // check MessageQueueComposer uses to show "held — Nitya's terminal has
+    // exited". Checking only `!a.ptyId` (the original version of this fix)
+    // never fired, because that condition never becomes true after boot.
+    const godIsGone = (a: Agent): boolean =>
+      !a.ptyId || terminalAutomationBlockFor(a.ptyId) === 'exited';
+    const godRespawnIfQueued = async (a: Agent): Promise<void> => {
+      if (!a.isGod || !godIsGone(a)) return;
+      const now = Date.now();
+      if (now - (godRespawning.current[a.id] ?? 0) < GOD_RESPAWN_DEBOUNCE_MS) return;
+      godRespawning.current[a.id] = now; // claim before the await — no double-spawn
+      try {
+        const cfg = await window.cth.getConfig();
+        const provider = inferAgentProvider(a.command, a.provider);
+        const command = (a.command ?? '').trim() || buildSpawnCommand(cfg, a.model, provider);
+        const [exe, ...args] = tokenizeCommand(command);
+        // God's PTY id is the fixed GOD_PTY constant ('pty-god'), not her bare
+        // agent id ('god') — matching the boot-spawn above and how the terminal
+        // pool / auto-revive key their lookups. Using a.id here would silently
+        // create a second, orphaned terminal slot the UI never renders into.
+        const entry = acquireTerminal(GOD_PTY);
+        let cols = 100, rows = 30;
+        try { entry.fit.fit(); cols = entry.term.cols; rows = entry.term.rows; } catch { /* host not sized yet */ }
+        const res = await window.cth.spawnPty({
+          id: GOD_PTY,
+          cwd: a.cwd,
+          command: exe,
+          provider,
+          args,
+          cols,
+          rows,
+          isolate: false,
+          resume: true,
+          hive: { id: a.id, name: a.name, cwd: a.cwd, provider, isGod: true, role: 'orchestrator (god)' }
+        });
+        if (res.ok) {
+          godRespawning.current[a.id] = Date.now(); // re-stamp to cover the spawn itself
+          useStore.getState().updateAgent(a.id, { ptyId: GOD_PTY, status: 'idle', action: 'resuming to answer' });
+        } else {
+          delete godRespawning.current[a.id]; // let the next flush() tick retry
+          console.error('[queue-drain] god respawn failed for', a.id, res.error);
+        }
+      } catch (err) {
+        delete godRespawning.current[a.id];
+        console.error('[queue-drain] god respawn threw for', a.id, err);
+      }
+    };
+
     const flush = () => {
       const { agents, messageQueues } = useStore.getState();
       const byId = (id: string) => agents.find((a) => a.id === id);
 
       for (const a of agents) {
-        if (!a.ptyId || a.status !== 'idle') continue;
+        // god's ptyId stays populated after her single-turn process exits (see
+        // godIsGone above), so this check — not `!a.ptyId` — is what actually
+        // detects "she's gone and needs a respawn to answer a queued message".
+        if (a.isGod && godIsGone(a)) {
+          if (messageQueues[a.id]?.length) void godRespawnIfQueued(a);
+          continue;
+        }
+        if (!a.ptyId) continue;
+        if (a.status !== 'idle') continue;
         if (!messageQueues[a.id]?.length) continue;
         void dispatch(a.id, a).then(({ sent, message }) => {
           if (sent && message?.slack) void ensureSlackCard(message);
