@@ -502,7 +502,7 @@ export const AGENT_PROVIDER_PRESETS: AgentProviderPreset[] = [
   {
     id: 'omniroute',
     label: 'OmniRoute',
-    defaultCommand: 'kilo',
+    defaultCommand: 'omniroute',
     commandGroups: [],
     autoModeFlag: '--yolo',
     autoFlag: '--yolo',

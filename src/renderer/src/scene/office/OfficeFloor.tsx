@@ -163,177 +163,189 @@ function createRangoliGraphic(x: number, y: number, variant: number, tileSize: n
   rangoliG.zIndex = 1 * tileSize;
 
   if (variant === 0) {
-    // Bullpen Entrance: Crimson & Saffron Lotus Mandala
+    // Central Plaza Open Space: Crimson & Saffron Lotus Mandala (Large 120px scale with glowing Diya)
+    rangoliG.circle(0, 0, 58).fill({ color: 0xffa000, alpha: 0.15 });
+    rangoliG.circle(0, 0, 48).fill({ color: 0xffd700, alpha: 0.25 });
+
+    for (let i = 0; i < 20; i++) {
+      const angle = (i * Math.PI) / 10;
+      rangoliG.circle(Math.cos(angle) * 44, Math.sin(angle) * 44, 2.5).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 38).fill(0xd32f2f);
+    rangoliG.circle(0, 0, 35).fill(0xff6f00);
+    rangoliG.circle(0, 0, 32).fill(0xffb300);
+
     for (let i = 0; i < 16; i++) {
       const angle = (i * Math.PI) / 8;
-      rangoliG.circle(Math.cos(angle) * 32, Math.sin(angle) * 32, 1.5).fill(0xffffff);
-    }
-    rangoliG.circle(0, 0, 28).fill(0xd32f2f);
-    rangoliG.circle(0, 0, 26).fill(0xff6f00);
-    rangoliG.circle(0, 0, 24).fill(0xffb300);
-
-    for (let i = 0; i < 12; i++) {
-      const angle = (i * Math.PI) / 6;
-      const p1x = Math.cos(angle) * 24;
-      const p1y = Math.sin(angle) * 24;
-      const p2x = Math.cos(angle + 0.25) * 16;
-      const p2y = Math.sin(angle + 0.25) * 16;
-      const p3x = Math.cos(angle - 0.25) * 16;
-      const p3y = Math.sin(angle - 0.25) * 16;
+      const p1x = Math.cos(angle) * 32;
+      const p1y = Math.sin(angle) * 32;
+      const p2x = Math.cos(angle + 0.25) * 22;
+      const p2y = Math.sin(angle + 0.25) * 22;
+      const p3x = Math.cos(angle - 0.25) * 22;
+      const p3y = Math.sin(angle - 0.25) * 22;
       const color = i % 4 === 0 ? 0xe65100 : i % 4 === 1 ? 0xffd54f : i % 4 === 2 ? 0xc62828 : 0xffffff;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
     }
-    rangoliG.circle(0, 0, 16).fill(0x00838f);
-    rangoliG.circle(0, 0, 14).fill(0x00acc1);
-    rangoliG.circle(0, 0, 12).fill(0xff8f00);
+    rangoliG.circle(0, 0, 22).fill(0x00838f);
+    rangoliG.circle(0, 0, 19).fill(0x00acc1);
+    rangoliG.circle(0, 0, 16).fill(0xff8f00);
 
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI) / 4;
-      const p1x = Math.cos(angle) * 12;
-      const p1y = Math.sin(angle) * 12;
-      const p2x = Math.cos(angle + 0.3) * 6;
-      const p2y = Math.sin(angle + 0.3) * 6;
-      const p3x = Math.cos(angle - 0.3) * 6;
-      const p3y = Math.sin(angle - 0.3) * 6;
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * Math.PI) / 6;
+      const p1x = Math.cos(angle) * 16;
+      const p1y = Math.sin(angle) * 16;
+      const p2x = Math.cos(angle + 0.3) * 8;
+      const p2y = Math.sin(angle + 0.3) * 8;
+      const p3x = Math.cos(angle - 0.3) * 8;
+      const p3y = Math.sin(angle - 0.3) * 8;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffeb3b : 0xff3d00);
     }
 
-    rangoliG.circle(0, 0, 6).fill(0xbf360c);
-    rangoliG.circle(0, 0, 4.5).fill(0xffd700);
-    rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);
-    rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);
-    rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);
-    rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600);
-    rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);
+    rangoliG.circle(0, 0, 8).fill(0xbf360c);
+    rangoliG.circle(0, 0, 6).fill(0xffd700);
+    rangoliG.ellipse(0, 1.5, 5, 2.8).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.8, 4.2, 2.1).fill(0xffb74d);
+    rangoliG.poly([0, -6, -2.5, 0, 2.5, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -5, -1.8, -0.8, 1.8, -0.8]).fill(0xffd600);
+    rangoliG.circle(0, -2, 1.2).fill(0xffffff);
   } else if (variant === 1) {
-    // Nitya's Office Threshold: Royal Purple & Gold Mandala
+    // Nitya's Grand Office Threshold: Royal Purple & Gold Sacred Mandala
+    rangoliG.circle(0, 0, 48).fill({ color: 0xaa00ff, alpha: 0.15 });
+    rangoliG.circle(0, 0, 40).fill({ color: 0xffd700, alpha: 0.22 });
+
     for (let i = 0; i < 20; i++) {
       const angle = (i * Math.PI) / 10;
-      rangoliG.circle(Math.cos(angle) * 34, Math.sin(angle) * 34, 1.5).fill(0xffffff);
+      rangoliG.circle(Math.cos(angle) * 38, Math.sin(angle) * 38, 2).fill(0xffffff);
     }
-    rangoliG.circle(0, 0, 30).fill(0x4a148c);
-    rangoliG.circle(0, 0, 28).fill(0x7b1fa2);
-    rangoliG.circle(0, 0, 25).fill(0xffd700);
+    rangoliG.circle(0, 0, 34).fill(0x4a148c);
+    rangoliG.circle(0, 0, 31).fill(0x7b1fa2);
+    rangoliG.circle(0, 0, 28).fill(0xffd700);
 
     for (let i = 0; i < 16; i++) {
       const angle = (i * Math.PI) / 8;
-      const p1x = Math.cos(angle) * 25;
-      const p1y = Math.sin(angle) * 25;
-      const p2x = Math.cos(angle + 0.2) * 17;
-      const p2y = Math.sin(angle + 0.2) * 17;
-      const p3x = Math.cos(angle - 0.2) * 17;
-      const p3y = Math.sin(angle - 0.2) * 17;
+      const p1x = Math.cos(angle) * 28;
+      const p1y = Math.sin(angle) * 28;
+      const p2x = Math.cos(angle + 0.2) * 19;
+      const p2y = Math.sin(angle + 0.2) * 19;
+      const p3x = Math.cos(angle - 0.2) * 19;
+      const p3y = Math.sin(angle - 0.2) * 19;
       const color = i % 4 === 0 ? 0xc2185b : i % 4 === 1 ? 0xffc107 : i % 4 === 2 ? 0x8e24aa : 0xffffff;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
     }
-    rangoliG.circle(0, 0, 17).fill(0x00695c);
-    rangoliG.circle(0, 0, 15).fill(0x009688);
-    rangoliG.circle(0, 0, 12.5).fill(0xff6f00);
+    rangoliG.circle(0, 0, 19).fill(0x00695c);
+    rangoliG.circle(0, 0, 16.5).fill(0x009688);
+    rangoliG.circle(0, 0, 14).fill(0xff6f00);
 
     for (let i = 0; i < 12; i++) {
       const angle = (i * Math.PI) / 6;
-      const p1x = Math.cos(angle) * 12.5;
-      const p1y = Math.sin(angle) * 12.5;
-      const p2x = Math.cos(angle + 0.25) * 6;
-      const p2y = Math.sin(angle + 0.25) * 6;
-      const p3x = Math.cos(angle - 0.25) * 6;
-      const p3y = Math.sin(angle - 0.25) * 6;
+      const p1x = Math.cos(angle) * 14;
+      const p1y = Math.sin(angle) * 14;
+      const p2x = Math.cos(angle + 0.25) * 7;
+      const p2y = Math.sin(angle + 0.25) * 7;
+      const p3x = Math.cos(angle - 0.25) * 7;
+      const p3y = Math.sin(angle - 0.25) * 7;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xffecb3 : 0xd81b60);
     }
 
-    rangoliG.circle(0, 0, 6.5).fill(0x3e2723);
-    rangoliG.circle(0, 0, 5).fill(0xffd700);
-    rangoliG.ellipse(0, 1, 4, 2.2).fill(0x6d4c41);
-    rangoliG.ellipse(0, 0.5, 3.2, 1.6).fill(0xffca28);
-    rangoliG.poly([0, -4.5, -2, 0, 2, 0]).fill(0xff6f00);
-    rangoliG.poly([0, -4, -1.3, -0.5, 1.3, -0.5]).fill(0xffeb3b);
-    rangoliG.circle(0, -1.8, 0.9).fill(0xffffff);
+    rangoliG.circle(0, 0, 7.5).fill(0x3e2723);
+    rangoliG.circle(0, 0, 5.8).fill(0xffd700);
+    rangoliG.ellipse(0, 1.2, 4.5, 2.5).fill(0x6d4c41);
+    rangoliG.ellipse(0, 0.6, 3.6, 1.8).fill(0xffca28);
+    rangoliG.poly([0, -5, -2.2, 0, 2.2, 0]).fill(0xff6f00);
+    rangoliG.poly([0, -4.5, -1.5, -0.6, 1.5, -0.6]).fill(0xffeb3b);
+    rangoliG.circle(0, -2, 1).fill(0xffffff);
   } else if (variant === 2) {
-    // Chai Tapri / Lounge Corridor: Warm Amber & Terracotta Mandala
-    for (let i = 0; i < 12; i++) {
-      const angle = (i * Math.PI) / 6;
-      rangoliG.circle(Math.cos(angle) * 30, Math.sin(angle) * 30, 1.5).fill(0xffffff);
-    }
-    rangoliG.circle(0, 0, 27).fill(0xe65100);
-    rangoliG.circle(0, 0, 25).fill(0xff8f00);
-    rangoliG.circle(0, 0, 22).fill(0xffca28);
-
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI) / 4;
-      const p1x = Math.cos(angle) * 22;
-      const p1y = Math.sin(angle) * 22;
-      const p2x = Math.cos(angle + 0.3) * 14;
-      const p2y = Math.sin(angle + 0.3) * 14;
-      const p3x = Math.cos(angle - 0.3) * 14;
-      const p3y = Math.sin(angle - 0.3) * 14;
-      const color = i % 4 === 0 ? 0xff5722 : i % 4 === 1 ? 0xffb300 : i % 4 === 2 ? 0xc62828 : 0xffe082;
-      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
-    }
-    rangoliG.circle(0, 0, 15).fill(0x00838f);
-    rangoliG.circle(0, 0, 13).fill(0x26c6da);
-    rangoliG.circle(0, 0, 11).fill(0xd81b60);
-
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI) / 4 + Math.PI / 8;
-      const p1x = Math.cos(angle) * 11;
-      const p1y = Math.sin(angle) * 11;
-      const p2x = Math.cos(angle + 0.3) * 5.5;
-      const p2y = Math.sin(angle + 0.3) * 5.5;
-      const p3x = Math.cos(angle - 0.3) * 5.5;
-      const p3y = Math.sin(angle - 0.3) * 5.5;
-      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0x80deea : 0xff6e40);
-    }
-
-    rangoliG.circle(0, 0, 5.5).fill(0xbf360c);
-    rangoliG.circle(0, 0, 4.2).fill(0xffd700);
-    rangoliG.ellipse(0, 1, 3.4, 1.9).fill(0x8d6e63);
-    rangoliG.ellipse(0, 0.5, 2.8, 1.4).fill(0xffb74d);
-    rangoliG.poly([0, -3.8, -1.6, 0, 1.6, 0]).fill(0xff6d00);
-    rangoliG.poly([0, -3.2, -1.1, -0.5, 1.1, -0.5]).fill(0xffd600);
-    rangoliG.circle(0, -1.4, 0.7).fill(0xffffff);
-  } else {
-    // East Bullpen Center: Peacock Blue & Saffron Blossom
-    for (let i = 0; i < 18; i++) {
-      const angle = (i * Math.PI) / 9;
-      rangoliG.circle(Math.cos(angle) * 32, Math.sin(angle) * 32, 1.5).fill(0xffffff);
-    }
-    rangoliG.circle(0, 0, 29).fill(0x0d47a1);
-    rangoliG.circle(0, 0, 27).fill(0x1976d2);
-    rangoliG.circle(0, 0, 24).fill(0xffc107);
+    // Lounge / Chai Tapri Open Courtyard: Warm Amber & Terracotta Mandala
+    rangoliG.circle(0, 0, 46).fill({ color: 0xff6d00, alpha: 0.15 });
+    rangoliG.circle(0, 0, 38).fill({ color: 0xffab00, alpha: 0.25 });
 
     for (let i = 0; i < 16; i++) {
       const angle = (i * Math.PI) / 8;
-      const p1x = Math.cos(angle) * 24;
-      const p1y = Math.sin(angle) * 24;
-      const p2x = Math.cos(angle + 0.22) * 16;
-      const p2y = Math.sin(angle + 0.22) * 16;
-      const p3x = Math.cos(angle - 0.22) * 16;
-      const p3y = Math.sin(angle - 0.22) * 16;
+      rangoliG.circle(Math.cos(angle) * 35, Math.sin(angle) * 35, 2).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 31).fill(0xe65100);
+    rangoliG.circle(0, 0, 28.5).fill(0xff8f00);
+    rangoliG.circle(0, 0, 25).fill(0xffca28);
+
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * Math.PI) / 6;
+      const p1x = Math.cos(angle) * 25;
+      const p1y = Math.sin(angle) * 25;
+      const p2x = Math.cos(angle + 0.28) * 16;
+      const p2y = Math.sin(angle + 0.28) * 16;
+      const p3x = Math.cos(angle - 0.28) * 16;
+      const p3y = Math.sin(angle - 0.28) * 16;
+      const color = i % 4 === 0 ? 0xff5722 : i % 4 === 1 ? 0xffb300 : i % 4 === 2 ? 0xc62828 : 0xffe082;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
+    }
+    rangoliG.circle(0, 0, 17.5).fill(0x00838f);
+    rangoliG.circle(0, 0, 15).fill(0x26c6da);
+    rangoliG.circle(0, 0, 12.5).fill(0xd81b60);
+
+    for (let i = 0; i < 10; i++) {
+      const angle = (i * Math.PI) / 5 + Math.PI / 10;
+      const p1x = Math.cos(angle) * 12.5;
+      const p1y = Math.sin(angle) * 12.5;
+      const p2x = Math.cos(angle + 0.3) * 6.5;
+      const p2y = Math.sin(angle + 0.3) * 6.5;
+      const p3x = Math.cos(angle - 0.3) * 6.5;
+      const p3y = Math.sin(angle - 0.3) * 6.5;
+      rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0x80deea : 0xff6e40);
+    }
+
+    rangoliG.circle(0, 0, 6.5).fill(0xbf360c);
+    rangoliG.circle(0, 0, 5).fill(0xffd700);
+    rangoliG.ellipse(0, 1.2, 4, 2.2).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.6, 3.2, 1.6).fill(0xffb74d);
+    rangoliG.poly([0, -4.5, -1.9, 0, 1.9, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -4, -1.3, -0.6, 1.3, -0.6]).fill(0xffd600);
+    rangoliG.circle(0, -1.8, 0.9).fill(0xffffff);
+  } else {
+    // Bullpen East Open Space: Peacock Blue & Saffron Blossom
+    rangoliG.circle(0, 0, 48).fill({ color: 0x0288d1, alpha: 0.15 });
+    rangoliG.circle(0, 0, 40).fill({ color: 0xffb300, alpha: 0.25 });
+
+    for (let i = 0; i < 20; i++) {
+      const angle = (i * Math.PI) / 10;
+      rangoliG.circle(Math.cos(angle) * 37, Math.sin(angle) * 37, 2).fill(0xffffff);
+    }
+    rangoliG.circle(0, 0, 33).fill(0x0d47a1);
+    rangoliG.circle(0, 0, 30).fill(0x1976d2);
+    rangoliG.circle(0, 0, 27).fill(0xffc107);
+
+    for (let i = 0; i < 16; i++) {
+      const angle = (i * Math.PI) / 8;
+      const p1x = Math.cos(angle) * 27;
+      const p1y = Math.sin(angle) * 27;
+      const p2x = Math.cos(angle + 0.22) * 18;
+      const p2y = Math.sin(angle + 0.22) * 18;
+      const p3x = Math.cos(angle - 0.22) * 18;
+      const p3y = Math.sin(angle - 0.22) * 18;
       const color = i % 4 === 0 ? 0x0288d1 : i % 4 === 1 ? 0xff9800 : i % 4 === 2 ? 0xd32f2f : 0xffd54f;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(color);
     }
-    rangoliG.circle(0, 0, 16).fill(0xc2185b);
-    rangoliG.circle(0, 0, 14).fill(0xe91e63);
-    rangoliG.circle(0, 0, 12).fill(0xffb300);
+    rangoliG.circle(0, 0, 18).fill(0xc2185b);
+    rangoliG.circle(0, 0, 15.5).fill(0xe91e63);
+    rangoliG.circle(0, 0, 13).fill(0xffb300);
 
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI) / 4;
-      const p1x = Math.cos(angle) * 12;
-      const p1y = Math.sin(angle) * 12;
-      const p2x = Math.cos(angle + 0.3) * 6;
-      const p2y = Math.sin(angle + 0.3) * 6;
-      const p3x = Math.cos(angle - 0.3) * 6;
-      const p3y = Math.sin(angle - 0.3) * 6;
+    for (let i = 0; i < 10; i++) {
+      const angle = (i * Math.PI) / 5;
+      const p1x = Math.cos(angle) * 13;
+      const p1y = Math.sin(angle) * 13;
+      const p2x = Math.cos(angle + 0.3) * 6.5;
+      const p2y = Math.sin(angle + 0.3) * 6.5;
+      const p3x = Math.cos(angle - 0.3) * 6.5;
+      const p3y = Math.sin(angle - 0.3) * 6.5;
       rangoliG.poly([p1x, p1y, p2x, p2y, 0, 0, p3x, p3y]).fill(i % 2 === 0 ? 0xfff59d : 0x00bcd4);
     }
 
-    rangoliG.circle(0, 0, 6).fill(0xbf360c);
-    rangoliG.circle(0, 0, 4.5).fill(0xffd700);
-    rangoliG.ellipse(0, 1, 3.5, 2).fill(0x8d6e63);
-    rangoliG.ellipse(0, 0.5, 3, 1.5).fill(0xffb74d);
-    rangoliG.poly([0, -4, -1.8, 0, 1.8, 0]).fill(0xff6d00);
-    rangoliG.poly([0, -3.5, -1.2, -0.5, 1.2, -0.5]).fill(0xffd600);
-    rangoliG.circle(0, -1.5, 0.8).fill(0xffffff);
+    rangoliG.circle(0, 0, 6.8).fill(0xbf360c);
+    rangoliG.circle(0, 0, 5.2).fill(0xffd700);
+    rangoliG.ellipse(0, 1.2, 4, 2.2).fill(0x8d6e63);
+    rangoliG.ellipse(0, 0.6, 3.2, 1.6).fill(0xffb74d);
+    rangoliG.poly([0, -4.5, -2, 0, 2, 0]).fill(0xff6d00);
+    rangoliG.poly([0, -4, -1.3, -0.6, 1.3, -0.6]).fill(0xffd600);
+    rangoliG.circle(0, -1.8, 0.9).fill(0xffffff);
   }
 
   return rangoliG;
@@ -475,10 +487,10 @@ export function OfficeFloor() {
       // - Rangoli 4: East Bullpen Center (x: 20 * calTs, y: 20 * calTs)
       const calTs = mapRenderer.tileSize;
       const rangoliSpots = [
-        { x: 13 * calTs, y: 14 * calTs, variant: 0 },
-        { x: 7 * calTs, y: 6 * calTs, variant: 1 },
-        { x: 24 * calTs, y: 12 * calTs, variant: 2 },
-        { x: 20 * calTs, y: 20 * calTs, variant: 3 },
+        { x: 16 * calTs, y: 15 * calTs, variant: 0 },
+        { x: 7 * calTs, y: 8 * calTs, variant: 1 },
+        { x: 24 * calTs, y: 10 * calTs, variant: 2 },
+        { x: 22 * calTs, y: 22 * calTs, variant: 3 },
       ];
       const floorContainer = mapRenderer.getFloorContainer();
       rangoliSpots.forEach((spot) => {
