@@ -481,15 +481,15 @@ export function OfficeFloor() {
             // ─── Traditional Indian Rangoli Floor Mandala Artworks ─────────────────
       // Render 4 distinct Rangoli floor mandalas on the floor layer (zIndex: 1 * calTs):
       // - Rangoli 1: Bullpen Entrance (x: 13 * calTs, y: 14 * calTs)
-      // - Rangoli 2: Nitya's Office Threshold (x: 7 * calTs, y: 6 * calTs)
-      // - Rangoli 3: Chai Tapri / Lounge Corridor (x: 24 * calTs, y: 12 * calTs)
-      // - Rangoli 4: East Bullpen Center (x: 20 * calTs, y: 20 * calTs)
+      // - Rangoli 2: Nitya's Office Threshold (x: 7 * calTs, y: 7 * calTs)
+      // - Rangoli 3: Chai Tapri / Lounge Corridor (x: 24 * calTs, y: 9 * calTs)
+      // - Rangoli 4: East Bullpen Center (x: 19 * calTs, y: 17 * calTs)
       const calTs = mapRenderer.tileSize;
       const rangoliSpots = [
-        { x: 16 * calTs, y: 15 * calTs, variant: 0 },
-        { x: 7 * calTs, y: 8 * calTs, variant: 1 },
-        { x: 24 * calTs, y: 10 * calTs, variant: 2 },
-        { x: 22 * calTs, y: 22 * calTs, variant: 3 },
+        { x: 13 * calTs, y: 14 * calTs, variant: 0 },
+        { x: 7 * calTs, y: 7 * calTs, variant: 1 },
+        { x: 24 * calTs, y: 9 * calTs, variant: 2 },
+        { x: 19 * calTs, y: 17 * calTs, variant: 3 },
       ];
       const floorContainer = mapRenderer.getFloorContainer();
       rangoliSpots.forEach((spot) => {
