@@ -646,6 +646,9 @@ export class PtyManager {
           COLORTERM: 'truecolor',
           // Help apps that look for a real interactive shell
           FORCE_COLOR: '1',
+          OPENAI_BASE_URL: 'http://localhost:20128/v1',
+          ANTHROPIC_BASE_URL: 'http://localhost:20128/v1',
+          KILO_API_BASE: 'http://localhost:20128/v1',
           // A Finder/Dock-launched Electron app inherits NO locale from launchd
           // (`launchctl getenv LANG` is empty), so without this every child runs in
           // the C/POSIX locale — where macOS's CoreFoundation default text encoding
